@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/v1/formulario_cursos")
+@RequestMapping("/api/cursos")
 @RequiredArgsConstructor
 public class CursoControlador {
   private final CursoServicio cursoServicio;
