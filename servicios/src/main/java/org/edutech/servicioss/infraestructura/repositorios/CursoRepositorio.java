@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface CusoRepositorio extends JpaRepository<Curso, UUID> {
+public interface CursoRepositorio extends JpaRepository<Curso, UUID> {
   List<Curso> findByName(String nombre);
 
 }
