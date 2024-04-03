@@ -14,13 +14,13 @@ public class Curso {
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  private String titulo;
+  private String nombre;
 
   private String categoria;
 
   private int costo;
 
-  private String imagen;
+  //private String imagen;
 
   private String requisito;
 
