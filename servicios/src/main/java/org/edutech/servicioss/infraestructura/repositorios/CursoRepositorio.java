@@ -9,6 +9,6 @@ import java.util.UUID;
 
 @Repository
 public interface CursoRepositorio extends JpaRepository<Curso, UUID> {
-  List<Curso> findByName(String nombre);
+  List<Curso> findByNombre(String nombre);
 
 }

@@ -2,12 +2,12 @@ package org.edutech.servicioss.infraestructura.tablas;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.edutech.servicioss.infraestructura.enums.Categoria;
 
 import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "instructores")
 public class Curso {
 
   @Id
@@ -20,7 +20,7 @@ public class Curso {
 
   private int costo;
 
-  //private String imagen;
+  private String imagen;
 
   private String requisito;
 
