@@ -1,9 +1,11 @@
+import logo from "../assets/logo.jpeg";
+
 export const FormRegisterCourse = () => {
   return (
     <>
       <article className="form-register-course">
         <section className="form-register-course-logo">
-          <img src="" alt="logo" />
+          <img src={logo} alt="logo" />
         </section>
 
         <section className="form-register-course-content">
