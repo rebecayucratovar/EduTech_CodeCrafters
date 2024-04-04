@@ -11,11 +11,8 @@ body {
   height: 100%;
 }
 
-.form-register-course-logo {
-}
-
 .form-register-course-content {
-  border: 2px solid rgb(0, 149, 255);
+  border: 2px solid rgb(31, 141, 216);
   padding: 30px 80px;
   display: flex;
   flex-direction: column;
@@ -52,8 +49,14 @@ body {
     width: 30%;
     text-align: start;
   }
+
   select {
+    color: rgb(98, 182, 203);
     margin-left: -5px;
+  }
+
+  option {
+    color: rgb(98, 182, 203);
   }
 
   input,
@@ -65,6 +68,12 @@ body {
     width: 70%;
     padding: 5px;
   }
+
+  input::placeholder,
+  textarea::placeholder,
+  select::placeholder {
+    color: rgb(98, 182, 203);
+  }
 }
 
 .form-register-course-footer {
@@ -73,10 +82,12 @@ body {
   width: 100%;
 
   button {
+    font-weight: bold;
     border-radius: 10px;
     border-color: rgb(50, 129, 175);
     background-color: rgb(50, 129, 175);
     color: white;
     padding: 5px 30px;
+    cursor: pointer;
   }
 }
