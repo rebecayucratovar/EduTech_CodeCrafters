@@ -37,10 +37,18 @@ export const FormRegisterCourse = () => {
             <div className="form-register-course-content-data-field">
               <label htmlFor="">Categoria*</label>
               <select id="categoria">
-                <option value="">Selecciona una categoria</option>
-                <option value="opcion1">Categoria 1</option>
-                <option value="opcion2">Categoria 2</option>
-                <option value="opcion3">Categoria 3</option>
+                <option value="opcion0">Selecciona una categoría</option>
+                <option value="opcion1">Desarrollo web</option>
+                <option value="opcion2">
+                  Desarrollo de aplicaciones móviles
+                </option>
+                <option value="opcion3">
+                  Ciencias de datos y análisis de datos
+                </option>
+                <option value="opcion4">Desarrollo de software</option>
+                <option value="opcion5">
+                  Seguridad informática y ciberseguridad
+                </option>
               </select>
             </div>
 
