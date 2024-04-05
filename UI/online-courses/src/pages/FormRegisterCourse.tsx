@@ -1,6 +1,22 @@
+import { useState } from "react";
 import logo from "../assets/logo.jpeg";
+import { Modal } from "../components/Modal";
 
 export const FormRegisterCourse = () => {
+  const [showModalByClickInRegister, setShowModalByClickInAccept] =
+    useState(false);
+
+  const [showModalByClickInCancel, setShowModalByClickInCancel] =
+    useState(false);
+
+  const handleRegister = () => {
+    setShowModalByClickInAccept(true);
+  };
+
+  const handleCancel = () => {
+    setShowModalByClickInCancel(true);
+  };
+
   return (
     <>
       <article className="form-register-course">
@@ -83,15 +99,44 @@ export const FormRegisterCourse = () => {
         </section>
 
         <section className="form-register-course-footer">
-          <button type="button" className="form-register-course-footer-button">
+          <button
+            type="button"
+            className="form-register-course-footer-button"
+            onClick={handleCancel}
+          >
             Cancelar
           </button>
 
-          <button type="button" className="form-register-course-footer-button">
+          <button
+            type="button"
+            className="form-register-course-footer-button"
+            onClick={handleRegister}
+          >
             Registrar
           </button>
         </section>
       </article>
+
+      {showModalByClickInRegister && (
+        <Modal
+          title="Registro exitoso"
+          description="Se registro correctamente el curso"
+          txtBtnAccept="Acceptar"
+          onAccept={() => setShowModalByClickInAccept(false)}
+        />
+      )}
+
+      {showModalByClickInCancel && (
+        <Modal
+          title="¿Estas seguro?"
+          description="¿Estas seguro de que desea cancelar el registro del curso?"
+          txtBtnAccept="Si, seguro"
+          txtBtnCancel="No, continuar"
+          showBtnCancel={true}
+          onAccept={() => setShowModalByClickInCancel(false)}
+          onCancel={() => setShowModalByClickInCancel(false)}
+        />
+      )}
     </>
   );
 };
