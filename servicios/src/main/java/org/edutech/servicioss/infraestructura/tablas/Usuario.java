@@ -20,6 +20,6 @@ public class Usuario {
   private String fechaNacimiento;
   private TipoUsuario tipoUsuario;
   private String correoElectronico;
-  private String contrasena;
+  private String contrasenia;
 
 }
