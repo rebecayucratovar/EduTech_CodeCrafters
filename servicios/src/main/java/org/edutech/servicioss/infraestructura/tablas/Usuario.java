@@ -5,6 +5,7 @@ import lombok.Data;
 import org.edutech.servicioss.infraestructura.enums.TipoUsuario;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -21,7 +22,7 @@ public class Usuario {
   private String nombreUsuario;
 
   private LocalDate fechaNacimiento;
-  //@Enumerated(EnumType.STRING)
+
   private TipoUsuario tipoUsuario;
 
   private String correoElectronico;
@@ -31,4 +32,6 @@ public class Usuario {
   @Transient
   private String confirmarContrasenia;
 
+  @OneToMany(mappedBy = "usuario")
+  private List<Curso> cursos;
 }
