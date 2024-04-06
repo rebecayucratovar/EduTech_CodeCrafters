@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.edutech.servicioss.infraestructura.tablas.Usuario;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.edutech.servicioss.servicios.UsuarioServicio;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,14 +12,48 @@ import java.util.UUID;
 @RequestMapping("/api/usuarios")
 @RequiredArgsConstructor
 public class UsuarioControlador {
-  private final org.edutech.servicioss.servicios.UsuarioServicio usuarioServicio;
+  private final UsuarioServicio usuarioServicio;
 
   @PostMapping
   public ResponseEntity<Usuario> saveUsuario(@RequestBody Usuario usuario){
-    if(usuario.getNombreCompleto()==null|| usuario.getNombreCompleto().trim().isEmpty()){
+    if(usuario.getNombreUsuario() == null || usuario.getNombreUsuario().trim().isEmpty() ||
+            usuario.getNombreCompleto() == null || usuario.getNombreCompleto().trim().isEmpty() ||
+            usuario.getFechaNacimiento() == null ||
+            usuario.getTipoUsuario() == null ||
+            usuario.getCorreoElectronico() == null || usuario.getCorreoElectronico().trim().isEmpty() ||
+            usuario.getContrasenia() == null || usuario.getContrasenia().trim().isEmpty() ||
+            usuario.getConfirmarContrasenia() == null || usuario.getConfirmarContrasenia().trim().isEmpty()){
       return ResponseEntity.badRequest().build();
     }
-    return ResponseEntity.ok(usuarioServicio.save(usuario));
+    // Validar el campo Nombre Usuario
+    if (!usuario.getNombreUsuario().matches("[a-zA-Z]+")) {
+      return ResponseEntity.badRequest().body(null);
+    }
+
+    // Validar el campo Nombre Completo
+    if (usuario.getNombreCompleto().length() < 4 || usuario.getNombreCompleto().length() > 20) {
+      return ResponseEntity.badRequest().body(null); // Error: El campo Nombre Completo debe tener entre 4 y 20 caracteres
+    }
+
+    // Validar el campo Correo Electrónico
+    if (!usuario.getCorreoElectronico().matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+      return ResponseEntity.badRequest().body(null);
+    }
+
+    // Validar el campo Contraseña
+    if (!usuario.getContrasenia().matches("[a-zA-Z0-9!@#$%^&*()-_=+\\\\|`~]+") ||
+            usuario.getContrasenia().length() < 8 || usuario.getContrasenia().length() > 20) {
+      return ResponseEntity.badRequest().body(null);
+    }
+
+    // Validar si la Contraseña coincide con la Confirmación de Contraseña
+    if (!usuario.getContrasenia().equals(usuario.getConfirmarContrasenia())) {
+      return ResponseEntity.badRequest().body(null);
+    }
+
+    // Si todas las validaciones pasan, guardar el usuario
+    Usuario usuarioGuardado = usuarioServicio.save(usuario);
+    return ResponseEntity.ok(usuarioGuardado);
   }
 
   @PostMapping("/{usuarioId}")
