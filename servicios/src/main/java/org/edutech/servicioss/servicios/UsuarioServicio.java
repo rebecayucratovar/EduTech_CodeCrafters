@@ -11,5 +11,6 @@ public interface UsuarioServicio {
   Usuario save(Usuario usuario);
   Usuario update(Usuario usuario);
   void deleteById(UUID id);
+
 }
 
