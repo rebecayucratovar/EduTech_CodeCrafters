@@ -3,6 +3,7 @@ package org.edutech.servicioss.servicios;
 import lombok.RequiredArgsConstructor;
 import org.edutech.servicioss.infraestructura.repositorios.UsuarioRepositorio;
 import org.edutech.servicioss.infraestructura.tablas.Usuario;
+import org.edutech.servicioss.validador.UsuarioValidador;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +13,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UsuarioServicioImpl implements UsuarioServicio {
   private final UsuarioRepositorio usuarioRepositorio;
-
+  private final UsuarioValidador usuarioValidador;
   @Override
   public List<Usuario> getAll() {
     return usuarioRepositorio.findAll();
@@ -25,11 +26,13 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
   @Override
   public Usuario save(Usuario usuario) {
+    usuarioValidador.validate(usuario);
     return usuarioRepositorio.save(usuario);
   }
 
   @Override
   public Usuario update(Usuario usuario) {
+    usuarioValidador.validate(usuario);
     return usuarioRepositorio.save(usuario);
   }
 
@@ -37,5 +40,4 @@ public class UsuarioServicioImpl implements UsuarioServicio {
   public void deleteById(UUID id) {
     usuarioRepositorio.deleteById(id);
   }
-
 }
