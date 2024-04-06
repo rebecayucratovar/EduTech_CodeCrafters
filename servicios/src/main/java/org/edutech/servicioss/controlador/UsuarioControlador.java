@@ -17,14 +17,14 @@ public class UsuarioControlador {
   private final UsuarioServicio usuarioServicio;
 
   @PostMapping
-  public ResponseEntity<Usuario> saveUsuario(@RequestBody Usuario usuario) {
+  public ResponseEntity<?> saveUsuario(@RequestBody Usuario usuario) {
     try {
       Usuario usuarioGuardado = usuarioServicio.save(usuario);
       return ResponseEntity.status(HttpStatus.CREATED).body(usuarioGuardado);
     } catch (IllegalArgumentException e) {
-      return ResponseEntity.badRequest().body(null); // o un mensaje de error específico
+      return ResponseEntity.badRequest().body(e.getMessage());
     } catch (DataIntegrityViolationException e) {
-      return ResponseEntity.status(HttpStatus.CONFLICT).body(null); // correo o nombre de usuario duplicado
+      return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflicto de integridad de datos: " + e.getMessage());
     }
   }
 
