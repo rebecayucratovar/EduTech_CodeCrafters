@@ -17,7 +17,7 @@ public class Curso {
   private String nombre;
 
   //@Enumerated(EnumType.STRING)
-  private String categoria;
+  private Categoria categoria;
 
   private int costo;
 
@@ -28,5 +28,4 @@ public class Curso {
   @ManyToOne
   @JoinColumn(name = "usuario_id")
   private Usuario usuario;
-
 }
