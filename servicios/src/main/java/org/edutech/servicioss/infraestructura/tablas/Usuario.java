@@ -23,7 +23,7 @@ public class Usuario {
 
   private LocalDate fechaNacimiento;
 
-  private TipoUsuario tipoUsuario;
+  private String tipoUsuario;
 
   private String correoElectronico;
 

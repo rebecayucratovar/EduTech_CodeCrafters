@@ -17,7 +17,7 @@ public class Curso {
   private String nombre;
 
   //@Enumerated(EnumType.STRING)
-  private Categoria categoria;
+  private String categoria;
 
   private int costo;
 
