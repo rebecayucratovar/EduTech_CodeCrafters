@@ -2,6 +2,38 @@ body {
   background-color: rgb(247, 247, 247);
 }
 
+.navbar {
+  min-width: 100%;
+  background-color: #3281af;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-content {
+  display: flex;
+  gap: 10px;
+  margin-right: 10px;
+}
+
+.navbar-content-link {
+  text-decoration: none;
+  color: rgb(36, 35, 103);
+  background-color: white;
+  padding: 5px 20px;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  border: 1px solid rgb(157, 26, 169);
+  border-radius: 20px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(98, 182, 203);
+  }
+}
+
 .form-register-course {
   display: flex;
   flex-direction: column;
@@ -49,15 +81,13 @@ body {
     width: 30%;
     text-align: start;
   }
+}
 
-  select {
-    color: rgb(98, 182, 203);
-    margin-left: -5px;
-  }
-
-  option {
-    color: rgb(98, 182, 203);
-  }
+.form-register-course-content-data-field-input {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
 
   input,
   textarea,
@@ -65,14 +95,46 @@ body {
     background-color: rgb(222, 240, 253);
     border: 2px solid rgb(98, 181, 202);
     border-radius: 5px;
-    width: 70%;
+    width: 100%;
     padding: 5px;
+    padding-right: 38px;
   }
 
   input::placeholder,
   textarea::placeholder,
   select::placeholder {
     color: rgb(98, 182, 203);
+  }
+
+  select {
+    color: rgb(98, 182, 203);
+  }
+
+  option {
+    color: rgb(98, 182, 203);
+  }
+}
+
+.form-register-course-content-data-field-error {
+  display: flex;
+  align-items: center;
+  padding-top: 5px;
+  gap: 10px;
+
+  label {
+    display: contents;
+    color: rgb(255, 0, 0);
+  }
+
+  img {
+    position: absolute;
+    width: 18px;
+    left: calc(100% + 20px);
+    top: 4px;
+  }
+
+  img.margin-left-additional {
+    left: calc(100% - 28px);
   }
 }
 
@@ -89,6 +151,11 @@ body {
     color: white;
     padding: 5px 30px;
     cursor: pointer;
+    border: none;
+
+    &:hover {
+      background-color: rgb(98, 182, 203);
+    }
   }
 }
 
@@ -146,4 +213,64 @@ body {
 
 .modal-content-button:hover {
   background-color: rgb(98, 182, 203);
+}
+
+.list-courses {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 20px;
+}
+
+.list-courses-content {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.list-courses-content-title {
+  font-size: 30px;
+  font-weight: bold;
+  font-family: "Lucida Sans", sans-serif;
+}
+
+.list-courses-content-card {
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(241, 240, 240);
+  width: 25%;
+  padding: 10px;
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.list-courses-content-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+
+  img {
+    border-radius: 10px;
+  }
+}
+
+.list-courses-content-card-wrapper-description {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: "Times New Roman", Times, serif;
+  color: rgb(36, 35, 103);
+  overflow: hidden;
+}
+
+.list-courses-content-card-wrapper-description-title {
+  font-size: 18px;
+  font-weight: bold;
 }
