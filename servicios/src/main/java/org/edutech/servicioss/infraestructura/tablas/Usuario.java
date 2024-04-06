@@ -17,6 +17,7 @@ public class Usuario {
 
   private String nombreCompleto;
 
+  @Column(unique = true)
   private String nombreUsuario;
 
   private LocalDate fechaNacimiento;
