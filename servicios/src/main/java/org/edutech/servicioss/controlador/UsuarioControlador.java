@@ -2,8 +2,11 @@ package org.edutech.servicioss.controlador;
 
 import lombok.RequiredArgsConstructor;
 import org.edutech.servicioss.infraestructura.tablas.Usuario;
+<<<<<<< HEAD
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+=======
+>>>>>>> feature/datosCurso
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.edutech.servicioss.servicios.UsuarioServicio;
@@ -53,6 +56,7 @@ public class UsuarioControlador {
       return ResponseEntity.badRequest().body(null);
     }
 
+<<<<<<< HEAD
     try {
       // Si todas las validaciones pasan, guardar el usuario
       Usuario usuarioGuardado = usuarioServicio.save(usuario);
@@ -61,6 +65,11 @@ public class UsuarioControlador {
       // Si se produce una violación de integridad (nombre de usuario duplicado), devolver una respuesta de error
       return ResponseEntity.status(HttpStatus.CONFLICT).body(null); // Otra opción sería devolver un mensaje de error más descriptivo
     }
+=======
+    // Si todas las validaciones pasan, guardar el usuario
+    Usuario usuarioGuardado = usuarioServicio.save(usuario);
+    return ResponseEntity.ok(usuarioGuardado);
+>>>>>>> feature/datosCurso
   }
 
   @PostMapping("/{usuarioId}")
@@ -90,4 +99,8 @@ public class UsuarioControlador {
     usuarioServicio.deleteById(usuarioId);
     return ResponseEntity.noContent().build();
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> feature/datosCurso
