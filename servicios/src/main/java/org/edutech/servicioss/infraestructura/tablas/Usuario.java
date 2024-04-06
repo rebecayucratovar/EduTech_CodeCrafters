@@ -13,7 +13,7 @@ import java.util.UUID;
 public class Usuario {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.UUID)
   private UUID usuarioId;
 
   private String nombreCompleto;
