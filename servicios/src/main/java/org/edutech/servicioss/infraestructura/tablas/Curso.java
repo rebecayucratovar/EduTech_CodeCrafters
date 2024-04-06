@@ -25,4 +25,8 @@ public class Curso {
 
   private String aprendizaje;
 
+  @ManyToOne
+  @JoinColumn(name = "usuario_id")
+  private Usuario usuario;
+
 }
