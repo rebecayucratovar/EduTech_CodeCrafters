@@ -8,16 +8,28 @@ public class CursoValidador {
 
   public void validate(Curso curso){
 
-    if (curso.getNombre()==null || curso.getNombre().trim().isEmpty()){
+    if (curso.getNombre() == null || curso.getNombre().trim().isEmpty()) {
       throw new IllegalArgumentException("Nombre no puede estar vacio");
     }
 
-    if (curso.getAprendizaje()==null || curso.getAprendizaje().trim().isEmpty()){
+    if (curso.getNombre().length() > 40) {
+      throw new IllegalArgumentException("El nombre debe tener 40 caracteres máximo");
+    }
+
+    if (curso.getAprendizaje() == null || curso.getAprendizaje().trim().isEmpty()) {
       throw new IllegalArgumentException("Aprendizaje no puede estar vacio");
     }
 
-    if (curso.getCategoria()==null){
-      throw new IllegalArgumentException("Categoria no puede estar vacio");
+    if (curso.getAprendizaje().length() > 100) {
+      throw new IllegalArgumentException("El aprendizaje debe tener 100 caracteres máximo");
+    }
+
+    if (curso.getCategoria() == null) {
+      throw new IllegalArgumentException("Categoría no puede estar vacio");
+    }
+
+    if (curso.getRequisito() != null && !curso.getRequisito().trim().isEmpty() && curso.getRequisito().length() > 100) {
+      throw new IllegalArgumentException("El requisito debe tener 100 caracteres máximo");
     }
   }
 }

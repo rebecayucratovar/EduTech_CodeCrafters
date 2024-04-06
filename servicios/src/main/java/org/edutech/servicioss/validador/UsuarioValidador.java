@@ -87,6 +87,4 @@ public class UsuarioValidador {
   private boolean campoVacio(String campo){
     return campo == null || campo.trim().isEmpty();
   }
-    }
-
-
+}
