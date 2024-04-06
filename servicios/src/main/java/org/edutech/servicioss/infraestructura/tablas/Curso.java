@@ -16,14 +16,16 @@ public class Curso {
 
   private String nombre;
 
+  //@Enumerated(EnumType.STRING)
   private String categoria;
 
   private int costo;
-
-  private String imagen;
 
   private String requisito;
 
   private String aprendizaje;
 
+  @ManyToOne
+  @JoinColumn(name = "usuario_id")
+  private Usuario usuario;
 }

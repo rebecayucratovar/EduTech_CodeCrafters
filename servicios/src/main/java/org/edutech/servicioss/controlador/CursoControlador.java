@@ -34,13 +34,9 @@ public class CursoControlador {
 
   @PostMapping("/{cursoId}")
   public ResponseEntity<Curso> getOne(@PathVariable("cursoId") UUID cursoId){
-    var cursoFound = cursoServicio.findById(cursoId);
-
-    if(cursoFound.isEmpty()){
-      return ResponseEntity.notFound().build();
-
-    }
-    return ResponseEntity.ok(cursoFound.get());
+    return cursoServicio.findById(cursoId)
+            .map(ResponseEntity::ok)
+            .orElseGet(() -> ResponseEntity.notFound().build());
   }
 
   @PutMapping("/{cursoId}")
