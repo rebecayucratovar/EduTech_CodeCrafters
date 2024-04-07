@@ -26,6 +26,6 @@ public class Curso {
   private String aprendizaje;
 
   @ManyToOne
-  @JoinColumn(name = "usuarioId")
+  @JoinColumn(name = "usuario_id")
   private Usuario usuario;
 }
