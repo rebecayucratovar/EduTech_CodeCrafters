@@ -16,7 +16,7 @@ import java.util.UUID;
 public class UsuarioControlador {
   private final UsuarioServicio usuarioServicio;
 
-  @PostMapping
+  @PostMapping("/saveUsuario")
   public ResponseEntity<Usuario> saveUsuario(@RequestBody Usuario usuario) {
     try {
       Usuario usuarioGuardado = usuarioServicio.save(usuario);
