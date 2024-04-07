@@ -27,15 +27,13 @@ public class UsuarioControlador {
       return ResponseEntity.status(HttpStatus.CONFLICT).body(null); // correo o nombre de usuario duplicado
     }
   }
-
   @GetMapping("/{usuarioId}")
   public ResponseEntity<Usuario> getOne(@PathVariable("usuarioId") UUID usuarioId){
     return usuarioServicio.findById(usuarioId)
             .map(ResponseEntity::ok)
             .orElseGet(() -> ResponseEntity.notFound().build());
   }
-
-  @GetMapping
+  @GetMapping("/mostrarTodos")
   public ResponseEntity<List<Usuario>> getAllUsuarios(){
     var usuarioResult = usuarioServicio.getAll();
     if (usuarioResult.isEmpty()){
