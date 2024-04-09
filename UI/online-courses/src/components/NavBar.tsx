@@ -10,8 +10,8 @@ export const NavBar = () => {
           Home
         </Link>
 
-        <Link to="/registro-usuario" className="navbar-content-link">
-          Registrar usuario
+        <Link to="/registro-instructor" className="navbar-content-link">
+          Registrarse
         </Link>
 
         <Link to="/registro-curso" className="navbar-content-link">
