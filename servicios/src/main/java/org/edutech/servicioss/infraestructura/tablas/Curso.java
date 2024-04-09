@@ -19,6 +19,8 @@ public class Curso {
   //@Enumerated(EnumType.STRING)
   private String categoria;
 
+  private String imagen;
+
   private int costo;
 
   private String requisito;
