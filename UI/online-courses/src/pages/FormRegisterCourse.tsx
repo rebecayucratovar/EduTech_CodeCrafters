@@ -315,7 +315,7 @@ export const FormRegisterCourse = () => {
                   {...register("descripcion", {
                     required: {
                       value: true,
-                      message: "La descripción es requerida",
+                      message: "Por favor, rellene el campo.",
                     },
                     maxLength: {
                       value: 400,
@@ -323,6 +323,7 @@ export const FormRegisterCourse = () => {
                         "La descripcion no deben tener mas de 400 caracteres",
                     },
                   })}
+                  className={errors.descripcion ? "error-input" : ""}
                 />
 
                 {errors.descripcion && (
