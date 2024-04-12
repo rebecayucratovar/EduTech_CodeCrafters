@@ -15,41 +15,47 @@ export const ListCourses = () => {
           Cursos disponibles
         </label>
 
-        {courses.length > 0 && (
-          <div className="list-courses-content-card">
-            {courses.map((course) => (
-              <div
-                className="list-courses-content-card-wrapper"
-                key={course.id}
-              >
-                <img src={ImageExample} alt="img-course" />
+        <section className="list-courses-content-wrapper">
+          {courses.length > 0 ? (
+            <div className="list-courses-content-card">
+              {courses.map((course) => (
+                <div
+                  className="list-courses-content-card-wrapper"
+                  key={course.id}
+                >
+                  <img src={ImageExample} alt="img-course" />
 
-                <div className="list-courses-content-card-wrapper-description">
-                  <label
-                    htmlFor="card-title"
-                    className="list-courses-content-card-wrapper-description-title"
-                    title={course.titulo}
-                  >
-                    {course.titulo}
-                  </label>
-                  <label
-                    htmlFor="card-name-instructor"
-                    className="list-courses-content-card-wrapper-description-instructor"
-                    title={course.instructor}
-                  >
-                    {course.instructor}
-                  </label>
-                  <label
-                    htmlFor="card-costo"
-                    className="list-courses-content-card-wrapper-description-costo"
-                  >
-                    {course.costo} Bs.
-                  </label>
+                  <div className="list-courses-content-card-wrapper-description">
+                    <label
+                      htmlFor="card-title"
+                      className="list-courses-content-card-wrapper-description-title"
+                      title={course.titulo}
+                    >
+                      {course.titulo}
+                    </label>
+                    <label
+                      htmlFor="card-name-instructor"
+                      className="list-courses-content-card-wrapper-description-instructor"
+                      title={course.instructor}
+                    >
+                      {course.instructor}
+                    </label>
+                    <label
+                      htmlFor="card-costo"
+                      className="list-courses-content-card-wrapper-description-costo"
+                    >
+                      {course.costo} Bs.
+                    </label>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        )}
+              ))}
+            </div>
+            ) : (
+            <div className="list-no-courses-message">
+              <p>No existen cursos disponibles actualmente</p>
+            </div>
+          )}
+        </section>
       </section>
     </article>
   );

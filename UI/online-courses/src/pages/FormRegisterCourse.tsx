@@ -1,12 +1,12 @@
 import { useState } from "react";
-import logo from "../assets/logo.jpeg";
+import logo from "../assets/LogoForm.png";
 import { Modal } from "../components/Modal";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import AlertIcon from "../assets/icons/AlertIcon.svg";
 import CheckIcon from "../assets/icons/CheckIcon.svg";
 import { addCourse } from "../slices/courses";
-
+ 
 export const FormRegisterCourse = () => {
   const {
     register,
