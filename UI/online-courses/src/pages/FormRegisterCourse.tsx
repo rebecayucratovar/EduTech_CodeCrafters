@@ -283,6 +283,7 @@ export const FormRegisterCourse = () => {
                         "Los requisitos no deben tener mas de 400 caracteres",
                     },
                   })}
+                  maxLength={400}
                 />
 
                 {errors.requisitos && (
@@ -323,7 +324,8 @@ export const FormRegisterCourse = () => {
                         "La descripcion no deben tener mas de 400 caracteres",
                     },
                   })}
-                  className={errors.descripcion ? "error-input" : ""}
+                  maxLength={400}
+                  className={errors.descripcion  ? "error-input" : ""}
                 />
 
                 {errors.descripcion && (
