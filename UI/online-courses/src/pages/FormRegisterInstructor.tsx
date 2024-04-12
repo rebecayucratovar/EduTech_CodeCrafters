@@ -1,14 +1,16 @@
-import React, { useState, useRef } from "react";
-import logo from "../assets/logo.jpeg";
+import React, { useState} from "react";
+import { Link } from "react-router-dom";
+import logo from "../assets/LogoForm.png";
+import { Modal } from "../components/Modal";
+import AlertIcon from "../assets/icons/AlertIcon.svg";
+import CheckIcon from "../assets/icons/CheckIcon.svg";
+
 
 export const FormRegisterInstructor = () => {
 
-  // Referencias a los elementos de entrada
-  const nombreCompletoRef = useRef<HTMLInputElement>(null);
-  const nombreUsuarioRef = useRef<HTMLInputElement>(null);
-  const fechaNacimientoRef = useRef<HTMLInputElement>(null);
-  const contraseñaRef = useRef<HTMLInputElement>(null);
-  const confirmacionContraseñaRef = useRef<HTMLInputElement>(null);
+  const [showModalSuccess, setShowModalSuccess] = useState(false);
+  const [showModalCancel, setShowModalCancel] = useState(false);
+  const [showModalErrorInesperado, setShowModalErrorInesperado] = useState(false);
 
   const [nombreCompleto, setNombreCompleto] = useState("");
   const [errorNombreCompleto, setErrorNombreCompleto] = useState("");
@@ -18,7 +20,7 @@ export const FormRegisterInstructor = () => {
   const [errorNombreUsuario, setErrorNombreUsuario] = useState("");
   const [inputClassNombreUsuario, setInputClassNombreUsuario] = useState("");
 
-
+  const [fechaNacimientoModificada, setFechaNacimientoModificada] = useState(false);
   const [fechaNacimiento, setFechaNacimiento] = useState("");
   const [errorFechaNacimiento, setErrorFechaNacimiento] = useState("");
   const [inputClassNameFecha, setInputClassNameFecha] = useState("");
@@ -40,38 +42,25 @@ export const FormRegisterInstructor = () => {
   const [inputClassConfirmacionContraseña, setInputClassConfirmacion] = useState("");
   
 
-  const handleNombreCompletoKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      nombreUsuarioRef.current?.focus();
-      validateNombreCompleto();
-    }
-  };
-  
   const handleNombreCompletoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value.replace(/[^a-zA-Z\s]/g, ''); // Eliminar caracteres no alfabéticos
-    setNombreCompleto(value);
+    const value = event.target.value.replace(/ {2,}/g, ' '); // Reemplazar múltiples espacios por uno solo
+    const formattedValue = value.replace(/[^a-zA-Z\s]/g, ''); // Eliminar caracteres no alfabéticos
+    setNombreCompleto(formattedValue);
   };
 
   const validateNombreCompleto = () => {
-    if (nombreCompleto.length == 1 || nombreCompleto.length == 2) {
-      setErrorNombreCompleto("El nombre es muy corto, ingrese otro ");
+    if (nombreCompleto.length === 0) {
+      setErrorNombreCompleto("Por favor, ingrese su nombre completo");
       setInputClassNombre("error-input");
-    }else if (nombreCompleto.length < 1){
-      setErrorNombreCompleto("Por favor, Ingrese su nombre completo");
+    } else if (nombreCompleto.length < 3) {
+      setErrorNombreCompleto("El nombre es muy corto, ingrese otro");
       setInputClassNombre("error-input");
-    }else if(nombreCompleto.length > 20){
+    } else if (nombreCompleto.length > 20) {
       setErrorNombreCompleto("El nombre es muy largo, ingrese otro");
       setInputClassNombre("error-input");
-    }else{
+    } else {
       setErrorNombreCompleto("");
       setInputClassNombre("success-input");
-    }
-  };
-
-  const handleNombreUsuarioKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      fechaNacimientoRef.current?.focus();
-      validateNombreUsuario();
     }
   };
    
@@ -81,11 +70,11 @@ export const FormRegisterInstructor = () => {
   };
 
   const validateNombreUsuario = () => {
-    if (nombreUsuario.length == 1 || nombreUsuario.length == 2) {
-      setErrorNombreUsuario("El nombre de usuario es muy corto, ingrese otro ");
-      setInputClassNombreUsuario("error-input");
-    }else if (nombreUsuario.length < 1){
+    if (nombreUsuario.length === 0) {
       setErrorNombreUsuario("Por favor, ingrese un nombre de usuario");
+      setInputClassNombreUsuario("error-input");
+    }else if (nombreUsuario.length < 3){
+      setErrorNombreUsuario("El nombre de usuario es muy corto, ingrese otro ");
       setInputClassNombreUsuario("error-input");
     }else if(nombreUsuario.length > 20){
       setErrorNombreUsuario("El nombre de usuario es muy largo, ingrese otro");
@@ -96,52 +85,62 @@ export const FormRegisterInstructor = () => {
     }
   };
 
-  const handleFechaNacimientoKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      fechaNacimientoRef.current?.focus();
-      validateFechaNacimiento();
-    }
+  const handleFechaNacimientoChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const value = (event.target as HTMLInputElement).value;
+    setFechaNacimientoModificada(true);
+    setFechaNacimiento(value);
   };
 
   const validateFechaNacimiento = () => {
-    // Opcional: Verificar si la fecha está dentro de un rango específico
-    const fechaIngresada = new Date(fechaNacimiento);
-    const fechaMinima = new Date("1980-01-01");
-    const fechaMaxima = new Date("2000-01-01"); // Fecha actual
+    if (!fechaNacimientoModificada) {
+      setErrorFechaNacimiento("Por favor, seleccione su fecha de nacimiento");
+      setInputClassNameFecha("error-input");
+  } else {
+      const fechaNacimientoDate = new Date(fechaNacimiento);
+      const fechaMinima = new Date("1970-01-01");
+      const fechaMaxima = new Date("2006-01-01"); // Fecha actual
 
-    if (fechaIngresada > fechaMinima || fechaIngresada < fechaMaxima) {
-      setErrorFechaNacimiento("");
-      setInputClassNameFecha("success-input");
-    }
+      if (fechaNacimientoDate < fechaMinima || fechaNacimientoDate > fechaMaxima) {
+          setErrorFechaNacimiento("Seleccione su fecha de nacimiento");
+          setInputClassNameFecha("error-input");
+      } else {
+          setErrorFechaNacimiento("");
+          setInputClassNameFecha("success-input");
+      }
+  }
   };
   
   const handleTipoUsuarioChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
     setTipoUsuario(value);
+  };
 
-    if (value === "opcion0" ) {
+  const validateTipoUsuario = () =>{
+    if (tipoUsuario.trim() === "") {
       setErrorTipoUsuario("Debe seleccionar un tipo de usuario");
       setInputClassTipoUsuario("error-input");
-    } else if (value !== "opcion0" ) {
+    }else if (tipoUsuario === "opcion0" ) {
+      setErrorTipoUsuario("Debe seleccionar un tipo de usuario");
+      setInputClassTipoUsuario("error-input");
+    } else if (tipoUsuario !== "opcion0" ) {
       setErrorTipoUsuario("");
       setInputClassTipoUsuario("success-input");
     }
-  };
+  }
 
-  const handleCorreoKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      contraseñaRef.current?.focus();
-      validateCorreo();
+  const handleCorreoKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === " ") { // Verificar si la tecla presionada es un espacio
+      event.preventDefault(); // Prevenir la acción por defecto (no permitir escribir el espacio)
     }
   };
   
   const handleCorreoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value.replace(/[^a-z0-9.@]/g, ''); // Eliminar caracteres no alfabéticos
+    const value = event.target.value.replace(/[^a-z0-9@.]/g, ''); // Eliminar caracteres no permitidos
     setCorreo(value);
   };
   
   const validateCorreo = () =>{
-    if(correo.length < 1){
+    if(correo.length  === 0){
       setErrorCorreo("Ingrese su correo electronico");
       setInputClassCorreo("error-input");
     }else{
@@ -150,48 +149,52 @@ export const FormRegisterInstructor = () => {
     }
   }
 
-  const handleContraseñaKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      confirmacionContraseñaRef.current?.focus();
-      validateContraseña();
+  const handleContraseñaKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === " ") { // Verificar si la tecla presionada es un espacio
+      event.preventDefault(); // Prevenir la acción por defecto (no permitir escribir el espacio)
     }
   };
-  
-  const handleContraseñaChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value.replace(/[^a-zA-Z0-9\s]/g, ''); // Eliminar caracteres no alfabéticos
+
+  const handleContraseñaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^a-zA-Z0-9\s]/g, ''); // Eliminar caracteres no alfabéticos
     setContraseña(value);
   };
 
   const validateContraseña = () => {
-    if (contraseña.length < 8) {
-      setErrorContraseña("La contraseña es muy corta ");
+    if (contraseña.length === 0) {
+      setErrorContraseña("Por favor, ingrese una contraseña");
       setInputClassContraseña("error-input");
     }else if (contraseña.length > 20){
       setErrorContraseña("La contraseña es demasiado larga");
       setInputClassContraseña("error-input");
-    }else if(contraseña.length  < 1){
-      setErrorContraseña("Por favor, ingrese una contraseña");
+    }else if(contraseña.length  < 9){
+      setErrorContraseña("La contraseña es muy corta");
       setInputClassContraseña("error-input");
     }else{
       setErrorContraseña("");
       setInputClassContraseña("success-input");
     }
   };
-
-  const handleConfirmacionContraseñaKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      //confirmacionContraseñaRef.current?.focus();
-      verifyContraseña();
+  
+  const handleConfirmacionContraseñaKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === " ") { // Verificar si la tecla presionada es un espacio
+      event.preventDefault(); // Prevenir la acción por defecto (no permitir escribir el espacio)
     }
   };
-  
+
   const handleConfirmacionContraseñaChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value.replace(/[^a-zA-Z0-9\s]/g, ''); // Eliminar caracteres no alfabéticos
     setConfirmacionContraseña(value);
   };
 
   const verifyContraseña = () => {
-    if (contraseña === confirmacionContraseña) {
+    if (contraseña.length === 0) {
+      setErrorConfirmacion("Porfavor, confirme su contraseña ");
+      setInputClassConfirmacion("error-input");
+    }else if (contraseña.length < 8) {
+      setErrorConfirmacion("La contraseña es muy corta ");
+      setInputClassConfirmacion("error-input");
+    }else if (contraseña === confirmacionContraseña) {
       setErrorConfirmacion("");
       setInputClassConfirmacion("success-input");
     }else{
@@ -199,10 +202,103 @@ export const FormRegisterInstructor = () => {
       setInputClassConfirmacion("error-input");
     }
   };
+  
+  const determineIconVisibility = (inputClass: string) => {
+    if (inputClass === "error-input") {
+      return <img src={AlertIcon} alt="Icono de alerta" className="icon" />;
+    } else if (inputClass === "success-input") {
+      return <img src={CheckIcon} alt="Icono de check" className="icon" />;
+    } else {
+      return null;
+    }
+  };
+
+  const handleRegisterButtonClick = () => {
+    // Validar todos los campos del formulario
+    validateNombreCompleto();
+    validateNombreUsuario();
+    validateFechaNacimiento();
+    validateTipoUsuario();
+    validateCorreo();
+    validateContraseña();
+    verifyContraseña();
+  
+    // Comprobar si todos los campos son válidos
+    const allFieldsValid =
+        errorNombreCompleto === "" &&
+        errorNombreUsuario === "" &&
+        errorFechaNacimiento === "" &&
+        errorTipoUsuario === "" &&
+        errorCorreo === "" &&
+        errorContraseña === "" &&
+        errorConfirmacionContraseña === "";
+  
+    if (allFieldsValid) {
+        // Crear objeto con los datos del usuario
+        const userData = {
+            nombreCompleto,
+            nombreUsuario,
+            fechaNacimiento,
+            tipoUsuario,
+            correo,
+            contraseña
+        };
+  
+        // Configurar opciones de la solicitud fetch
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userData)
+        };
+  
+        // Enviar solicitud POST al servidor
+        fetch("/api/usuarios/saveUsuario", requestOptions)
+          .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la solicitud');
+            }else{}
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            setShowModalSuccess(true);
+        })
+        .catch(error => {
+            console.error("Error al enviar los datos al servidor:", error);
+            setShowModalErrorInesperado(true);
+        });
+    }else{}
+  };
+  const handleCancelButtonClick = () => {
+    setShowModalCancel(true);
+  }
+
+  const handleAcceptCancel = () => {
+    setShowModalCancel(false);
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 100);
+  };
+
+  const handleAcceptSuccess = () => {
+    setShowModalSuccess(false);
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 100);
+  };
+
+  const resetFormFields = () => {
+    ['NombreCompleto', 'NombreUsuario', 'FechaNacimiento', 'TipoUsuario', 'Correo', 'Contraseña', 'ConfirmacionContraseña'].forEach(field => {
+      const setStateFunc = eval(`set${field}`);
+      setStateFunc('');
+      const setErrorFunc = eval(`setError${field}`);
+      setErrorFunc && setErrorFunc('');
+    });
+  };
 
   return (
     <>
-      <article className="form-register-instructor">
+      <form className="form-register-instructor">
         <section className="form-register-course-logo">
           <img src={logo} alt="logo" />
         </section>
@@ -218,14 +314,15 @@ export const FormRegisterInstructor = () => {
               <input
                 type="text"
                 id="nombreCompleto"
-                name="nombreCompleto"
                 placeholder="Ingrese su nombre completo"
                 value={nombreCompleto}
-                onKeyDown={handleNombreCompletoKeyDown}
                 onChange={handleNombreCompletoChange}
                 className={`${nombreCompleto} ${inputClassNombre}`}
-                ref={nombreCompletoRef} // Referencia al elemento de entrada
+                autoComplete="off" 
               />
+              <div className="icon-container">
+                {determineIconVisibility(inputClassNombre)}
+              </div>
             </div>
 
             {errorNombreUsuario && <div className="error-message">{errorNombreUsuario}</div>}
@@ -234,14 +331,15 @@ export const FormRegisterInstructor = () => {
               <input
                 type="text"
                 id="nombreUsuario"
-                name="nombreUsuario"
                 placeholder="Ingrese un nombre de usuario"
                 value={nombreUsuario}
                 onChange={handleNombreUsuarioChange}
-                onKeyDown={handleNombreUsuarioKeyDown}
                 className={`${nombreUsuario} ${inputClassNombreUsuario}`}
-                ref={nombreUsuarioRef} // Referencia al elemento de entrada
+                autoComplete="off" 
               />
+              <div className="icon-container">
+                {determineIconVisibility(inputClassNombreUsuario)}
+              </div>
             </div>
 
           {errorFechaNacimiento && <div className="error-message">{errorFechaNacimiento}</div>}
@@ -251,13 +349,13 @@ export const FormRegisterInstructor = () => {
               <input
                 type="date"
                 id="fechaNacimiento"
-                name="fechaNacimiento"
                 defaultValue={"2000-01-01"}
-                onChange={(e) => setFechaNacimiento(e.target.value)}
-                onKeyDown={handleFechaNacimientoKeyDown}
+                onInput={handleFechaNacimientoChange}
                 className={`${inputClassNameFecha}`}
-                ref={fechaNacimientoRef} // Referencia al elemento de entrada
               />
+              <div className="icon-container">
+                {determineIconVisibility(inputClassNameFecha)}
+              </div>
             </div>
           </div>
 
@@ -265,30 +363,39 @@ export const FormRegisterInstructor = () => {
           {errorTipoUsuario && <div className="error-message">{errorTipoUsuario}</div>}
           <div className="form-register-instructor-content-data-field">
             <label htmlFor="">Tipo de usuario*</label>
-            <select 
-              id="tipoUsuario"
-              value={tipoUsuario}
-              onChange={handleTipoUsuarioChange}
-              className={inputClassTipoUsuario} 
-            >
-              <option value="opcion0">Selecciona tipo de usuario</option>
-              <option value="opcion1">Instructor</option>
-            </select>
-          </div>  
+            <div className="input-container">
+              <select 
+                id="tipoUsuario"
+                value={tipoUsuario}
+                onChange={handleTipoUsuarioChange}
+                className={inputClassTipoUsuario} 
+              >
+                <option value="opcion0">Selecciona tipo de usuario</option>
+                <option value="opcion1">Instructor</option>
+              </select>
+              <div className="icon-container">
+                {determineIconVisibility(inputClassTipoUsuario)}
+              </div>
+            </div>
+          </div>
         
           {errorCorreo && <div className="error-message">{errorCorreo}</div>}
           <div className="form-register-instructor-content-data-field">
               <label htmlFor="">Correo electronico*</label>
               <input
-                type="email"
+                type="text"
                 id="correoElectronico"
                 name="correoElectronico"
                 placeholder="Ingrese su correo"
                 value={correo}
                 onChange={handleCorreoChange}
-                onKeyDown={handleCorreoKeyDown}
-                className={`${correo} ${inputClassCorreo}`}
+                onKeyPress={handleCorreoKeyPress}
+                className={`${inputClassCorreo}`}
+                autoComplete="off" 
               />
+              <div className="icon-container">
+                {determineIconVisibility(inputClassCorreo)}
+              </div>
             </div>
 
             {errorContraseña && <div className="error-message">{errorContraseña}</div>}
@@ -297,14 +404,15 @@ export const FormRegisterInstructor = () => {
               <input
                 type="password"
                 id="contraseña"
-                name="contraseña"
                 placeholder="Ingrese su contraseña"
                 value={contraseña}
                 onChange={handleContraseñaChange}
-                onKeyDown={handleContraseñaKeyDown}
+                onKeyPress={handleContraseñaKeyPress}
                 className={`${contraseña} ${inputClassContraseña}`}
-                ref={contraseñaRef}
               />
+              <div className="icon-container">
+                {determineIconVisibility(inputClassContraseña)}
+              </div>
             </div>
 
             {errorConfirmacionContraseña && <div className="error-message">{errorConfirmacionContraseña}</div>}
@@ -313,28 +421,62 @@ export const FormRegisterInstructor = () => {
               <input
                 type="password"
                 id="confirmacionContraseña"
-                name="confirmacionContraseña"
                 placeholder="Confirme su contraseña"
                 value={confirmacionContraseña}
                 onChange={handleConfirmacionContraseñaChange}
-                onKeyDown={handleConfirmacionContraseñaKeyDown}
+                onKeyPress={handleConfirmacionContraseñaKeyPress}
                 className={`${confirmacionContraseña} ${inputClassConfirmacionContraseña}`}
-                ref={confirmacionContraseñaRef}
               />
+              <div className="icon-container">
+                {determineIconVisibility(inputClassConfirmacionContraseña)}
+              </div>
             </div>
           </div>
         </section>
 
         <section className="form-register-instructor-footer">
-          <button type="button" className="form-register-instructor-footer-button">
+          <button type="button" className="form-register-instructor-footer-button" onClick={handleCancelButtonClick}>
             Cancelar
           </button>
 
-          <button type="button" className="form-register-instructor-footer-button">
+          <button type="button" className="form-register-instructor-footer-button" onClick={handleRegisterButtonClick}>
             Registrar
           </button>
         </section>
-      </article>
+      </form>
+      {showModalSuccess && (
+      <Modal
+        title="Registro exitoso"
+        description="Se registró correctamente al instructor."
+        txtBtnAccept="Aceptar"
+        onAccept={handleAcceptSuccess}
+      />
+      )}
+      
+      {showModalErrorInesperado && (
+      <Modal
+        title="Error al registrar"
+        description="Error inesperado, no se pudo guardar el registro."
+        txtBtnAccept="Aceptar"
+        onAccept={() => {
+          setShowModalErrorInesperado(false)
+          resetFormFields();
+        }}
+      />
+      )}
+      {showModalCancel && (
+        <Modal
+          title="¿Estás seguro?"
+          description="¿Estás seguro de que deseas cancelar el registro del curso?"
+          txtBtnAccept="Sí, seguro"
+          txtBtnCancel="No, continuar"
+          showBtnCancel={true}
+          onAccept={handleAcceptCancel}
+          onCancel={() => setShowModalCancel(false)}
+        />
+      )}
+      {showModalCancel && <Link to="/" style={{ display: 'none' }} />}
+      {showModalSuccess && <Link to="/" style={{ display: 'none' }} />}
     </>
   );
-};
+}; 
