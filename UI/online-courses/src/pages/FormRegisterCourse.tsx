@@ -238,7 +238,7 @@ export const FormRegisterCourse = () => {
                   {...register("costo", {
                     required: {
                       value: true,
-                      message: "El costo es requerido",
+                      message: "Ingrese el costo del curso.",
                     },
                     pattern: {
                       value: /^\d{1,5}(?:\.\d{1,2})?$/,
