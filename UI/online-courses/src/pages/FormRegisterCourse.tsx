@@ -6,8 +6,14 @@ import { useForm } from "react-hook-form";
 import AlertIcon from "../assets/icons/AlertIcon.svg";
 import CheckIcon from "../assets/icons/CheckIcon.svg";
 import { addCourse } from "../slices/courses";
+import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+
  
 export const FormRegisterCourse = () => {
+
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -387,20 +393,22 @@ export const FormRegisterCourse = () => {
         />
       )}
 
-      {showModalByClickInCancel && (
-        <Modal
-          title="¿Estas seguro?"
-          description="¿Estas seguro de que desea cancelar el registro del curso?"
-          txtBtnAccept="Si, seguro"
-          txtBtnCancel="No, continuar"
-          showBtnCancel={true}
-          onAccept={() => {
-            reset();
-            setShowModalByClickInCancel(false);
-          }}
-          onCancel={() => setShowModalByClickInCancel(false)}
-        />
-      )}
+
+{showModalByClickInCancel && (
+    <Modal
+      title="¿Estas seguro?"
+      description="¿Estas seguro de que desea cancelar el registro del curso?"
+      txtBtnAccept="Si, seguro"
+      txtBtnCancel="No, continuar"
+      showBtnCancel={true}
+      onAccept={() => {
+        reset();
+        setShowModalByClickInCancel(false);
+        navigate('/lista-cursos'); // Usa navigate en lugar de history.push
+      }}
+      onCancel={() => setShowModalByClickInCancel(false)}
+    />
+  )}
     </>
   );
 };
