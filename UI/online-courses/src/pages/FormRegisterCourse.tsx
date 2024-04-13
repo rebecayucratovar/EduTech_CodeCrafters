@@ -89,6 +89,7 @@ export const FormRegisterCourse = () => {
                       message: "El titulo no deben tener mas de 40 caracteres",
                     },
                   })}
+                  className={`${errors.titulo ? 'error-input' : ''} ${dirtyFields.titulo && !errors.titulo ? 'success-input' : ''}`}
                 />
                 {errors.titulo && (
                   <div className="form-register-course-content-data-field-error">
@@ -111,18 +112,23 @@ export const FormRegisterCourse = () => {
             </div>
 
             <div className="form-register-course-content-data-field">
-              <label htmlFor="instructor">Instructor*</label>
+              <label htmlFor="instructor">Descripción*</label>
               <div className="form-register-course-content-data-field-input">
                 <input
                   type="text"
                   id="instructor"
-                  placeholder="Ingrese su nombre completo"
+                  placeholder="Ingrese la descripción"
                   {...register("instructor", {
                     required: {
                       value: true,
-                      message: "El instructor es requerido",
+                      message: "La descripción es requerida",
+                    },
+                    maxLength: {
+                      value: 400,
+                      message: "La descripción no deben tener mas de 400 caracteres",
                     },
                   })}
+                  className={`${errors.instructor ? 'error-input' : ''} ${dirtyFields.instructor && !errors.instructor ? 'success-input' : ''}`}
                 />
 
                 {errors.instructor && (
@@ -158,6 +164,8 @@ export const FormRegisterCourse = () => {
                     validate: (value) =>
                       value !== "default" || "La categoría es requerida",
                   })}
+                  className={`${errors.categoria ? 'error-input' : ''} ${dirtyFields.categoria && !errors.categoria ? 'success-input' : ''}`}
+
                 >
                   <option value="default">Selecciona una categoría</option>
                   <option value="Desarollo web">Desarrollo web</option>
@@ -206,6 +214,8 @@ export const FormRegisterCourse = () => {
                       message: "Seleccione algun archivo",
                     },
                   })}
+                  className={`${errors.file ? 'error-input' : ''} ${dirtyFields.file && !errors.file ? 'success-input' : ''}`}
+
                 />
 
                 {errors.file && (
@@ -246,7 +256,7 @@ export const FormRegisterCourse = () => {
                         "El costo debe ser un valor numérico de hasta cinco dígitos y máximo dos decimales opcionales ej: 1000.00 o 1000",
                     },
                   })}
-                  className={errors.costo ? "error-input" : ""}
+                  className={`${errors.costo ? 'error-input' : ''} ${dirtyFields.costo && !errors.costo ? 'success-input' : ''}`}
                 />
 
                 {errors.costo && (
@@ -282,7 +292,9 @@ export const FormRegisterCourse = () => {
                       message:
                         "Los requisitos no deben tener mas de 400 caracteres",
                     },
+                  
                   })}
+                  className={`${errors.requisitos ? 'error-input' : ''} ${dirtyFields.requisitos && !errors.requisitos ? 'success-input' : ''}`}
                   maxLength={400}
                 />
 
@@ -315,7 +327,7 @@ export const FormRegisterCourse = () => {
                   placeholder="Describa lo que se aprendera una ves terminado el curso"
                   {...register("descripcion", {
                     required: {
-                      value: false,
+                      value: true,
                       message: "Por favor, rellene el campo.",
                     },
                     maxLength: {
@@ -324,8 +336,8 @@ export const FormRegisterCourse = () => {
                         "La descripcion no deben tener mas de 100 caracteres",
                     },
                   })}
-                  maxLength={400}
-                  className={errors.descripcion  ? "error-input" : ""}
+                  maxLength={100}
+                  className={`${errors.descripcion ? 'error-input' : ''} ${dirtyFields.descripcion && !errors.descripcion ? 'success-input' : ''}`}
                 />
 
                 {errors.descripcion && (
@@ -335,6 +347,7 @@ export const FormRegisterCourse = () => {
                         /^"|"$/g,
                         ""
                       )}
+                      
                     </label>
                     <img src={AlertIcon} alt="Icono de check" />
                   </div>
