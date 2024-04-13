@@ -315,13 +315,13 @@ export const FormRegisterCourse = () => {
                   placeholder="Describa lo que se aprendera una ves terminado el curso"
                   {...register("descripcion", {
                     required: {
-                      value: true,
+                      value: false,
                       message: "Por favor, rellene el campo.",
                     },
                     maxLength: {
-                      value: 400,
+                      value: 100,
                       message:
-                        "La descripcion no deben tener mas de 400 caracteres",
+                        "La descripcion no deben tener mas de 100 caracteres",
                     },
                   })}
                   maxLength={400}
