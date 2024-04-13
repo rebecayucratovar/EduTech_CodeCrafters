@@ -246,7 +246,7 @@ export const FormRegisterCourse = () => {
                         "El costo debe ser un valor numérico de hasta cinco dígitos y máximo dos decimales opcionales ej: 1000.00 o 1000",
                     },
                   })}
-                  className={errors.costo ? "error-input" : ""}
+                  className={errors.costo ? "error-input" : !errors.costo && dirtyFields.costo ? "success-input" : ""}
                 />
 
                 {errors.costo && (
