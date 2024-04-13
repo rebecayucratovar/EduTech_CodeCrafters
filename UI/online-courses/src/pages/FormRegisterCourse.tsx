@@ -343,7 +343,7 @@ export const FormRegisterCourse = () => {
                 {errors.descripcion && (
                   <div className="form-register-course-content-data-field-error">
                     <label htmlFor="error">
-                      {JSON.stringify(errors.descripcion.message).replace(
+                    {JSON.stringify(errors.descripcion.message).replace(
                         /^"|"$/g,
                         ""
                       )}
