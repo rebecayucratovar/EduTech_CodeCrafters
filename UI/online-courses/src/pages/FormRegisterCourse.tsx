@@ -325,7 +325,7 @@ export const FormRegisterCourse = () => {
                     },
                   })}
                   maxLength={400}
-                  className={errors.descripcion  ? "error-input" : ""}
+                  className={errors.descripcion  ? "error-input" : !errors.requisitos && dirtyFields.requisitos ? "success-input" : ""}
                 />
 
                 {errors.descripcion && (
