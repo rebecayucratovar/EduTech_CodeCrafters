@@ -8,8 +8,6 @@ import CheckIcon from "../assets/icons/CheckIcon.svg";
 import { addCourse } from "../slices/courses";
 // import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-
- 
 export const FormRegisterCourse = () => {
 
   const navigate = useNavigate();
@@ -335,12 +333,12 @@ export const FormRegisterCourse = () => {
                         message: "Por favor, rellene el campo.",
                       },
                       maxLength: {
-                        value: 100,
+                        value: 400,
                         message:
-                            "La descripcion no deben tener mas de 100 caracteres",
+                            "La descripcion no deben tener mas de 400 caracteres",
                       },
                     })}
-                    maxLength={100}
+                    maxLength={400}
                     className={`${errors.descripcion ? 'error-input' : ''} ${dirtyFields.descripcion && !errors.descripcion ? 'success-input' : ''}`}
                 />
                 {errors.descripcion && (
