@@ -194,7 +194,6 @@ body {
   flex-direction: column;
   padding: 10px;
   align-items: center;
-  position: absolute;
   background-color: white;
   width: 350px;
   height: 200px;
@@ -251,7 +250,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  width: 500 px;
+  width: 500px;
 }
 
 .form-register-instructor-content-title {
@@ -413,12 +412,14 @@ select:focus {
 }
 
 input.success-input,
-select.success-input {
+select.success-input,
+textarea.success-input {
   border-color: green; /* Cambia el color del borde a verde cuando no hay error */
 }
 
 input.error-input,
-select.error-input {
+select.error-input,
+textarea.error-input{
   border-color: red; /* Cambia el color del borde a rojo cuando hay error */
 }
 
