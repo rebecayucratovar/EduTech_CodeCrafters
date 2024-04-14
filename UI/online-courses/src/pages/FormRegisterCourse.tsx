@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import AlertIcon from "../assets/icons/AlertIcon.svg";
 import CheckIcon from "../assets/icons/CheckIcon.svg";
 import { addCourse } from "../slices/courses";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
  
@@ -288,8 +288,7 @@ export const FormRegisterCourse = () => {
             <div className="form-register-course-content-data-field">
               <label htmlFor="requisitos">Requisitos</label>
               <div className="form-register-course-content-data-field-input">
-                <input
-                  type="text"
+                <textarea
                   id="requisitos"
                   placeholder="Ingrese los requisitos para unirse al curso"
                   {...register("requisitos", {
@@ -327,8 +326,7 @@ export const FormRegisterCourse = () => {
             <div className="form-register-course-content-data-field">
               <label htmlFor="descripcion">Lo que aprenderás*</label>
               <div className="form-register-course-content-data-field-input">
-                <input
-                  type="text"
+                <textarea
                   id="descripcion"
                   placeholder="Describa lo que se aprendera una ves terminado el curso"
                   {...register("descripcion", {
