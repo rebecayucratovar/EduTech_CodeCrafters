@@ -3,7 +3,6 @@ body {
   justify-content: center;
   height: 100vh;
   margin: 0;
-
 }
 
 .navbar {
@@ -482,16 +481,20 @@ textarea.error-input{
   font-weight: bold;
 }
 
+.list-no-courses-message-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;/* Ocupar toda la altura */
+  width: 100vw;
+}
+
 .list-no-courses-message{
   color: rgb(36, 35, 103);
   font-size: 20px;
   font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Hace que el cuerpo ocupe toda la altura de la ventana */
+  width: 100%;
+  text-align: center;
 }
-
-
 
 
