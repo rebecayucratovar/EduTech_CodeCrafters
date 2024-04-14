@@ -27,22 +27,22 @@ export const ListCourses = () => {
 
                   <div className="list-courses-content-card-wrapper-description">
                     <label
-                      htmlFor="card-title"
-                      className="list-courses-content-card-wrapper-description-title"
-                      title={course.titulo}
+                        htmlFor="card-title"
+                        className="list-courses-content-card-wrapper-description-title"
+                        title={course.titulo}
                     >
                       {course.titulo}
                     </label>
                     <label
-                      htmlFor="card-name-instructor"
-                      className="list-courses-content-card-wrapper-description-instructor"
-                      title={course.instructor}
+                        htmlFor="card-name-instructor"
+                        className="list-courses-content-card-wrapper-description-instructor"
+                        title={course.instructor}
                     >
                       {course.instructor}
                     </label>
                     <label
-                      htmlFor="card-costo"
-                      className="list-courses-content-card-wrapper-description-costo"
+                        htmlFor="card-costo"
+                        className="list-courses-content-card-wrapper-description-costo"
                     >
                       {course.costo} Bs.
                     </label>
@@ -50,10 +50,12 @@ export const ListCourses = () => {
                 </div>
               ))}
             </div>
-            ) : (
-            <div className="list-no-courses-message">
-              <p>No existen cursos disponibles actualmente</p>
-            </div>
+          ) : (
+              <div className="list-no-courses-message-container">
+                <div className="list-no-courses-message">
+                  <p>No existen cursos disponibles actualmente</p>
+                </div>
+              </div>
           )}
         </section>
       </section>
