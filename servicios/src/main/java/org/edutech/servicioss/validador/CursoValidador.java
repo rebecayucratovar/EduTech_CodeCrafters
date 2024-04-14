@@ -20,16 +20,16 @@ public class CursoValidador {
       throw new IllegalArgumentException("Aprendizaje no puede estar vacio");
     }
 
-    if (curso.getAprendizaje().length() > 100) {
-      throw new IllegalArgumentException("El aprendizaje debe tener 100 caracteres máximo");
+    if (curso.getAprendizaje().length() > 400) {
+      throw new IllegalArgumentException("El aprendizaje debe tener 400 caracteres máximo");
     }
 
     if (curso.getCategoria() == null) {
       throw new IllegalArgumentException("Categoría no puede estar vacio");
     }
 
-    if (curso.getRequisito() != null && !curso.getRequisito().trim().isEmpty() && curso.getRequisito().length() > 100) {
-      throw new IllegalArgumentException("El requisito debe tener 100 caracteres máximo");
+    if (curso.getRequisito() != null && !curso.getRequisito().trim().isEmpty() && curso.getRequisito().length() > 400) {
+      throw new IllegalArgumentException("El requisito debe tener 400 caracteres máximo");
     }
   }
 }
