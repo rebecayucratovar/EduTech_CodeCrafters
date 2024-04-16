@@ -173,7 +173,7 @@ export const FormRegisterCourse = () => {
 
                 {!errors.titulo && titulo && (
                   <div className="form-register-course-content-data-field-error">
-                    <img src={CheckIcon} alt="Icono de check"/>
+                    <img src={CheckIcon} alt="Icono de check" className="check-icon"/>
                   </div>
                 )}
               </div>
@@ -215,7 +215,7 @@ export const FormRegisterCourse = () => {
 
                 {!errors.instructor && instructor && (
                   <div className="form-register-course-content-data-field-error">
-                    <img src={CheckIcon} alt="Icono de check"/>
+                    <img src={CheckIcon} alt="Icono de check" className="check-icon"/>
                   </div>
                 )}
               </div>
@@ -267,7 +267,7 @@ export const FormRegisterCourse = () => {
 
                 {dirtyFields.categoria && !errors.categoria && (
                     <div className="form-register-course-content-data-field-error">
-                      <img src={CheckIcon} alt="Icono de check"/>
+                      <img src={CheckIcon} alt="Icono de check" className="check-icon"/>
                     </div>
                 )}
               </div>
@@ -302,7 +302,7 @@ export const FormRegisterCourse = () => {
 
                 {dirtyFields.file && !errors.file && (
                     <div className="form-register-course-content-data-field-error">
-                      <img src={CheckIcon} alt="Icono de check"/>
+                      <img src={CheckIcon} alt="Icono de check" className="check-icon"/>
                     </div>
                 )}
               </div>
@@ -339,7 +339,7 @@ export const FormRegisterCourse = () => {
 
                 {!errors.costo && costo && (
                   <div className="form-register-course-content-data-field-error">
-                    <img src={CheckIcon} alt="Icono de check"/>
+                    <img src={CheckIcon} alt="Icono de check" className="check-icon"/>
                   </div>
                 )}
               </div>
@@ -369,13 +369,12 @@ export const FormRegisterCourse = () => {
                         ""
                       )}
                     </label>
-                    {/* Icono de alerta */}
                     <img src={AlertIcon} alt="Icono de alerta"/>
                   </div>
                 )}
                 {!errors.requisitos && requisitos && (
                     <div className="form-register-course-content-data-field-error">
-                      <img src={CheckIcon} alt="Icono de alerta"/>
+                      <img src={CheckIcon} alt="Icono de check" className="check-icon"/>
                     </div>
                 )}
               </div>
@@ -411,13 +410,13 @@ export const FormRegisterCourse = () => {
                         )}
 
                       </label>
-                      <img src={AlertIcon} alt="Icono de check" />
+                      <img src={AlertIcon} alt="Icono de alerta" />
                     </div>
                 )}
 
                 {!errors.descripcion && descripcion && (
                     <div className="form-register-course-content-data-field-error">
-                      <img src={CheckIcon} alt="Icono de alerta"/>
+                      <img src={CheckIcon} alt="Icono de check" className="check-icon"/>
                     </div>
                 )}
               </div>
