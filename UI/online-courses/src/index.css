@@ -55,7 +55,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  max-width: 600 px;
+  max-width: 100%;
   height: 100vh;
 }
 
@@ -128,7 +128,7 @@ body {
     min-height: 28px; /* ajusta según necesites */
     width: 400px;
     padding: 3px;
-    gap: -px;
+    gap: 20px;
     padding-right: 20px;
     margin-top: -12px;
     resize: none;
@@ -170,7 +170,9 @@ body {
   position: absolute;
   bottom: -32px;
   transform: translateY(-100%);
-
+  .img {
+    bottom: 0;
+  }
   label {
     display: contents;
     width: 12px;
@@ -181,7 +183,7 @@ body {
     position: absolute;
     width: 18px;
     margin-left: 385px;
-    bottom: 22px;
+    bottom: 38px;
   }
 
   img.check-icon {
@@ -193,7 +195,7 @@ body {
 .form-register-course-footer {
   display: flex;
   justify-content: space-evenly;
-  width: 25%;
+  width: 70%;
 
   button {
     font-weight: bold;
@@ -273,7 +275,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  max-width: 600 px;
+  max-width: 600px;
 
 }
 
@@ -348,9 +350,6 @@ body {
     color: rgb(12, 98, 145);
   }
 
-  .input-container {
-    position: relative;
-    width: 420px; /* Ancho deseado para todos los campos de entrada */
   }
 
   select {
@@ -410,7 +409,6 @@ body {
   .icon {
     width: 15px; /* Tamaño del icono ajustado */
   }
-}
 
 .form-register-instructor-footer {
   padding-top: 15px;
@@ -428,6 +426,7 @@ body {
     color: white;
     padding: 10px 30px;
     cursor: pointer;
+    margin-right: 100px;
   }
 }
 
