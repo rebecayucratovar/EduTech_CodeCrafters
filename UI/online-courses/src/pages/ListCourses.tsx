@@ -34,12 +34,11 @@ export const ListCourses = () => {
                       {course.titulo}
                     </label>
                     <label
-                      //  htmlFor="card-name-instructor"
-                      //  className="list-courses-content-card-wrapper-description-instructor"
-                      //  title={course.instructor}
-                    //{course.instructor} pedro perez remplazo esto 
+                        htmlFor="card-name-instructor"
+                        className="list-courses-content-card-wrapper-description-instructor"
+                        title={course.instructor}
                     >
-                    Pedro Perez  
+                      {course.instructor}  
                     </label>
                     <label
                         htmlFor="card-costo"

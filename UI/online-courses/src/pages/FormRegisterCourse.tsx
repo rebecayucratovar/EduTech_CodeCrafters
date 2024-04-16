@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import logo from "../assets/LogoForm.png";
 import { Modal } from "../components/Modal";
 import { useDispatch } from "react-redux";
@@ -6,11 +6,18 @@ import { useForm } from "react-hook-form";
 import AlertIcon from "../assets/icons/AlertIcon.svg";
 import CheckIcon from "../assets/icons/CheckIcon.svg";
 import { addCourse } from "../slices/courses";
-// import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-export const FormRegisterCourse = () => {
 
+
+export const FormRegisterCourse = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [titulo, setTitulo] = useState("");
+  const [instructor, setInstructor] = useState("");
+  const [costo, setCosto] = useState("");
+  const [requisitos, setRequisitos] = useState("");
+  const [descripcion, setDescripcion] = useState("");
 
   const {
     register,
@@ -23,9 +30,9 @@ export const FormRegisterCourse = () => {
       instructor: "",
       categoria: "default",
       file: null,
-      costo: 0,
+      costo: "",
       requisitos: "",
-      descripcion: "",
+      descripcion: ""   ,
     },
   });
 
@@ -39,7 +46,54 @@ export const FormRegisterCourse = () => {
     setShowModalByClickInCancel(true);
   };
 
-  const dispatch = useDispatch();
+  const handleTituloChange =  (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value.replace(/ {2,}/g, ' ');
+    const formattedValue = value.replace(/[^a-zA-Z\s]/g, '');
+    setTitulo(formattedValue);
+  };
+
+  const handleInstructorChange =  (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value.replace(/ {2,}/g, ' ');
+    const formattedValue = value.replace(/[^a-zA-Z\s]/g, '');
+    setInstructor(formattedValue);
+  };
+
+  const handleCostoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let value = event.target.value;
+    value = value.replace(/\s+/g, '').replace(/[^0-9,]/g, '');
+    setCosto(value); // Almacenar el valor sin conversión
+  };
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      convertCosto();
+    }
+  };
+
+  const convertCosto = () => {
+    let value = costo;
+    // Si el valor termina en un número entero, agrega ",00" al final
+    if (/^\d+$/.test(value)) {
+      value += ",00";
+    }
+    const match = value.match(/^(\d{1,5}(,\d{0,2})?)/);
+    if (match) {
+      value = match[1];
+    }
+    setCosto(value);
+  };
+  
+  const handleRequisitosChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    let value = event.target.value;
+    value = value.replace(/ {2,}/g, ' ');
+    setRequisitos(value);
+  }; 
+
+  const handleDescripcionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    let value = event.target.value;
+    value = value.replace(/ {2,}/g, ' ');
+    setDescripcion(value);
+  };
 
   const onSubmit = handleSubmit((data) => {
     if (
@@ -53,14 +107,17 @@ export const FormRegisterCourse = () => {
     ) {
       return;
     }
-    reset();
-    const modifiedData = {
-      ...data,
-      id: Math.random().toString(36).substring(7),
-      file: null,
-    };
-    dispatch(addCourse(modifiedData));
-    setShowModalByClickInAccept(true);
+    
+      const modifiedData = {
+        ...data,
+        id: Math.random().toString(36).substring(7),
+        file: null,
+      }
+      
+      dispatch(addCourse(modifiedData));
+      reset();
+      setShowModalByClickInAccept(true);
+    
   });
 
   return (
@@ -80,77 +137,86 @@ export const FormRegisterCourse = () => {
               <label htmlFor="titulo">Titulo*</label>
               <div className="form-register-course-content-data-field-input">
                 <input
-                    type="text"
-                    id="titulo"
-                    placeholder="Ingrese el titulo del curso"
-                    {...register("titulo", {
-                      required: {
-                        value: true,
-                        message: "El título es requerido",
-                      },
-                      maxLength: {
-                        value: 40,
-                        message: "El titulo no deben tener mas de 40 caracteres",
-                      },
-                    })}
-                    className={`${errors.titulo ? 'error-input' : ''} ${dirtyFields.titulo && !errors.titulo ? 'success-input' : ''}`}
+                  type="text"
+                  id="titulo"
+                  placeholder="Ingrese el titulo del curso"
+                  value={titulo}
+                  autoComplete="off" 
+                  {...register("titulo", {
+                    required: {
+                      value: true,
+                      message: "Por favor, ingrese el título del curso",
+                    },
+                    minLength: {
+                      value: 2,  
+                      message: "El título es muy corto",
+                    },
+                    maxLength: {
+                      value: 40,
+                      message: "El título es muy largo",
+                    },
+                  })}
+                  onChange={handleTituloChange}
+                  className={`${errors.titulo ? 'error-input' : ''} ${ !errors.titulo && titulo ? 'success-input' : ''}`}
                 />
                 {errors.titulo && (
-                    <div className="form-register-course-content-data-field-error">
-                      <label htmlFor="error">
-                        {JSON.stringify(errors.titulo.message).replace(
-                            /^"|"$/g,
-                            ""
-                        )}
-                      </label>
-                      <img src={AlertIcon} alt="Icono de alerta"/>
-                    </div>
+                  <div className="form-register-course-content-data-field-error">
+                    <label htmlFor="error">
+                      {JSON.stringify(errors.titulo.message).replace(
+                        /^"|"$/g,
+                        ""
+                      )}
+                    </label>
+                    <img src={AlertIcon} alt="Icono de alerta"/>
+                  </div>
                 )}
 
-                {dirtyFields.titulo && !errors.titulo && (
-                    <div className="form-register-course-content-data-field-error">
-                      <img src={CheckIcon} alt="Icono de check"/>
-                    </div>
+                {!errors.titulo && titulo && (
+                  <div className="form-register-course-content-data-field-error">
+                    <img src={CheckIcon} alt="Icono de check"/>
+                  </div>
                 )}
               </div>
             </div>
 
             <div className="form-register-course-content-data-field">
-              <label htmlFor="instructor">Descripción*</label>
+              <label htmlFor="instructor">Instructor*</label>
               <div className="form-register-course-content-data-field-input">
                 <input
-                    type="text"
-                    id="instructor"
-                    placeholder="Ingrese la descripción"
-                    {...register("instructor", {
-                      required: {
-                        value: true,
-                        message: "La descripción es requerida",
-                      },
-                      maxLength: {
-                        value: 400,
-                        message: "La descripción no deben tener mas de 400 caracteres",
-                      },
-                    })}
-                    className={`${errors.instructor ? 'error-input' : ''} ${dirtyFields.instructor && !errors.instructor ? 'success-input' : ''}`}
+                  type="text"
+                  id="instructor"
+                  placeholder="Ingrese su nombre completo"
+                  value={instructor}
+                  autoComplete="off" 
+                  {...register("instructor", {
+                    required: {
+                      value: true,
+                      message: "Por favor, ingrese su nombre completo",
+                    },
+                    maxLength: {
+                      value: 40,
+                      message: "El nombre que ingreso es muy largo",
+                    },
+                  })}
+                  onChange={handleInstructorChange}
+                  className={`${errors.instructor ? 'error-input' : ''} ${!errors.instructor && instructor ? 'success-input' : ''}`}
                 />
-
                 {errors.instructor && (
-                    <div className="form-register-course-content-data-field-error">
-                      <label htmlFor="error">
-                        {JSON.stringify(errors.instructor.message).replace(
-                            /^"|"$/g,
-                            ""
-                        )}
-                      </label>
-                      <img src={AlertIcon} alt="Icono de alerta"/>
-                    </div>
+                  <div className="form-register-course-content-data-field-error">
+                    <label htmlFor="error">
+                      {JSON.stringify(errors.instructor.message).replace(
+                        /^"|"$/g,
+                        ""
+                      )}
+                    </label>
+                    <img src={AlertIcon} alt="Icono de alerta"/>
+                  </div>
                 )}
 
-                {dirtyFields.instructor && !errors.instructor && (
-                    <div className="form-register-course-content-data-field-error">
-                      <img src={CheckIcon} alt="Icono de check"/>
-                    </div>
+                {!errors.instructor && instructor && (
+                  <div className="form-register-course-content-data-field-error">
+                    <img src={CheckIcon} alt="Icono de check"/>
+                  </div>
                 )}
               </div>
             </div>
@@ -163,7 +229,7 @@ export const FormRegisterCourse = () => {
                     {...register("categoria", {
                       required: {
                         value: true,
-                        message: "La categoria es requerida",
+                        message: "Seleccione alguna categoria",
                       },
                       validate: (value) =>
                           value !== "default" || "La categoría es requerida",
@@ -215,7 +281,7 @@ export const FormRegisterCourse = () => {
                     {...register("file", {
                       required: {
                         value: true,
-                        message: "Seleccione algun archivo",
+                        message: "Seleccione alguna imagen",
                       },
                     })}
                     className={`${errors.file ? 'error-input' : ''} ${dirtyFields.file && !errors.file ? 'success-input' : ''}`}
@@ -245,40 +311,36 @@ export const FormRegisterCourse = () => {
             <div className="form-register-course-content-data-field">
               <label htmlFor="costo">Costo (Bs)*</label>
               <div className="form-register-course-content-data-field-input">
-                <input
-                    type="number"
-                    id="costo"
-                    placeholder="Ingrese el monto en bolivianos"
-                    {...register("costo", {
-                      required: {
-                        value: true,
-                        message: "Ingrese el costo del curso.",
-                      },
-                      pattern: {
-                        value: /^\d{1,5}(?:\.\d{1,2})?$/,
-                        message:
-                            "El costo debe ser un valor numérico de hasta cinco dígitos y máximo dos decimales opcionales ej: 1000.00 o 1000",
-                      },
-                    })}
-                    className={`${errors.costo ? 'error-input' : ''} ${dirtyFields.costo && !errors.costo ? 'success-input' : ''}`}
-                />
+              <input
+                type="text"
+                id="costo"
+                placeholder="Ingrese el monto en bolivianos"
+                value={costo}
+                onKeyPress={handleKeyPress}
+                autoComplete="off" 
+                {...register("costo", {
+                  required: {
+                    value: true,
+                    message: "Ingrese el costo del curso.",
+                },
+              })}
+              onChange={handleCostoChange}
+              className={`${errors.costo ? 'error-input' : ''} ${!errors.costo && costo ? 'success-input' : ''}`}
+            />
 
                 {errors.costo && (
-                    <div className="form-register-course-content-data-field-error">
-                      <label htmlFor="error">
-                        {JSON.stringify(errors.costo.message).replace(
-                            /^"|"$/g,
-                            ""
-                        )}
-                      </label>
-                      <img src={AlertIcon} alt="Icono de check"/>
-                    </div>
+                  <div className="form-register-course-content-data-field-error">
+                    <label htmlFor="error" style={{ color: 'rgb(255, 0, 0)' }}>
+                      {errors.costo.message}
+                    </label>
+                    <img src={AlertIcon} alt="Icono de alerta"/>
+                  </div>
                 )}
 
-                {dirtyFields.costo && !errors.costo && (
-                    <div className="form-register-course-content-data-field-error">
-                      <img src={CheckIcon} alt="Icono de alerta"/>
-                    </div>
+                {!errors.costo && costo && (
+                  <div className="form-register-course-content-data-field-error">
+                    <img src={CheckIcon} alt="Icono de check"/>
+                  </div>
                 )}
               </div>
             </div>
@@ -287,33 +349,31 @@ export const FormRegisterCourse = () => {
               <label htmlFor="requisitos">Requisitos</label>
               <div className="form-register-course-content-data-field-input">
                 <textarea
-                    id="requisitos"
-                    placeholder="Ingrese los requisitos para unirse al curso"
-                    {...register("requisitos", {
-                      maxLength: {
-                        value: 400,
-                        message:
-                            "Los requisitos no deben tener mas de 400 caracteres",
-                      },
-
-                    })}
-                    className={`${errors.requisitos ? 'error-input' : ''} ${dirtyFields.requisitos && !errors.requisitos ? 'success-input' : ''}`}
-                    maxLength={400}
+                  id="requisitos"
+                  value={requisitos}
+                  placeholder="Ingrese los requisitos para unirse al curso"
+                  {...register("requisitos", {
+                    maxLength: {
+                      value: 400,
+                      message: "Los requisitos no deben tener más de 400 caracteres",
+                    },
+                  })}
+                    onChange={handleRequisitosChange}
+                    className={`${errors.requisitos ? 'error-input' : ''} ${!errors.requisitos && requisitos ? 'success-input' : ''}`}
                 />
-
                 {errors.requisitos && (
-                    <div className="form-register-course-content-data-field-error">
-                      <label htmlFor="error">
-                        {JSON.stringify(errors.requisitos.message).replace(
-                            /^"|"$/g,
-                            ""
-                        )}
-                      </label>
-                      <img src={AlertIcon} alt="Icono de check"/>
-                    </div>
+                  <div className="form-register-course-content-data-field-error">
+                    <label htmlFor="error">
+                      {JSON.stringify(errors.requisitos.message).replace(
+                        /^"|"$/g,
+                        ""
+                      )}
+                    </label>
+                    {/* Icono de alerta */}
+                    <img src={AlertIcon} alt="Icono de alerta"/>
+                  </div>
                 )}
-
-                {dirtyFields.requisitos && !errors.requisitos && (
+                {!errors.requisitos && requisitos && (
                     <div className="form-register-course-content-data-field-error">
                       <img src={CheckIcon} alt="Icono de alerta"/>
                     </div>
@@ -326,6 +386,7 @@ export const FormRegisterCourse = () => {
               <div className="form-register-course-content-data-field-input">
                 <textarea
                     id="descripcion"
+                    value={descripcion}
                     placeholder="Describa lo que se aprendera una ves terminado el curso"
                     {...register("descripcion", {
                       required: {
@@ -338,8 +399,8 @@ export const FormRegisterCourse = () => {
                             "La descripcion no deben tener mas de 400 caracteres",
                       },
                     })}
-                    maxLength={400}
-                    className={`${errors.descripcion ? 'error-input' : ''} ${dirtyFields.descripcion && !errors.descripcion ? 'success-input' : ''}`}
+                    onChange={handleDescripcionChange}
+                    className={`${errors.descripcion ? 'error-input' : ''} ${!errors.descripcion && descripcion ? 'success-input' : ''}`}
                 />
                 {errors.descripcion && (
                     <div className="form-register-course-content-data-field-error">
@@ -354,7 +415,7 @@ export const FormRegisterCourse = () => {
                     </div>
                 )}
 
-                {dirtyFields.descripcion && !errors.descripcion && (
+                {!errors.descripcion && descripcion && (
                     <div className="form-register-course-content-data-field-error">
                       <img src={CheckIcon} alt="Icono de alerta"/>
                     </div>
@@ -384,7 +445,10 @@ export const FormRegisterCourse = () => {
               title="Registro exitoso"
               description="Se registro correctamente el curso"
               txtBtnAccept="Acceptar"
-              onAccept={() => setShowModalByClickInAccept(false)}
+              onAccept={() => {
+                setShowModalByClickInAccept(false);
+                navigate('/lista-cursos'); // Usa navigate en lugar de history.push
+              }}
           />
       )}
 

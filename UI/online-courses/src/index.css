@@ -3,10 +3,11 @@ body {
   justify-content: center;
   height: 100vh;
   margin: 0;
+  padding: 0;
 }
 
 .navbar {
-  min-width: 100%;
+  width: 100%;
   background-color: #3281af;
   display: flex;
   justify-content: space-between;
@@ -15,7 +16,7 @@ body {
 }
 
 .logo-container {
-  height: 60px; 
+  height: 70px; 
 }
 
 .logo {
@@ -35,7 +36,7 @@ body {
   color: rgb(36, 35, 103);
   background-color: white;
   padding: 5px 20px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
   display: flex;
   border: 1px solid rgb(157, 26, 169);
@@ -50,26 +51,29 @@ body {
 
 .form-register-course {
   display: flex;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  width: 100%;
-  height: 100%;
+  gap: 20px;
+  max-width: 600 px;
+  height: 100vh;
 }
 
 .form-register-course-content {
   border: 2px solid rgb(31, 141, 216);
-  padding: 30px 80px;
+  padding: 50px 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  width: 60%;
+  height: 60vh;
+  width: 600px;
 }
 
 .form-register-course-content-title {
   font-size: 20px;
   font-weight: bold;
+  margin-bottom: 20px;
   color: rgb(36, 35, 103);
   font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
 }
@@ -84,7 +88,9 @@ body {
 
 .form-register-course-content-data-field {
   display: flex;
-  gap: 30px;
+  position: relative;
+  margin-bottom: 10px;
+  gap: 10px;
   width: 100%;
   
   label {
@@ -95,6 +101,8 @@ body {
     width: 30%;
     text-align: start;
   }
+
+  
 }
 
 .form-register-course-content-data-field-input {
@@ -104,29 +112,51 @@ body {
   width: 100%;
   height: 35px;
   
-  input,
-  textarea,
-  select {
-    
+  input {
     background-color: rgb(222, 240, 253);
     border: 2px solid rgb(98, 181, 202);
-    border-radius: 5px;
-    width: 100%;
-    
+    border-radius: 8px;
+    height: 15px;
+    width: 400px;
     padding: 5px;
-    padding-right: 38px;
+    padding-right: 20px;
+  }
+
+  textarea {
+    background-color: rgb(222, 240, 253);
+    border: 2px solid rgb(98, 181, 202);
+    border-radius: 8px;
+    min-height: 30px; /* ajusta según necesites */
+    width: 400px;
+    padding: 5px;
+    padding-right: 20px;
+    resize: none;
+    overflow: auto;
+    outline: none;
+  }
+
+  select{
+    background-color: rgb(222, 240, 253);
+    border: 2px solid rgb(98, 181, 202);
+    border-radius: 8px;
+    width: 425px;
+    padding: 5px;
+    padding-right: 20px;
   }
 
   input::placeholder,
   textarea::placeholder,
   select::placeholder {
+    font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
     color: rgb(98, 182, 203);
+    font-size: 12px;
   }
+
+  
 
   select {
-    color: rgb(98, 182, 203);
+    color:rgb(36, 35, 103);
   }
-
   option {
     color: rgb(98, 182, 203);
   }
@@ -134,39 +164,38 @@ body {
 
 .form-register-course-content-data-field-error {
   display: flex;
-  align-items: center;
   padding-top: 5px;
   gap: 10px;
+  position: absolute;
+  transform: translateY(-100%);
 
   label {
     display: contents;
+    width: 12px;
     color: rgb(255, 0, 0);
   }
 
   img {
     position: absolute;
     width: 18px;
-    left: calc(100% + 20px);
-    top: 4px;
+    margin-left: 385px;
+    bottom: -22px;
   }
 
-  img.margin-left-additional {
-    left: calc(100% - 28px);
-  }
 }
 
 .form-register-course-footer {
   display: flex;
   justify-content: space-evenly;
-  width: 100%;
+  width: 25%;
 
   button {
     font-weight: bold;
-    border-radius: 10px;
+    border-radius: 20px;
     border-color: rgb(50, 129, 175);
     background-color: rgb(50, 129, 175);
     color: white;
-    padding: 5px 30px;
+    padding: 10px 30px;
     cursor: pointer;
     border: none;
 
@@ -232,14 +261,14 @@ body {
 }
 
 .form-register-instructor {
-  margin-top: 2%;
+  margin-top: 20px;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  width: 100%;
-  height: 100vh;
+  gap: 20px;
+  max-width: 600 px;
+
 }
 
 .form-register-instructor-content {
@@ -249,11 +278,12 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  width: 500px;
+  width: 600px;
 }
 
 .form-register-instructor-content-title {
   font-size: 20px;
+  padding: 20px;
   font-weight: bold;
   color: rgb(36, 35, 103);
   font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
@@ -397,9 +427,11 @@ body {
 
 .error-message {
   position: relative;
-  width: 40%;
+  width: 50%;
+  left: 30px;
   font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
-  font-size: 12px; 
+  font-weight: bold;
+  font-size: 13px; 
   color: red; 
   margin-bottom: -17px;
   
@@ -424,13 +456,17 @@ textarea.error-input{
 
 .list-courses {
   display: flex;
-  width: 100%;
-  margin: 20px;
+  flex-direction: column;
+  width: 95%; /* Establece el ancho del contenedor al 90% del viewport */
+  max-width: 100%; /* El ancho máximo del contenedor es igual al 100% del viewport */
+  margin: 0 auto; /* Centra el contenedor */
 }
 
 .list-courses-content {
-  display: grid;
-  gap: 20px;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .list-courses-content-title {
@@ -438,22 +474,21 @@ textarea.error-input{
   font-size: 30px;
   font-weight: bold;
   font-family: "Lucida Sans", sans-serif;
+  margin-top: 50px;
 }
 
 .list-courses-content-card {
   border-radius: 5px;
   border: none;
   background-color: rgb(241, 240, 240);
+  width: 18%;
   padding: 10px;
-  gap: 20px;
-  flex: 1;
-  height: 100%;
+  margin-top: 20px;
   display: flex;
-  flex-wrap: wrap;
+  gap: 50px;
 }
 
 .list-courses-content-card-wrapper {
-  width: calc(16.666% - 20px);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -461,6 +496,7 @@ textarea.error-input{
   border-radius: 10px;
   padding: 10px;
   box-sizing: border-box;
+  width: 100%;
 
   img {
     border-radius: 10px;
@@ -481,20 +517,12 @@ textarea.error-input{
   font-weight: bold;
 }
 
-.list-no-courses-message-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;/* Ocupar toda la altura */
-  width: 100vw;
-}
-
 .list-no-courses-message{
   color: rgb(36, 35, 103);
   font-size: 20px;
   font-weight: bold;
-  width: 100%;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Hace que el cuerpo ocupe toda la altura de la ventana */
 }
-
-

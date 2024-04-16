@@ -1,11 +1,14 @@
 import React, { useState} from "react";
-import { Link } from "react-router-dom";
 import logo from "../assets/LogoForm.png";
 import { Modal } from "../components/Modal";
 import AlertIcon from "../assets/icons/AlertIcon.svg";
 import CheckIcon from "../assets/icons/CheckIcon.svg";
+import { useNavigate } from 'react-router-dom';
+
 
 export const FormRegisterInstructor = () => {
+
+  const navigate = useNavigate();
 
   const [showModalSuccess, setShowModalSuccess] = useState(false);
   const [showModalCancel, setShowModalCancel] = useState(false);
@@ -32,13 +35,13 @@ export const FormRegisterInstructor = () => {
   const [errorCorreo, setErrorCorreo] = useState("");
   const [inputClassCorreo, setInputClassCorreo] = useState("");
 
-  const [contrasenia, setContrasenia] = useState("");
-  const [errorContrasenia, setErrorContrasenia] = useState("");
-  const [inputClassContrasenia, setInputClassContrasenia] = useState("");
+  const [contraseña, setContraseña] = useState("");
+  const [errorContraseña, setErrorContraseña] = useState("");
+  const [inputClassContraseña, setInputClassContraseña] = useState("");
 
-  const [confirmacionContrasenia, setConfirmacionContrasenia] = useState("");
-  const [errorConfirmacionContrasenia, setErrorConfirmacion] = useState("");
-  const [inputClassConfirmacionContrasenia, setInputClassConfirmacion] = useState("");
+  const [confirmacionContraseña, setConfirmacionContraseña] = useState("");
+  const [errorConfirmacionContraseña, setErrorConfirmacion] = useState("");
+  const [inputClassConfirmacionContraseña, setInputClassConfirmacion] = useState("");
   
 
   const handleNombreCompletoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -127,7 +130,7 @@ export const FormRegisterInstructor = () => {
     }
   }
 
-  const handleCorreoKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleCorreoKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === " ") { // Verificar si la tecla presionada es un espacio
       event.preventDefault(); // Prevenir la acción por defecto (no permitir escribir el espacio)
     }
@@ -148,52 +151,52 @@ export const FormRegisterInstructor = () => {
     }
   }
 
-  const handleContraseniaKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleContraseñaKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === " ") { // Verificar si la tecla presionada es un espacio
       event.preventDefault(); // Prevenir la acción por defecto (no permitir escribir el espacio)
     }
   };
 
-  const handleContraseniaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleContraseñaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^a-zA-Z0-9\s]/g, ''); // Eliminar caracteres no alfabéticos
-    setContrasenia(value);
+    setContraseña(value);
   };
 
-  const validateContrasenia = () => {
-    if (contrasenia.length === 0) {
-      setErrorContrasenia("Por favor, ingrese una contraseña");
-      setInputClassContrasenia("error-input");
-    }else if (contrasenia.length > 20){
-      setErrorContrasenia("La contraseña es demasiado larga");
-      setInputClassContrasenia("error-input");
-    }else if(contrasenia.length  < 9){
-      setErrorContrasenia("La contraseña es muy corta");
-      setInputClassContrasenia("error-input");
+  const validateContraseña = () => {
+    if (contraseña.length === 0) {
+      setErrorContraseña("Por favor, ingrese una contraseña");
+      setInputClassContraseña("error-input");
+    }else if (contraseña.length > 20){
+      setErrorContraseña("La contraseña es demasiado larga");
+      setInputClassContraseña("error-input");
+    }else if(contraseña.length  < 9){
+      setErrorContraseña("La contraseña es muy corta");
+      setInputClassContraseña("error-input");
     }else{
-      setErrorContrasenia("");
-      setInputClassContrasenia("success-input");
+      setErrorContraseña("");
+      setInputClassContraseña("success-input");
     }
   };
   
-  const handleConfirmacionContraseniaKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleConfirmacionContraseñaKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === " ") { // Verificar si la tecla presionada es un espacio
       event.preventDefault(); // Prevenir la acción por defecto (no permitir escribir el espacio)
     }
   };
 
-  const handleConfirmacionContraseniaChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleConfirmacionContraseñaChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value.replace(/[^a-zA-Z0-9\s]/g, ''); // Eliminar caracteres no alfabéticos
-    setConfirmacionContrasenia(value);
+    setConfirmacionContraseña(value);
   };
 
-  const verifyContrasenia = () => {
-    if (contrasenia.length === 0) {
+  const verifyContraseña = () => {
+    if (contraseña.length === 0) {
       setErrorConfirmacion("Porfavor, confirme su contraseña ");
       setInputClassConfirmacion("error-input");
-    }else if (contrasenia.length < 8) {
+    }else if (contraseña.length < 8) {
       setErrorConfirmacion("La contraseña es muy corta ");
       setInputClassConfirmacion("error-input");
-    }else if (contrasenia === confirmacionContrasenia) {
+    }else if (contraseña === confirmacionContraseña) {
       setErrorConfirmacion("");
       setInputClassConfirmacion("success-input");
     }else{
@@ -219,28 +222,36 @@ export const FormRegisterInstructor = () => {
     validateFechaNacimiento();
     validateTipoUsuario();
     validateCorreo();
-    validateContrasenia();
-    verifyContrasenia();
+    validateContraseña();
+    verifyContraseña();
   
     // Comprobar si todos los campos son válidos
     const allFieldsValid =
+        nombreCompleto !== "" &&
+        nombreUsuario !== "" &&
+        fechaNacimiento !== "" &&
+        tipoUsuario !== "" &&
+        correo !== "" &&
+        contraseña !== "" &&
+        confirmacionContraseña !== "" &&
         errorNombreCompleto === "" &&
         errorNombreUsuario === "" &&
         errorFechaNacimiento === "" &&
         errorTipoUsuario === "" &&
         errorCorreo === "" &&
-        errorContrasenia === "" &&
-        errorConfirmacionContrasenia === "";
+        errorContraseña === "" &&
+        errorConfirmacionContraseña === "";
   
     if (allFieldsValid) {
+        setShowModalSuccess(true);
         // Crear objeto con los datos del usuario
-        const userData = {
+        /*const userData = {
             nombreCompleto,
             nombreUsuario,
             fechaNacimiento,
             tipoUsuario,
             correo,
-            contrasenia
+            contraseña
         };
   
         // Configurar opciones de la solicitud fetch
@@ -264,36 +275,25 @@ export const FormRegisterInstructor = () => {
         })
         .catch(error => {
             console.error("Error al enviar los datos al servidor:", error);
-            setShowModalErrorInesperado(true);
-        });
-    }else{}
+            //setShowModalErrorInesperado(true);
+            setShowModalSuccess(true);
+        });*/
+    }else{
+      setShowModalErrorInesperado(true);
+    }
   };
   const handleCancelButtonClick = () => {
     setShowModalCancel(true);
   }
 
-  const handleAcceptCancel = () => {
-    setShowModalCancel(false);
-    setTimeout(() => {
-      window.location.href = '/';
-    }, 100);
-  };
-
-  const handleAcceptSuccess = () => {
-    setShowModalSuccess(false);
-    setTimeout(() => {
-      window.location.href = '/';
-    }, 100);
-  };
-
-  const resetFormFields = () => {
+  /*const resetFormFields = () => {
     ['NombreCompleto', 'NombreUsuario', 'FechaNacimiento', 'TipoUsuario', 'Correo', 'Contraseña', 'ConfirmacionContraseña'].forEach(field => {
       const setStateFunc = eval(`set${field}`);
       setStateFunc('');
       const setErrorFunc = eval(`setError${field}`);
       setErrorFunc && setErrorFunc('');
     });
-  };
+  };*/
 
   return (
     <>
@@ -388,7 +388,7 @@ export const FormRegisterInstructor = () => {
                 placeholder="Ingrese su correo"
                 value={correo}
                 onChange={handleCorreoChange}
-                onKeyDown={handleCorreoKeyDown}  // onKeyPress={handleCorreoKeyPress}
+                onKeyPress={handleCorreoKeyPress}
                 className={`${inputClassCorreo}`}
                 autoComplete="off" 
               />
@@ -397,37 +397,37 @@ export const FormRegisterInstructor = () => {
               </div>
             </div>
 
-            {errorContrasenia && <div className="error-message">{errorContrasenia}</div>}
+            {errorContraseña && <div className="error-message">{errorContraseña}</div>}
             <div className="form-register-instructor-content-data-field">
               <label htmlFor="">Contraseña*</label>
               <input
                 type="password"
                 id="contraseña"
                 placeholder="Ingrese su contraseña"
-                value={contrasenia}
-                onChange={handleContraseniaChange}
-                onKeyDown={handleContraseniaKeyDown}
-                className={`${contrasenia} ${inputClassContrasenia}`}
+                value={contraseña}
+                onChange={handleContraseñaChange}
+                onKeyPress={handleContraseñaKeyPress}
+                className={`${contraseña} ${inputClassContraseña}`}
               />
               <div className="icon-container">
-                {determineIconVisibility(inputClassContrasenia)}
+                {determineIconVisibility(inputClassContraseña)}
               </div>
             </div>
 
-            {errorConfirmacionContrasenia && <div className="error-message">{errorConfirmacionContrasenia}</div>}
+            {errorConfirmacionContraseña && <div className="error-message">{errorConfirmacionContraseña}</div>}
             <div className="form-register-instructor-content-data-field">
               <label htmlFor="">Confirmar contraseña*</label>
               <input
                 type="password"
                 id="confirmacionContraseña"
                 placeholder="Confirme su contraseña"
-                value={confirmacionContrasenia}
-                onChange={handleConfirmacionContraseniaChange}
-                onKeyDown={handleConfirmacionContraseniaKeyDown}
-                className={`${confirmacionContrasenia} ${inputClassConfirmacionContrasenia}`}
+                value={confirmacionContraseña}
+                onChange={handleConfirmacionContraseñaChange}
+                onKeyPress={handleConfirmacionContraseñaKeyPress}
+                className={`${confirmacionContraseña} ${inputClassConfirmacionContraseña}`}
               />
               <div className="icon-container">
-                {determineIconVisibility(inputClassConfirmacionContrasenia)}
+                {determineIconVisibility(inputClassConfirmacionContraseña)}
               </div>
             </div>
           </div>
@@ -444,22 +444,25 @@ export const FormRegisterInstructor = () => {
         </section>
       </form>
       {showModalSuccess && (
-      <Modal
-        title="Registro exitoso"
-        description="Se registró correctamente al instructor."
-        txtBtnAccept="Aceptar"
-        onAccept={handleAcceptSuccess}
-      />
+        <Modal
+          title="Registro exitoso"
+          description="Se registro correctamente el curso"
+          txtBtnAccept="Acceptar"
+          onAccept={() => {
+            setShowModalSuccess(false);
+            navigate('/lista-cursos'); // Usa navigate en lugar de history.push
+          }}
+        />
       )}
       
       {showModalErrorInesperado && (
       <Modal
         title="Error al registrar"
-        description="Error inesperado, no se pudo guardar el registro."
+        description="No se pudo guardar el registro, llene todos los campos"
         txtBtnAccept="Aceptar"
         onAccept={() => {
           setShowModalErrorInesperado(false)
-          resetFormFields();
+          //resetFormFields();
         }}
       />
       )}
@@ -470,12 +473,13 @@ export const FormRegisterInstructor = () => {
           txtBtnAccept="Sí, seguro"
           txtBtnCancel="No, continuar"
           showBtnCancel={true}
-          onAccept={handleAcceptCancel}
+          onAccept={() => {
+            setShowModalCancel(false);
+            navigate('/lista-cursos'); // Usa navigate en lugar de history.push
+          }}
           onCancel={() => setShowModalCancel(false)}
         />
       )}
-      {showModalCancel && <Link to="/" style={{ display: 'none' }} />}
-      {showModalSuccess && <Link to="/" style={{ display: 'none' }} />}
     </>
   );
 }; 
