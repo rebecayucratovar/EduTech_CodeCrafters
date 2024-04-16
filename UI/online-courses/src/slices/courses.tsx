@@ -6,7 +6,7 @@ export interface Course {
   instructor: string;
   categoria: string;
   file: any;
-  costo: number;
+  costo: string;
   requisitos: string;
   descripcion: string;
 }
