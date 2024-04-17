@@ -109,7 +109,7 @@ export const FormRegisterCourse = () => {
 
                   {dirtyFields.titulo && !errors.titulo && (
                       <div className="form-register-course-content-data-field-error">
-                        <img src={CheckIcon} alt="Icono de check"/>
+                        <img className="check-icon" src={CheckIcon} alt="Icono de check"/>
                       </div>
                   )}
                 </div>
@@ -149,7 +149,7 @@ export const FormRegisterCourse = () => {
 
                   {dirtyFields.instructor && !errors.instructor && (
                       <div className="form-register-course-content-data-field-error">
-                        <img src={CheckIcon} alt="Icono de check"/>
+                        <img className="check-icon" src={CheckIcon} alt="Icono de check"/>
                       </div>
                   )}
                 </div>
@@ -201,7 +201,7 @@ export const FormRegisterCourse = () => {
 
                   {dirtyFields.categoria && !errors.categoria && (
                       <div className="form-register-course-content-data-field-error">
-                        <img src={CheckIcon} alt="Icono de check"/>
+                        <img className="check-icon" src={CheckIcon} alt="Icono de check"/>
                       </div>
                   )}
                 </div>
@@ -236,7 +236,7 @@ export const FormRegisterCourse = () => {
 
                   {dirtyFields.file && !errors.file && (
                       <div className="form-register-course-content-data-field-error">
-                        <img src={CheckIcon} alt="Icono de check"/>
+                        <img className="check-icon" src={CheckIcon} alt="Icono de check"/>
                       </div>
                   )}
                 </div>
@@ -277,7 +277,7 @@ export const FormRegisterCourse = () => {
 
                   {dirtyFields.costo && !errors.costo && (
                       <div className="form-register-course-content-data-field-error">
-                        <img src={CheckIcon} alt="Icono de alerta"/>
+                        <img className="check-icon" src={CheckIcon} alt="Icono de alerta"/>
                       </div>
                   )}
                 </div>
@@ -309,7 +309,7 @@ export const FormRegisterCourse = () => {
                               ""
                           )}
                         </label>
-                        <img src={AlertIcon} alt="Icono de check"/>
+                        <img className="check-icon" src={AlertIcon} alt="Icono de check"/>
                       </div>
                   )}
 
@@ -356,7 +356,7 @@ export const FormRegisterCourse = () => {
 
                   {dirtyFields.descripcion && !errors.descripcion && (
                       <div className="form-register-course-content-data-field-error">
-                        <img src={CheckIcon} alt="Icono de alerta"/>
+                        <img className="check-icon" src={CheckIcon} alt="Icono de alerta"/>
                       </div>
                   )}
                 </div>
