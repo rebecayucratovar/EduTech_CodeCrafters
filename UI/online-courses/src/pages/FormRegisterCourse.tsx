@@ -384,8 +384,13 @@ export const FormRegisterCourse = () => {
                 title="Registro exitoso"
                 description="Se registro correctamente el curso"
                 txtBtnAccept="Acceptar"
-                onAccept={() => setShowModalByClickInAccept(false)}
-            />
+                onAccept={() => 
+                  {
+                    reset();
+                    setShowModalByClickInAccept(false)
+                    navigate('/lista-cursos'); 
+                  }}
+            />  
         )}
 
 
