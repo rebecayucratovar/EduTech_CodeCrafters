@@ -168,7 +168,7 @@ body {
   padding-top: 5px;
   gap: 10px;
   position: absolute;
-  bottom: -32px;
+  bottom: -38px;
   transform: translateY(-100%);
   .img {
     bottom: 0;
@@ -182,12 +182,12 @@ body {
   img {
     position: absolute;
     width: 18px;
-    margin-left: 385px;
-    bottom: 38px;
+    margin-left: 382px;
+    bottom: 25px;
   }
 
   img.check-icon {
-    bottom: 40px; /* Ajusta este valor según sea necesario */
+    bottom: 44px; /* Ajusta este valor según sea necesario */
   }
 
 }
@@ -270,6 +270,8 @@ body {
 
 .form-register-instructor {
   margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -358,9 +360,8 @@ body {
     width: calc(100% - -5px); /* Restamos el ancho del ícono y del margen */
   }
   
-  .input-container {
-    position: relative;
-    display: inline-block;
+  .input-container select {
+    width: 400px; /* Establecemos el ancho del select */
   }
 
   .icon-container {
@@ -383,9 +384,8 @@ body {
     font-weight: 500;
   }
 
-  .input-container {
-    position: relative;
-    width: 420px; /* Ancho deseado para todos los campos de entrada */
+  .input-container select {
+    width: 420px; /* Establecemos el ancho del select */
   }
 
   select {
