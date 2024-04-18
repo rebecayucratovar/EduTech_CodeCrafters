@@ -20,13 +20,13 @@ public class Curso {
   //@Enumerated(EnumType.STRING)
   private Categoria categoria;
 
-  private String imagen;
+  private byte[] imagen;
 
   private int costo;
 
   private String requisitos;
 
-  private String loQueAprenderas;
+  private String aprenderas;
 
   @ManyToOne
   @JoinColumn(name = "usuario_id")
