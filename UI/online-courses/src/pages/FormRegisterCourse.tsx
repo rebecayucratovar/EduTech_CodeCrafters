@@ -53,7 +53,7 @@ export const FormRegisterCourse = () => {
     reset();
 
     try {
-      const response = await fetch('http://localhost:3039/v1/cursos/saveCurso', {
+      const response = await fetch('http://localhost:3039/v1/cursos/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
