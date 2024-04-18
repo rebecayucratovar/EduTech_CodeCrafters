@@ -3,6 +3,7 @@ package org.edutech.servicioss.controlador;
 import lombok.RequiredArgsConstructor;
 import org.edutech.servicioss.infraestructura.tablas.Curso;
 import org.edutech.servicioss.servicios.CursoServicio;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,27 +25,42 @@ public class CursoControlador {
 
   @PostMapping
   public ResponseEntity<Curso> saveCurso(@RequestParam("file")MultipartFile imagen, Curso curso,RedirectAttributes attributes){
+
+    System.out.println("Datos recibidos del frontend:");
+    System.out.println("Titulo: " + curso.getTitulo());
+    System.out.println("Instructor: " + curso.getInstructor());
+    System.out.println("Categoria: " + curso.getCategoria());
+    System.out.println("Costo: " + curso.getCosto());
+    System.out.println("Requisitos: " + curso.getRequisito());
+    System.out.println("Descripcion: " + curso.getDescripcion());
+
     if(curso.getTitulo()==null|| curso.getTitulo().trim().isEmpty()){
       return ResponseEntity.badRequest().build();
     }
 
     if(!imagen.isEmpty()){
-      Path directorioImagenes = Paths.get("servicios//src//main//resources//static/imagen");
+      Path directorioImagenes = Paths.get("servicios/src/main/resources/static/imagen");
       String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
 
       try {
         byte[] bytesImg = imagen.getBytes();
-        Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+        Path rutaCompleta = Paths.get(rutaAbsoluta + "/" + imagen.getOriginalFilename());
         Files.write(rutaCompleta, bytesImg);
 
         curso.setImagen(imagen.getOriginalFilename());
 
       }catch (IOException e){
         e.printStackTrace();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null); // Devolver un error 500
+
       }
     }
-
-    return ResponseEntity.ok(cursoServicio.save(curso));
+    try {
+      return ResponseEntity.ok(cursoServicio.save(curso));
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null); // Devolver un error 500
+    }
 
   }
 
