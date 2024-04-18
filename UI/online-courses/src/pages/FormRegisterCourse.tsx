@@ -1,4 +1,3 @@
-import { useState } from "react";
 import logo from "../assets/LogoForm.png";
 import { Modal } from "../components/Modal";
 import { useDispatch } from "react-redux";
@@ -8,6 +7,8 @@ import CheckIcon from "../assets/icons/CheckIcon.svg";
 import { addCourse } from "../slices/courses";
 // import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import {useState} from "react";
+
 export const FormRegisterCourse = () => {
 
   const navigate = useNavigate();
@@ -24,8 +25,8 @@ export const FormRegisterCourse = () => {
       titulo: "",
       descripcion: "",
       categoria: "default",
-      file: null,
-      costo: 0,
+      file: "",
+      costo: "",
       requisitos: "",
       aprenderas: "",
     },
@@ -50,15 +51,20 @@ export const FormRegisterCourse = () => {
     ) {
       return;
     }
-    reset();
 
+    const formData = new FormData();
+
+    formData.append("titulo", data.titulo);
+    formData.append("descripcion", data.descripcion);
+    formData.append("categoria", data.categoria);
+    formData.append("costo", data.costo);
+    formData.append("requisitos", data.requisitos);
+    formData.append("aprenderas", data.aprenderas);
+    formData.append("file", data.file[0]);
     try {
       const response = await fetch('http://localhost:3039/v1/cursos/save', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+        body: formData,
       });
 
       if (!response.ok) {
@@ -68,7 +74,7 @@ export const FormRegisterCourse = () => {
       const responseData = await response.json();
       dispatch(addCourse(responseData)); // Aquí asumo que el backend devuelve el curso creado
       setShowModalByClickInAccept(true);
-    } catch (error) {
+    } catch(error) {
       console.error('Error:', error);
       // Manejar el error, podrías mostrar un mensaje de error al usuario
     }
@@ -395,13 +401,13 @@ export const FormRegisterCourse = () => {
                 title="Registro exitoso"
                 description="Se registro correctamente el curso"
                 txtBtnAccept="Acceptar"
-                onAccept={() => 
-                  {
-                    reset();
-                    setShowModalByClickInAccept(false)
-                    navigate('/lista-cursos'); 
-                  }}
-            />  
+                onAccept={() =>
+                {
+                  reset();
+                  setShowModalByClickInAccept(false)
+                  navigate('/lista-cursos');
+                }}
+            />
         )}
 
 
