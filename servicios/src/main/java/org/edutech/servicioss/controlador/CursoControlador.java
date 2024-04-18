@@ -24,7 +24,7 @@ public class CursoControlador {
 
   @PostMapping
   public ResponseEntity<Curso> saveCurso(@RequestParam("file")MultipartFile imagen, Curso curso,RedirectAttributes attributes){
-    if(curso.getNombre()==null|| curso.getNombre().trim().isEmpty()){
+    if(curso.getTitulo()==null|| curso.getTitulo().trim().isEmpty()){
       return ResponseEntity.badRequest().build();
     }
 
