@@ -26,7 +26,7 @@ jobs:
       - name: Desplegar aplicación
         run: |
           # Configurar la base de datos en el entorno de producción
-          export DATABASE_URL='tu_url_de_base_de_datos'
+          export DATABASE_URL='mysql://uphlrap4jho52sxm:H6Ract7DiaK09oeYjmOI@bpbrow7nzuvik4o584fx-mysql.services.clever-cloud.com:3306/bpbrow7nzuvik4o584fx'
 
           # Ejecutar la aplicación Spring Boot
            java -jar target/servicioss-0.0.1-SNAPSHOT.jar
