@@ -28,7 +28,7 @@ public class CursoValidador {
       throw new IllegalArgumentException("Categoría no puede estar vacio");
     }
 
-    if (curso.getRequisito() != null && !curso.getRequisito().trim().isEmpty() && curso.getRequisito().length() > 400) {
+    if (curso.getRequisitos() != null && !curso.getRequisitos().trim().isEmpty() && curso.getRequisitos().length() > 400) {
       throw new IllegalArgumentException("El requisito debe tener 400 caracteres máximo");
     }
   }

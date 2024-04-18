@@ -16,8 +16,7 @@ public class Curso {
 
   private String titulo;
 
-  private String instructor;
-
+  private String descripcion;
   //@Enumerated(EnumType.STRING)
   private Categoria categoria;
 
@@ -25,9 +24,9 @@ public class Curso {
 
   private int costo;
 
-  private String requisito;
+  private String requisitos;
 
-  private String descripcion;
+  private String loQueAprenderas;
 
   @ManyToOne
   @JoinColumn(name = "usuario_id")

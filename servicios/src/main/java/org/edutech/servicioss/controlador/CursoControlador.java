@@ -8,8 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,28 +21,20 @@ import java.util.UUID;
 public class CursoControlador {
   private final CursoServicio cursoServicio;
 
-  @PostMapping
+  @PostMapping("/saveCurso")
   public ResponseEntity<Curso> saveCurso(@RequestParam("file")MultipartFile imagen, Curso curso,RedirectAttributes attributes){
-
-    System.out.println("Datos recibidos del frontend:");
-    System.out.println("Titulo: " + curso.getTitulo());
-    System.out.println("Instructor: " + curso.getInstructor());
-    System.out.println("Categoria: " + curso.getCategoria());
-    System.out.println("Costo: " + curso.getCosto());
-    System.out.println("Requisitos: " + curso.getRequisito());
-    System.out.println("Descripcion: " + curso.getDescripcion());
 
     if(curso.getTitulo()==null|| curso.getTitulo().trim().isEmpty()){
       return ResponseEntity.badRequest().build();
     }
 
     if(!imagen.isEmpty()){
-      Path directorioImagenes = Paths.get("servicios/src/main/resources/static/imagen");
+      Path directorioImagenes = Paths.get("src/main/resources/static/imagen");
       String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
 
       try {
         byte[] bytesImg = imagen.getBytes();
-        Path rutaCompleta = Paths.get(rutaAbsoluta + "/" + imagen.getOriginalFilename());
+        Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
         Files.write(rutaCompleta, bytesImg);
 
         curso.setImagen(imagen.getOriginalFilename());

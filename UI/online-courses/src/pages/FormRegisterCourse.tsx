@@ -22,12 +22,12 @@ export const FormRegisterCourse = () => {
   } = useForm({
     defaultValues: {
       titulo: "",
-      instructor: "",
+      descripcion: "",
       categoria: "default",
       file: null,
-      costo: "",
+      costo: 0,
       requisitos: "",
-      descripcion: "",
+      loQueAprenderas: "",
     },
   });
 
@@ -41,19 +41,19 @@ export const FormRegisterCourse = () => {
   const onSubmit = handleSubmit(async (data) => {
     if (
         errors.titulo ||
-        errors.instructor ||
+        errors.descripcion ||
         errors.categoria ||
         errors.file ||
         errors.costo ||
         errors.requisitos ||
-        errors.descripcion
+        errors.loQueAprenderas
     ) {
       return;
     }
     reset();
 
     try {
-      const response = await fetch('http://localhost:3039/v1/cursos', {
+      const response = await fetch('http://localhost:3039/v1/cursos/saveCurso', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -127,13 +127,13 @@ export const FormRegisterCourse = () => {
               </div>
 
               <div className="form-register-course-content-data-field">
-                <label htmlFor="instructor">Descripción*</label>
+                <label htmlFor="descripcion">Descripción*</label>
                 <div className="form-register-course-content-data-field-input">
                   <input
                       type="text"
-                      id="instructor"
+                      id="descripcion"
                       placeholder="Ingrese la descripción"
-                      {...register("instructor", {
+                      {...register("descripcion", {
                         required: {
                           value: true,
                           message: "La descripción es requerida",
@@ -143,13 +143,13 @@ export const FormRegisterCourse = () => {
                           message: "La descripción no deben tener mas de 400 caracteres",
                         },
                       })}
-                      className={`${errors.instructor ? 'error-input' : ''} ${dirtyFields.instructor && !errors.instructor ? 'success-input' : ''}`}
+                      className={`${errors.descripcion ? 'error-input' : ''} ${dirtyFields.descripcion && !errors.descripcion ? 'success-input' : ''}`}
                   />
 
-                  {errors.instructor && (
+                  {errors.descripcion && (
                       <div className="form-register-course-content-data-field-error">
                         <label htmlFor="error">
-                          {JSON.stringify(errors.instructor.message).replace(
+                          {JSON.stringify(errors.descripcion.message).replace(
                               /^"|"$/g,
                               ""
                           )}
@@ -158,7 +158,7 @@ export const FormRegisterCourse = () => {
                       </div>
                   )}
 
-                  {dirtyFields.instructor && !errors.instructor && (
+                  {dirtyFields.descripcion && !errors.descripcion && (
                       <div className="form-register-course-content-data-field-error">
                         <img src={CheckIcon} alt="Icono de check"/>
                       </div>
@@ -183,17 +183,17 @@ export const FormRegisterCourse = () => {
 
                   >
                     <option value="default">Selecciona una categoría</option>
-                    <option value="Desarollo web">Desarrollo web</option>
-                    <option value="Desarrollo de aplicaciones móviles">
+                    <option value="DESARROLLO_WEB">Desarrollo web</option>
+                    <option value="DESARROLLO_DE_APLICACIONES_MOVILES">
                       Desarrollo de aplicaciones móviles
                     </option>
-                    <option value="Ciencias de datos y análisis de datos">
+                    <option value="CIENCIA_DE_DATOS_Y_ANALISIS_DE_DATOS">
                       Ciencias de datos y análisis de datos
                     </option>
-                    <option value="Desarrollo de software">
+                    <option value="DESARROLLO_DE_SOFTWARE">
                       Desarrollo de software
                     </option>
-                    <option value="Seguridad informática y ciberseguridad">
+                    <option value="SEGURIDAD_INFORMATICA_Y_CIBERSEGURIDAD">
                       Seguridad informática y ciberseguridad
                     </option>
                   </select>
@@ -333,12 +333,12 @@ export const FormRegisterCourse = () => {
               </div>
 
               <div className="form-register-course-content-data-field">
-                <label htmlFor="descripcion">Lo que aprenderás*</label>
+                <label htmlFor="loqueaprenderas">Lo que aprenderás*</label>
                 <div className="form-register-course-content-data-field-input">
                 <textarea
-                    id="descripcion"
+                    id="loQueAprenderas"
                     placeholder="Describa lo que se aprendera una ves terminado el curso"
-                    {...register("descripcion", {
+                    {...register("loQueAprenderas", {
                       required: {
                         value: true,
                         message: "Por favor, rellene el campo.",
@@ -350,12 +350,12 @@ export const FormRegisterCourse = () => {
                       },
                     })}
                     maxLength={400}
-                    className={`${errors.descripcion ? 'error-input' : ''} ${dirtyFields.descripcion && !errors.descripcion ? 'success-input' : ''}`}
+                    className={`${errors.loQueAprenderas ? 'error-input' : ''} ${dirtyFields.loQueAprenderas && !errors.loQueAprenderas ? 'success-input' : ''}`}
                 />
-                  {errors.descripcion && (
+                  {errors.loQueAprenderas && (
                       <div className="form-register-course-content-data-field-error">
                         <label htmlFor="error">
-                          {JSON.stringify(errors.descripcion.message).replace(
+                          {JSON.stringify(errors.loQueAprenderas.message).replace(
                               /^"|"$/g,
                               ""
                           )}
@@ -365,7 +365,7 @@ export const FormRegisterCourse = () => {
                       </div>
                   )}
 
-                  {dirtyFields.descripcion && !errors.descripcion && (
+                  {dirtyFields.loQueAprenderas && !errors.loQueAprenderas && (
                       <div className="form-register-course-content-data-field-error">
                         <img src={CheckIcon} alt="Icono de alerta"/>
                       </div>
