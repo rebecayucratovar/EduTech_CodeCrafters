@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom';
 export const FormRegisterCourse = () => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
 
   const {
     register,
@@ -29,19 +31,14 @@ export const FormRegisterCourse = () => {
     },
   });
 
-  const [showModalByClickInRegister, setShowModalByClickInAccept] =
-      useState(false);
-
-  const [showModalByClickInCancel, setShowModalByClickInCancel] =
-      useState(false);
+  const [showModalByClickInRegister, setShowModalByClickInAccept] = useState(false);
+  const [showModalByClickInCancel, setShowModalByClickInCancel] = useState(false);
 
   const handleCancel = () => {
     setShowModalByClickInCancel(true);
   };
 
-  const dispatch = useDispatch();
-
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     if (
         errors.titulo ||
         errors.instructor ||
@@ -54,13 +51,27 @@ export const FormRegisterCourse = () => {
       return;
     }
     reset();
-    const modifiedData = {
-      ...data,
-      id: Math.random().toString(36).substring(7),
-      file: null,
-    };
-    dispatch(addCourse(modifiedData));
-    setShowModalByClickInAccept(true);
+
+    try {
+      const response = await fetch('http://localhost:3039/v1/cursos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al registrar el curso');
+      }
+
+      const responseData = await response.json();
+      dispatch(addCourse(responseData)); // Aquí asumo que el backend devuelve el curso creado
+      setShowModalByClickInAccept(true);
+    } catch (error) {
+      console.error('Error:', error);
+      // Manejar el error, podrías mostrar un mensaje de error al usuario
+    }
   });
 
   return (

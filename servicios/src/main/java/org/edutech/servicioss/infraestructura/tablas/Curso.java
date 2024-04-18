@@ -14,10 +14,12 @@ public class Curso {
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  private String nombre;
+  private String titulo;
+
+  private String instructor;
 
   //@Enumerated(EnumType.STRING)
-  private String categoria;
+  private Categoria categoria;
 
   private String imagen;
 
@@ -25,7 +27,7 @@ public class Curso {
 
   private String requisito;
 
-  private String aprendizaje;
+  private String descripcion;
 
   @ManyToOne
   @JoinColumn(name = "usuario_id")
