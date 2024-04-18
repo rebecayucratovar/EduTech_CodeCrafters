@@ -27,7 +27,7 @@ export const FormRegisterCourse = () => {
       file: null,
       costo: 0,
       requisitos: "",
-      loQueAprenderas: "",
+      aprenderas: "",
     },
   });
 
@@ -46,14 +46,14 @@ export const FormRegisterCourse = () => {
         errors.file ||
         errors.costo ||
         errors.requisitos ||
-        errors.loQueAprenderas
+        errors.aprenderas
     ) {
       return;
     }
     reset();
 
     try {
-      const response = await fetch('http://localhost:3039/v1/cursos/', {
+      const response = await fetch('http://localhost:3039/v1/cursos/save', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -333,12 +333,12 @@ export const FormRegisterCourse = () => {
               </div>
 
               <div className="form-register-course-content-data-field">
-                <label htmlFor="loqueaprenderas">Lo que aprenderás*</label>
+                <label htmlFor="aprenderas">Lo que aprenderás*</label>
                 <div className="form-register-course-content-data-field-input">
                 <textarea
-                    id="loQueAprenderas"
+                    id="aprenderas"
                     placeholder="Describa lo que se aprendera una ves terminado el curso"
-                    {...register("loQueAprenderas", {
+                    {...register("aprenderas", {
                       required: {
                         value: true,
                         message: "Por favor, rellene el campo.",
@@ -350,12 +350,12 @@ export const FormRegisterCourse = () => {
                       },
                     })}
                     maxLength={400}
-                    className={`${errors.loQueAprenderas ? 'error-input' : ''} ${dirtyFields.loQueAprenderas && !errors.loQueAprenderas ? 'success-input' : ''}`}
+                    className={`${errors.aprenderas ? 'error-input' : ''} ${dirtyFields.aprenderas && !errors.aprenderas ? 'success-input' : ''}`}
                 />
-                  {errors.loQueAprenderas && (
+                  {errors.aprenderas && (
                       <div className="form-register-course-content-data-field-error">
                         <label htmlFor="error">
-                          {JSON.stringify(errors.loQueAprenderas.message).replace(
+                          {JSON.stringify(errors.aprenderas.message).replace(
                               /^"|"$/g,
                               ""
                           )}
@@ -365,7 +365,7 @@ export const FormRegisterCourse = () => {
                       </div>
                   )}
 
-                  {dirtyFields.loQueAprenderas && !errors.loQueAprenderas && (
+                  {dirtyFields.aprenderas && !errors.aprenderas && (
                       <div className="form-register-course-content-data-field-error">
                         <img src={CheckIcon} alt="Icono de alerta"/>
                       </div>
