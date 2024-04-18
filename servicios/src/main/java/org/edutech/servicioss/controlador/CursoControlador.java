@@ -21,8 +21,8 @@ import java.util.UUID;
 public class CursoControlador {
   private final CursoServicio cursoServicio;
 
-  @PostMapping("/saveCurso")
-  public ResponseEntity<Curso> saveCurso(@RequestParam("file")MultipartFile imagen, Curso curso,RedirectAttributes attributes){
+  @PostMapping("save")
+  public ResponseEntity<Curso> saveCurso(@RequestParam("file")MultipartFile imagen, Curso curso){
 
     if(curso.getTitulo()==null|| curso.getTitulo().trim().isEmpty()){
       return ResponseEntity.badRequest().build();
