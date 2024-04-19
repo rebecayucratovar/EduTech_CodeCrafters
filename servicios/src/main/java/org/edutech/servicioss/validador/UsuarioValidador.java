@@ -51,25 +51,36 @@ public class UsuarioValidador {
         throw new IllegalArgumentException("Correo electronico existente, ingrese otro");
       }
     }
-    private void validarContrasenia(Usuario user){
-      if (campoVacio(user.getContrasenia())) {
-        throw new IllegalArgumentException("El correo electrónico no cumple con el formato válido");
-      }
-      if (!user.getContrasenia().matches("[a-zA-Z0-9!@#$%^&*()-_=+\\\\|`~]+") ||
-              user.getContrasenia().length() < 8 || user.getContrasenia().length() > 20) {
-        throw new IllegalArgumentException("La contraseña debe tener entre 8 y 20 caracteres y solo contener caracteres válidos");
-      }
+  private void validarContrasenia(Usuario user){
+    if (campoVacio(user.getContrasenia())) {
+      throw new IllegalArgumentException("La contraseña no cumple con el formato válido");
     }
-    private void validarConfirmacionContrasenia(Usuario user){
-        if (campoVacio(user.getConfirmarContrasenia()))  {
-          throw new IllegalArgumentException("Por favor, confirme su contraseña");
-        }
-      // Validar si la Contraseña coincide con la Confirmación de Contraseña
-      if (!user.getContrasenia().equals(user.getConfirmarContrasenia())) {
-        throw new IllegalArgumentException("La contraseña ingresada no es la misma");
-      }
+
+    String contrasenia = user.getContrasenia();
+
+    // Validar longitud de la contraseña
+    if (contrasenia.length() < 8 || contrasenia.length() > 20) {
+      throw new IllegalArgumentException("La contraseña debe tener entre 8 y 20 caracteres");
     }
-    private void validarTipoUsuario(Usuario user){
+
+    // Validar caracteres válidos (opcionalmente, puedes agregar más caracteres especiales según sea necesario)
+    if (!contrasenia.matches("[a-zA-Z0-9!@#$%^&*()_=+\\\\|`~-]+")) {
+      throw new IllegalArgumentException("La contraseña debe contener solo caracteres válidos: letras, números y los siguientes caracteres especiales: !@#$%^&*()_=+\\\\|`~-");
+    }
+  }
+
+  private void validarConfirmacionContrasenia(Usuario user){
+    if (campoVacio(user.getConfirmarContrasenia()))  {
+      throw new IllegalArgumentException("Por favor, confirme su contraseña");
+    }
+
+    // Validar si la Contraseña coincide con la Confirmación de Contraseña
+    if (!user.getContrasenia().equals(user.getConfirmarContrasenia())) {
+      throw new IllegalArgumentException("La contraseña ingresada no es la misma");
+    }
+  }
+
+  private void validarTipoUsuario(Usuario user){
       if (user.getTipoUsuario() == null) {
         throw new IllegalArgumentException("Seleccione un tipo de usuario");
       }

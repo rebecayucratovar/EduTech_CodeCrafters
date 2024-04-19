@@ -17,7 +17,7 @@ public class Curso {
   private String titulo;
 
   private String descripcion;
-  //@Enumerated(EnumType.STRING)
+
   private Categoria categoria;
 
   private byte[] imagen;

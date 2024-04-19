@@ -2,6 +2,7 @@ package org.edutech.servicioss.controlador;
 
 import lombok.RequiredArgsConstructor;
 import org.edutech.servicioss.infraestructura.tablas.Curso;
+import org.edutech.servicioss.infraestructura.tablas.Usuario;
 import org.edutech.servicioss.servicios.CursoServicio;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +14,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
-
-
-
 
 @RestController
 @RequestMapping("/cursos")
@@ -51,13 +49,18 @@ public class CursoControlador {
 
   }
 
-  @GetMapping
+  @GetMapping("/lista")
   public ResponseEntity<List<Curso>> getAllCursos(){
-    var cursoResult = cursoServicio.getAll();
-    if (cursoResult.isEmpty()){
+    List<Curso> cursos = cursoServicio.getAll();
+    if (cursos.isEmpty()){
       return ResponseEntity.noContent().build();
     }
-    return ResponseEntity.ok(cursoResult);
+    for (Curso curso : cursos) {
+      Usuario instructor = curso.getUsuario();
+      //instructor.getNombreCompleto(); // Asegúrate de que se carguen los datos del instructor desde la base de datos
+    }
+
+    return ResponseEntity.ok(cursos);
   }
 
   @PostMapping("/{cursoId}")
