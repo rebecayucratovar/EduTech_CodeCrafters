@@ -119,6 +119,7 @@ body {
     width: 400px;
     padding: 5px;
     padding-right: 20px;
+    outline: none;
   }
 
   textarea {
@@ -143,6 +144,7 @@ body {
     width: 425px;
     padding: 5px;
     padding-right: 20px;
+    outline: none;
   }
 
   input::placeholder,
@@ -168,11 +170,9 @@ body {
   padding-top: 5px;
   gap: 10px;
   position: absolute;
-  bottom: -38px;
+  bottom: -34px;
   transform: translateY(-100%);
-  .img {
-    bottom: 0;
-  }
+  
   label {
     display: contents;
     width: 12px;
@@ -187,9 +187,8 @@ body {
   }
 
   img.check-icon {
-    bottom: 44px; /* Ajusta este valor según sea necesario */
+    bottom: 42px; /* Ajusta este valor según sea necesario */
   }
-
 }
 
 .form-register-course-footer {
@@ -269,21 +268,18 @@ body {
 }
 
 .form-register-instructor {
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  max-width: 600px;
-
+  max-width: 100%;
+  height: 100vh;
 }
 
 .form-register-instructor-content {
   border: 2px solid rgb(31, 141, 216);
-  padding: 30px 80px;
+  padding: 50px 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -303,120 +299,102 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
   width: 100%;
 }
 
 .form-register-instructor-content-data-field {
   display: flex;
   position: relative;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   gap: 10px;
   width: 100%;
-
+  
   label {
     font-size: 14px;
     color: rgb(12, 98, 145);
     font-weight: bold;
     font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
-    width: 30%;
+    width: 40%;
     text-align: start;
   }
+}
 
-  input,
-  textarea,
-  select {
+.form-register-instructor-content-data-field-input {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  height: 35px;
+  
+  input {
     background-color: rgb(222, 240, 253);
     border: 2px solid rgb(98, 181, 202);
     border-radius: 8px;
+    height: 15px;
     width: 400px;
     padding: 5px;
-    margin: 0; 
-    padding-right: 30px; /* Añadimos espacio para el icono a la derecha */
+    padding-right: 20px;
+    outline: none; 
+  }
+
+  select{
+    background-color: rgb(222, 240, 253);
+    border: 2px solid rgb(98, 181, 202);
+    border-radius: 8px;
+    width: 425px;
+    padding: 5px;
+    padding-right: 20px;
+    outline: none; 
   }
 
   input::placeholder,
   textarea::placeholder,
-  input[type="date"]::placeholder,
   select::placeholder {
     font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
     color: rgb(98, 182, 203);
     font-size: 12px;
   }
-  
+
+  select {
+    color:rgb(36, 35, 103);
+  }
   option {
     color: rgb(98, 182, 203);
   }
+}
+
+.form-register-instructor-content-data-field-error {
+  display: flex;
+  padding-top: 5px;
+  gap: 10px;
+  position: absolute;
+  bottom: -34px;
+  transform: translateY(-100%);
   
-  input {
-    color: rgb(12, 98, 145);
+  label {
+    display: contents;
+    width: 12px;
+    color: rgb(255, 0, 0);
   }
 
-  }
-
-  select {
-    color: rgb(12, 98, 145);
-    margin-left: -5px;
-    width: calc(100% - -5px); /* Restamos el ancho del ícono y del margen */
-  }
-  
-  .input-container select {
-    width: 400px; /* Establecemos el ancho del select */
-  }
-
-  .icon-container {
+  img {
     position: absolute;
-    top: 70%;
-    right: 17px;
-    transform: translateY(-70%);
+    width: 18px;
+    margin-left: 382px;
+    bottom: 25px;
   }
 
-  .icon {
-    width: 15px; /* Tamaño del icono ajustado */
-  }
-  
-  option {
-    color: rgb(98, 182, 203);
-  }
-  
-  input {
-    color: rgb(12, 98, 145);
-    font-weight: 500;
+  img.check-icon {
+    bottom: 42px; /* Ajusta este valor según sea necesario */
   }
 
-  .input-container select {
-    width: 420px; /* Establecemos el ancho del select */
-  }
-
-  select {
-    color: rgb(12, 98, 145);
-    margin-left: -5px;
-    width: calc(100% - -5px); /* Restamos el ancho del ícono y del margen */
-  }
-  
-  .input-container {
-    position: relative;
-    display: inline-block;
-  }
-
-  .icon-container {
-    position: absolute;
-    top: 70%;
-    right: 17px;
-    transform: translateY(-70%);
-  }
-
-  .icon {
-    width: 15px; /* Tamaño del icono ajustado */
-  }
+}
 
 .form-register-instructor-footer {
-  padding-top: 15px;
-  padding-bottom: 15px;
   display: flex;
-  justify-content: center;
-  gap: 100px;
-  width: 100%;
+  justify-content: space-evenly;
+  width: 70%;
 
   button {
     font-weight: bold;
@@ -426,36 +404,12 @@ body {
     color: white;
     padding: 10px 30px;
     cursor: pointer;
-    margin-right: 100px;
+    border: none;
+
+    &:hover {
+      background-color: rgb(98, 182, 203);
+    }
   }
-}
-
-.error-message {
-  position: relative;
-  width: 50%;
-  left: 30px;
-  font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
-  font-weight: bold;
-  font-size: 13px; 
-  color: red; 
-  top: 70px;
-}
-
-input:focus,
-select:focus {
-  outline: none;
-}
-
-input.success-input,
-select.success-input,
-textarea.success-input {
-  border-color: green; /* Cambia el color del borde a verde cuando no hay error */
-}
-
-input.error-input,
-select.error-input,
-textarea.error-input{
-  border-color: red; /* Cambia el color del borde a rojo cuando hay error */
 }
 
 .list-courses {

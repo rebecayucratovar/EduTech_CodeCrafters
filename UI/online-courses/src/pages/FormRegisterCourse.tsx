@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import AlertIcon from "../assets/icons/AlertIcon.svg";
 import CheckIcon from "../assets/icons/CheckIcon.svg";
 import { addCourse } from "../slices/courses";
-// import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 export const FormRegisterCourse = () => {
 
@@ -309,13 +308,13 @@ export const FormRegisterCourse = () => {
                               ""
                           )}
                         </label>
-                        <img className="check-icon" src={AlertIcon} alt="Icono de check"/>
+                        <img src={AlertIcon} alt="Icono de check"/>
                       </div>
                   )}
 
                   {dirtyFields.requisitos && !errors.requisitos && (
                       <div className="form-register-course-content-data-field-error">
-                        <img src={CheckIcon} alt="Icono de alerta"/>
+                        <img className="check-icon" src={CheckIcon} alt="Icono de alerta"/>
                       </div>
                   )}
                 </div>
@@ -350,13 +349,13 @@ export const FormRegisterCourse = () => {
                           )}
 
                         </label>
-                        <img src={AlertIcon} alt="Icono de check" />
+                        <img src={AlertIcon} alt="Icono de alerta" />
                       </div>
                   )}
 
                   {dirtyFields.descripcion && !errors.descripcion && (
                       <div className="form-register-course-content-data-field-error">
-                        <img className="check-icon" src={CheckIcon} alt="Icono de alerta"/>
+                        <img className="check-icon" src={CheckIcon} alt="Icono de check"/>
                       </div>
                   )}
                 </div>
