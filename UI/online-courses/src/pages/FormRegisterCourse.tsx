@@ -6,14 +6,12 @@ import AlertIcon from "../assets/icons/AlertIcon.svg";
 import CheckIcon from "../assets/icons/CheckIcon.svg";
 import { addCourse } from "../slices/courses";
 // import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
-import {useState} from "react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export const FormRegisterCourse = () => {
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
 
   const {
     register,
@@ -32,8 +30,10 @@ export const FormRegisterCourse = () => {
     },
   });
 
-  const [showModalByClickInRegister, setShowModalByClickInAccept] = useState(false);
-  const [showModalByClickInCancel, setShowModalByClickInCancel] = useState(false);
+  const [showModalByClickInRegister, setShowModalByClickInAccept] =
+    useState(false);
+  const [showModalByClickInCancel, setShowModalByClickInCancel] =
+    useState(false);
 
   const handleCancel = () => {
     setShowModalByClickInCancel(true);
@@ -41,13 +41,13 @@ export const FormRegisterCourse = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     if (
-        errors.titulo ||
-        errors.descripcion ||
-        errors.categoria ||
-        errors.file ||
-        errors.costo ||
-        errors.requisitos ||
-        errors.aprenderas
+      errors.titulo ||
+      errors.descripcion ||
+      errors.categoria ||
+      errors.file ||
+      errors.costo ||
+      errors.requisitos ||
+      errors.aprenderas
     ) {
       return;
     }
@@ -62,370 +62,415 @@ export const FormRegisterCourse = () => {
     formData.append("aprenderas", data.aprenderas);
     formData.append("file", data.file[0]);
     try {
-      const response = await fetch('http://localhost:3039/v1/cursos/save', {
-        method: 'POST',
+      const response = await fetch("http://localhost:3039/v1/cursos/save", {
+        method: "POST",
         body: formData,
       });
 
       if (!response.ok) {
-        throw new Error('Error al registrar el curso');
+        throw new Error("Error al registrar el curso");
       }
 
       const responseData = await response.json();
       dispatch(addCourse(responseData)); // Aquí asumo que el backend devuelve el curso creado
       setShowModalByClickInAccept(true);
-    } catch(error) {
-      console.error('Error:', error);
+    } catch (error) {
+      console.error("Error:", error);
       // Manejar el error, podrías mostrar un mensaje de error al usuario
     }
   });
 
   return (
-      <>
-        <form className="form-register-course" onSubmit={onSubmit}>
-          <section className="form-register-course-logo">
-            <img src={logo} alt="logo" />
-          </section>
+    <>
+      <form className="form-register-course" onSubmit={onSubmit}>
+        <section className="form-register-course-logo">
+          <img src={logo} alt="logo" />
+        </section>
 
-          <section className="form-register-course-content">
-            <label className="form-register-course-content-title">
-              Registro de nuevo curso
-            </label>
+        <section className="form-register-course-content">
+          <label className="form-register-course-content-title">
+            Registro de nuevo curso
+          </label>
 
-            <div className="form-register-course-content-data">
-              <div className="form-register-course-content-data-field">
-                <label htmlFor="titulo">Titulo*</label>
-                <div className="form-register-course-content-data-field-input">
-                  <input
-                      type="text"
-                      id="titulo"
-                      placeholder="Ingrese el titulo del curso"
-                      {...register("titulo", {
-                        required: {
-                          value: true,
-                          message: "El título es requerido",
-                        },
-                        maxLength: {
-                          value: 40,
-                          message: "El titulo no deben tener mas de 40 caracteres",
-                        },
-                      })}
-                      className={`${errors.titulo ? 'error-input' : ''} ${dirtyFields.titulo && !errors.titulo ? 'success-input' : ''}`}
-                  />
-                  {errors.titulo && (
-                      <div className="form-register-course-content-data-field-error">
-                        <label htmlFor="error">
-                          {JSON.stringify(errors.titulo.message).replace(
-                              /^"|"$/g,
-                              ""
-                          )}
-                        </label>
-                        <img src={AlertIcon} alt="Icono de alerta"/>
-                      </div>
-                  )}
-
-                  {dirtyFields.titulo && !errors.titulo && (
-                      <div className="form-register-course-content-data-field-error">
-                        <img className="check-icon" src={CheckIcon} alt="Icono de check"/>
-                      </div>
-                  )}
-                </div>
-              </div>
-
-              <div className="form-register-course-content-data-field">
-                <label htmlFor="descripcion">Descripción*</label>
-                <div className="form-register-course-content-data-field-input">
-                  <input
-                      type="text"
-                      id="descripcion"
-                      placeholder="Ingrese la descripción"
-                      {...register("descripcion", {
-                        required: {
-                          value: true,
-                          message: "La descripción es requerida",
-                        },
-                        maxLength: {
-                          value: 400,
-                          message: "La descripción no deben tener mas de 400 caracteres",
-                        },
-                      })}
-                      className={`${errors.descripcion ? 'error-input' : ''} ${dirtyFields.descripcion && !errors.descripcion ? 'success-input' : ''}`}
-                  />
-
-                  {errors.descripcion && (
-                      <div className="form-register-course-content-data-field-error">
-                        <label htmlFor="error">
-                          {JSON.stringify(errors.descripcion.message).replace(
-                              /^"|"$/g,
-                              ""
-                          )}
-                        </label>
-                        <img src={AlertIcon} alt="Icono de alerta"/>
-                      </div>
-                  )}
-
-                  {dirtyFields.descripcion && !errors.descripcion && (
-                      <div className="form-register-course-content-data-field-error">
-                        <img className="check-icon" src={CheckIcon} alt="Icono de check"/>
-                      </div>
-                  )}
-                </div>
-              </div>
-
-              <div className="form-register-course-content-data-field">
-                <label htmlFor="categoria">Categoria*</label>
-                <div className="form-register-course-content-data-field-input">
-                  <select
-                      id="categoria"
-                      {...register("categoria", {
-                        required: {
-                          value: true,
-                          message: "La categoria es requerida",
-                        },
-                        validate: (value) =>
-                            value !== "default" || "La categoría es requerida",
-                      })}
-                      className={`${errors.categoria ? 'error-input' : ''} ${dirtyFields.categoria && !errors.categoria ? 'success-input' : ''}`}
-
-                  >
-                    <option value="default">Selecciona una categoría</option>
-                    <option value="DESARROLLO_WEB">Desarrollo web</option>
-                    <option value="DESARROLLO_DE_APLICACIONES_MOVILES">
-                      Desarrollo de aplicaciones móviles
-                    </option>
-                    <option value="CIENCIA_DE_DATOS_Y_ANALISIS_DE_DATOS">
-                      Ciencias de datos y análisis de datos
-                    </option>
-                    <option value="DESARROLLO_DE_SOFTWARE">
-                      Desarrollo de software
-                    </option>
-                    <option value="SEGURIDAD_INFORMATICA_Y_CIBERSEGURIDAD">
-                      Seguridad informática y ciberseguridad
-                    </option>
-                  </select>
-
-                  {errors.categoria && (
-                      <div className="form-register-course-content-data-field-error">
-                        <label htmlFor="error">
-                          {JSON.stringify(errors.categoria.message).replace(
-                              /^"|"$/g,
-                              ""
-                          )}
-                        </label>
-                        <img src={AlertIcon} alt="Icono de alerta"/>
-                      </div>
-                  )}
-
-                  {dirtyFields.categoria && !errors.categoria && (
-                      <div className="form-register-course-content-data-field-error">
-                        <img className="check-icon" src={CheckIcon} alt="Icono de check"/>
-                      </div>
-                  )}
-                </div>
-              </div>
-
-              <div className="form-register-course-content-data-field">
-                <label htmlFor="file">Imagen*</label>
-                <div className="form-register-course-content-data-field-input">
-                  <input
-                      type="file"
-                      {...register("file", {
-                        required: {
-                          value: true,
-                          message: "Seleccione algun archivo",
-                        },
-                      })}
-                      className={`${errors.file ? 'error-input' : ''} ${dirtyFields.file && !errors.file ? 'success-input' : ''}`}
-
-                  />
-
-                  {errors.file && (
-                      <div className="form-register-course-content-data-field-error">
-                        <label htmlFor="error">
-                          {JSON.stringify(errors.file.message).replace(
-                              /^"|"$/g,
-                              ""
-                          )}
-                        </label>
-                        <img src={AlertIcon} alt="Icono de alerta"/>
-                      </div>
-                  )}
-
-                  {dirtyFields.file && !errors.file && (
-                      <div className="form-register-course-content-data-field-error">
-                        <img className="check-icon" src={CheckIcon} alt="Icono de check"/>
-                      </div>
-                  )}
-                </div>
-              </div>
-
-              <div className="form-register-course-content-data-field">
-                <label htmlFor="costo">Costo (Bs)*</label>
-                <div className="form-register-course-content-data-field-input">
-                  <input
-                      type="number"
-                      id="costo"
-                      placeholder="Ingrese el monto en bolivianos"
-                      {...register("costo", {
-                        required: {
-                          value: true,
-                          message: "Ingrese el costo del curso.",
-                        },
-                        pattern: {
-                          value: /^\d{1,5}(?:\.\d{1,2})?$/,
-                          message:
-                              "El costo debe ser un valor numérico de hasta cinco dígitos",
-                        },
-                      })}
-                      className={`${errors.costo ? 'error-input' : ''} ${dirtyFields.costo && !errors.costo ? 'success-input' : ''}`}
-                  />
-
-                  {errors.costo && (
-                      <div className="form-register-course-content-data-field-error">
-                        <label htmlFor="error">
-                          {JSON.stringify(errors.costo.message).replace(
-                              /^"|"$/g,
-                              ""
-                          )}
-                        </label>
-                        <img src={AlertIcon} alt="Icono de check"/>
-                      </div>
-                  )}
-
-                  {dirtyFields.costo && !errors.costo && (
-                      <div className="form-register-course-content-data-field-error">
-                        <img className="check-icon" src={CheckIcon} alt="Icono de alerta"/>
-                      </div>
-                  )}
-                </div>
-              </div>
-
-              <div className="form-register-course-content-data-field">
-                <label htmlFor="requisitos">Requisitos</label>
-                <div className="form-register-course-content-data-field-input">
-                <textarea
-                    id="requisitos"
-                    placeholder="Ingrese los requisitos para unirse al curso"
-                    {...register("requisitos", {
-                      maxLength: {
-                        value: 400,
-                        message:
-                            "Los requisitos no deben tener mas de 400 caracteres",
-                      },
-
-                    })}
-                    className={`${errors.requisitos ? 'error-input' : ''} ${dirtyFields.requisitos && !errors.requisitos ? 'success-input' : ''}`}
-                    maxLength={400}
+          <div className="form-register-course-content-data">
+            <div className="form-register-course-content-data-field">
+              <label htmlFor="titulo">Titulo*</label>
+              <div className="form-register-course-content-data-field-input">
+                <input
+                  type="text"
+                  id="titulo"
+                  placeholder="Ingrese el titulo del curso"
+                  {...register("titulo", {
+                    required: {
+                      value: true,
+                      message: "El título es requerido",
+                    },
+                    maxLength: {
+                      value: 40,
+                      message: "El titulo no deben tener mas de 40 caracteres",
+                    },
+                  })}
+                  className={`${errors.titulo ? "error-input" : ""} ${
+                    dirtyFields.titulo && !errors.titulo ? "success-input" : ""
+                  }`}
                 />
+                {errors.titulo && (
+                  <div className="form-register-course-content-data-field-error">
+                    <label htmlFor="error">
+                      {JSON.stringify(errors.titulo.message).replace(
+                        /^"|"$/g,
+                        ""
+                      )}
+                    </label>
+                    <img src={AlertIcon} alt="Icono de alerta" />
+                  </div>
+                )}
 
-                  {errors.requisitos && (
-                      <div className="form-register-course-content-data-field-error">
-                        <label htmlFor="error">
-                          {JSON.stringify(errors.requisitos.message).replace(
-                              /^"|"$/g,
-                              ""
-                          )}
-                        </label>
-                        <img className="check-icon" src={AlertIcon} alt="Icono de check"/>
-                      </div>
-                  )}
-
-                  {dirtyFields.requisitos && !errors.requisitos && (
-                      <div className="form-register-course-content-data-field-error">
-                        <img src={CheckIcon} alt="Icono de alerta"/>
-                      </div>
-                  )}
-                </div>
-              </div>
-
-              <div className="form-register-course-content-data-field">
-                <label htmlFor="aprenderas">Lo que aprenderás*</label>
-                <div className="form-register-course-content-data-field-input">
-                <textarea
-                    id="aprenderas"
-                    placeholder="Describa lo que se aprendera una ves terminado el curso"
-                    {...register("aprenderas", {
-                      required: {
-                        value: true,
-                        message: "Por favor, rellene el campo.",
-                      },
-                      maxLength: {
-                        value: 400,
-                        message:
-                            "La descripcion no deben tener mas de 400 caracteres",
-                      },
-                    })}
-                    maxLength={400}
-                    className={`${errors.aprenderas ? 'error-input' : ''} ${dirtyFields.aprenderas && !errors.aprenderas ? 'success-input' : ''}`}
-                />
-                  {errors.aprenderas && (
-                      <div className="form-register-course-content-data-field-error">
-                        <label htmlFor="error">
-                          {JSON.stringify(errors.aprenderas.message).replace(
-                              /^"|"$/g,
-                              ""
-                          )}
-
-                        </label>
-                        <img src={AlertIcon} alt="Icono de check" />
-                      </div>
-                  )}
-
-                  {dirtyFields.aprenderas && !errors.aprenderas && (
-                      <div className="form-register-course-content-data-field-error">
-                        <img className="check-icon" src={CheckIcon} alt="Icono de alerta"/>
-                      </div>
-                  )}
-                </div>
+                {dirtyFields.titulo && !errors.titulo && (
+                  <div className="form-register-course-content-data-field-error">
+                    <img
+                      className="check-icon"
+                      src={CheckIcon}
+                      alt="Icono de check"
+                    />
+                  </div>
+                )}
               </div>
             </div>
-          </section>
 
-          <section className="form-register-course-footer">
-            <button
-                type="button"
-                className="form-register-course-footer-button"
-                onClick={handleCancel}
-            >
-              Cancelar
-            </button>
+            <div className="form-register-course-content-data-field">
+              <label htmlFor="descripcion">Descripción*</label>
+              <div className="form-register-course-content-data-field-input">
+                <input
+                  type="text"
+                  id="descripcion"
+                  placeholder="Ingrese la descripción"
+                  {...register("descripcion", {
+                    required: {
+                      value: true,
+                      message: "La descripción es requerida",
+                    },
+                    maxLength: {
+                      value: 400,
+                      message:
+                        "La descripción no deben tener mas de 400 caracteres",
+                    },
+                  })}
+                  className={`${errors.descripcion ? "error-input" : ""} ${
+                    dirtyFields.descripcion && !errors.descripcion
+                      ? "success-input"
+                      : ""
+                  }`}
+                />
 
-            <button type="submit" className="form-register-course-footer-button">
-              Registrar
-            </button>
-          </section>
-        </form>
+                {errors.descripcion && (
+                  <div className="form-register-course-content-data-field-error">
+                    <label htmlFor="error">
+                      {JSON.stringify(errors.descripcion.message).replace(
+                        /^"|"$/g,
+                        ""
+                      )}
+                    </label>
+                    <img src={AlertIcon} alt="Icono de alerta" />
+                  </div>
+                )}
 
-        {showModalByClickInRegister && (
-            <Modal
-                title="Registro exitoso"
-                description="Se registro correctamente el curso"
-                txtBtnAccept="Acceptar"
-                onAccept={() =>
-                {
-                  reset();
-                  setShowModalByClickInAccept(false)
-                  navigate('/lista-cursos');
-                }}
-            />
-        )}
+                {dirtyFields.descripcion && !errors.descripcion && (
+                  <div className="form-register-course-content-data-field-error">
+                    <img
+                      className="check-icon"
+                      src={CheckIcon}
+                      alt="Icono de check"
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
 
+            <div className="form-register-course-content-data-field">
+              <label htmlFor="categoria">Categoria*</label>
+              <div className="form-register-course-content-data-field-input">
+                <select
+                  id="categoria"
+                  {...register("categoria", {
+                    required: {
+                      value: true,
+                      message: "La categoria es requerida",
+                    },
+                    validate: (value) =>
+                      value !== "default" || "La categoría es requerida",
+                  })}
+                  className={`${errors.categoria ? "error-input" : ""} ${
+                    dirtyFields.categoria && !errors.categoria
+                      ? "success-input"
+                      : ""
+                  }`}
+                >
+                  <option value="default">Selecciona una categoría</option>
+                  <option value="DESARROLLO_WEB">Desarrollo web</option>
+                  <option value="DESARROLLO_DE_APLICACIONES_MOVILES">
+                    Desarrollo de aplicaciones móviles
+                  </option>
+                  <option value="CIENCIA_DE_DATOS_Y_ANALISIS_DE_DATOS">
+                    Ciencias de datos y análisis de datos
+                  </option>
+                  <option value="DESARROLLO_DE_SOFTWARE">
+                    Desarrollo de software
+                  </option>
+                  <option value="SEGURIDAD_INFORMATICA_Y_CIBERSEGURIDAD">
+                    Seguridad informática y ciberseguridad
+                  </option>
+                </select>
 
-        {showModalByClickInCancel && (
-            <Modal
-                title="¿Estas seguro?"
-                description="¿Estas seguro de que desea cancelar el registro del curso?"
-                txtBtnAccept="Si, seguro"
-                txtBtnCancel="No, continuar"
-                showBtnCancel={true}
-                onAccept={() => {
-                  reset();
-                  setShowModalByClickInCancel(false);
-                  navigate('/lista-cursos'); // Usa navigate en lugar de history.push
-                }}
-                onCancel={() => setShowModalByClickInCancel(false)}
-            />
-        )}
-      </>
+                {errors.categoria && (
+                  <div className="form-register-course-content-data-field-error">
+                    <label htmlFor="error">
+                      {JSON.stringify(errors.categoria.message).replace(
+                        /^"|"$/g,
+                        ""
+                      )}
+                    </label>
+                    <img src={AlertIcon} alt="Icono de alerta" />
+                  </div>
+                )}
+
+                {dirtyFields.categoria && !errors.categoria && (
+                  <div className="form-register-course-content-data-field-error">
+                    <img
+                      className="check-icon"
+                      src={CheckIcon}
+                      alt="Icono de check"
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="form-register-course-content-data-field">
+              <label htmlFor="file">Imagen*</label>
+              <div className="form-register-course-content-data-field-input field-img">
+                <input
+                  type="file"
+                  {...register("file", {
+                    required: {
+                      value: true,
+                      message: "Seleccione algun archivo",
+                    },
+                  })}
+                  className={`${errors.file ? "error-input" : ""} ${
+                    dirtyFields.file && !errors.file ? "success-input" : ""
+                  }`}
+                />
+
+                {errors.file && (
+                  <div className="form-register-course-content-data-field-error">
+                    <label htmlFor="error">
+                      {JSON.stringify(errors.file.message).replace(
+                        /^"|"$/g,
+                        ""
+                      )}
+                    </label>
+                    <img src={AlertIcon} alt="Icono de alerta" />
+                  </div>
+                )}
+
+                {dirtyFields.file && !errors.file && (
+                  <div className="form-register-course-content-data-field-error">
+                    <img
+                      className="check-icon"
+                      src={CheckIcon}
+                      alt="Icono de check"
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="form-register-course-content-data-field">
+              <label htmlFor="costo">Costo (Bs)*</label>
+              <div className="form-register-course-content-data-field-input">
+                <input
+                  type="number"
+                  id="costo"
+                  placeholder="Ingrese el monto en bolivianos"
+                  {...register("costo", {
+                    required: {
+                      value: true,
+                      message: "Ingrese el costo del curso.",
+                    },
+                    pattern: {
+                      value: /^\d{1,5}(?:\.\d{1,2})?$/,
+                      message:
+                        "El costo debe ser un valor numérico de hasta cinco dígitos",
+                    },
+                  })}
+                  className={`${errors.costo ? "error-input" : ""} ${
+                    dirtyFields.costo && !errors.costo ? "success-input" : ""
+                  }`}
+                />
+
+                {errors.costo && (
+                  <div className="form-register-course-content-data-field-error">
+                    <label htmlFor="error">
+                      {JSON.stringify(errors.costo.message).replace(
+                        /^"|"$/g,
+                        ""
+                      )}
+                    </label>
+                    <img src={AlertIcon} alt="Icono de check" />
+                  </div>
+                )}
+
+                {dirtyFields.costo && !errors.costo && (
+                  <div className="form-register-course-content-data-field-error">
+                    <img
+                      className="check-icon"
+                      src={CheckIcon}
+                      alt="Icono de alerta"
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="form-register-course-content-data-field">
+              <label htmlFor="requisitos">Requisitos</label>
+              <div className="form-register-course-content-data-field-input">
+                <textarea
+                  id="requisitos"
+                  placeholder="Ingrese los requisitos para unirse al curso"
+                  {...register("requisitos", {
+                    maxLength: {
+                      value: 400,
+                      message:
+                        "Los requisitos no deben tener mas de 400 caracteres",
+                    },
+                  })}
+                  className={`${errors.requisitos ? "error-input" : ""} ${
+                    dirtyFields.requisitos && !errors.requisitos
+                      ? "success-input"
+                      : ""
+                  }`}
+                  maxLength={400}
+                />
+
+                {errors.requisitos && (
+                  <div className="form-register-course-content-data-field-error">
+                    <label htmlFor="error">
+                      {JSON.stringify(errors.requisitos.message).replace(
+                        /^"|"$/g,
+                        ""
+                      )}
+                    </label>
+                    <img
+                      className="check-icon"
+                      src={AlertIcon}
+                      alt="Icono de check"
+                    />
+                  </div>
+                )}
+
+                {dirtyFields.requisitos && !errors.requisitos && (
+                  <div className="form-register-course-content-data-field-error">
+                    <img src={CheckIcon} alt="Icono de alerta" />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="form-register-course-content-data-field">
+              <label htmlFor="aprenderas">Lo que aprenderás*</label>
+              <div className="form-register-course-content-data-field-input">
+                <textarea
+                  id="aprenderas"
+                  placeholder="Describa lo que se aprendera una ves terminado el curso"
+                  {...register("aprenderas", {
+                    required: {
+                      value: true,
+                      message: "Por favor, rellene el campo.",
+                    },
+                    maxLength: {
+                      value: 400,
+                      message:
+                        "La descripcion no deben tener mas de 400 caracteres",
+                    },
+                  })}
+                  maxLength={400}
+                  className={`${errors.aprenderas ? "error-input" : ""} ${
+                    dirtyFields.aprenderas && !errors.aprenderas
+                      ? "success-input"
+                      : ""
+                  }`}
+                />
+                {errors.aprenderas && (
+                  <div className="form-register-course-content-data-field-error">
+                    <label htmlFor="error">
+                      {JSON.stringify(errors.aprenderas.message).replace(
+                        /^"|"$/g,
+                        ""
+                      )}
+                    </label>
+                    <img src={AlertIcon} alt="Icono de check" />
+                  </div>
+                )}
+
+                {dirtyFields.aprenderas && !errors.aprenderas && (
+                  <div className="form-register-course-content-data-field-error">
+                    <img
+                      className="check-icon"
+                      src={CheckIcon}
+                      alt="Icono de alerta"
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="form-register-course-footer">
+          <button
+            type="button"
+            className="form-register-course-footer-button"
+            onClick={handleCancel}
+          >
+            Cancelar
+          </button>
+
+          <button type="submit" className="form-register-course-footer-button">
+            Registrar
+          </button>
+        </section>
+      </form>
+
+      {showModalByClickInRegister && (
+        <Modal
+          title="Registro exitoso"
+          description="Se registro correctamente el curso"
+          txtBtnAccept="Acceptar"
+          onAccept={() => {
+            reset();
+            setShowModalByClickInAccept(false);
+            navigate("/lista-cursos");
+          }}
+        />
+      )}
+
+      {showModalByClickInCancel && (
+        <Modal
+          title="¿Estas seguro?"
+          description="¿Estas seguro de que desea cancelar el registro del curso?"
+          txtBtnAccept="Si, seguro"
+          txtBtnCancel="No, continuar"
+          showBtnCancel={true}
+          onAccept={() => {
+            reset();
+            setShowModalByClickInCancel(false);
+            navigate("/lista-cursos"); // Usa navigate en lugar de history.push
+          }}
+          onCancel={() => setShowModalByClickInCancel(false)}
+        />
+      )}
+    </>
   );
 };
