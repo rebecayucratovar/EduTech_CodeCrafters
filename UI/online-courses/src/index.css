@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: rgb(247, 247, 247);
   justify-content: center;
@@ -16,7 +20,7 @@ body {
 }
 
 .logo-container {
-  height: 70px; 
+  height: 70px;
 }
 
 .logo {
@@ -51,28 +55,27 @@ body {
 
 .form-register-course {
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-  max-width: 100%;
-  height: 100vh;
+  gap: 30px;
+  width: 100%;
+  height: 100%;
+  margin-top: 30px;
 }
 
 .form-register-course-content {
   border: 2px solid rgb(31, 141, 216);
-  padding: 50px 80px;
+  padding: 30px 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  width: 600px;
+  width: 60%;
 }
 
 .form-register-course-content-title {
   font-size: 20px;
   font-weight: bold;
-  margin-bottom: 20px;
   color: rgb(36, 35, 103);
   font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
 }
@@ -81,83 +84,66 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
   width: 100%;
 }
 
 .form-register-course-content-data-field {
   display: flex;
-  position: relative;
-  margin-bottom: 15px;
-  gap: 10px;
+  gap: 30px;
   width: 100%;
-  
+
   label {
     font-size: 14px;
     color: rgb(12, 98, 145);
     font-weight: bold;
     font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
-    width: 30%;
+    width: calc(30% - 15px);
     text-align: start;
   }
-
-  
 }
 
 .form-register-course-content-data-field-input {
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 100%;
-  height: 35px;
-  
-  input {
-    background-color: rgb(222, 240, 253);
-    border: 2px solid rgb(98, 181, 202);
-    border-radius: 8px;
-    height: 15px;
-    width: 400px;
-    padding: 5px;
-    padding-right: 20px;
-  }
+  width: calc(70% - 15px);
 
-  textarea {
+  input,
+  textarea,
+  select {
     background-color: rgb(222, 240, 253);
     border: 2px solid rgb(98, 181, 202);
-    border-radius: 8px;
-    min-height: 28px; /* ajusta según necesites */
-    width: 400px;
-    padding: 3px;
-    gap: 20px;
-    padding-right: 20px;
-    margin-top: -12px;
-    resize: none;
-    overflow: auto;
-    outline: none;
-  }
-
-  select{
-    background-color: rgb(222, 240, 253);
-    border: 2px solid rgb(98, 181, 202);
-    border-radius: 8px;
-    width: 425px;
+    border-radius: 5px;
+    width: 100%;
     padding: 5px;
-    padding-right: 20px;
+    padding-right: 38px;
   }
 
   input::placeholder,
   textarea::placeholder,
   select::placeholder {
-    font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
     color: rgb(98, 182, 203);
-    font-size: 12px;
   }
-
-  
 
   select {
-    color:rgb(36, 35, 103);
+    color: rgb(98, 182, 203);
+    margin-left: -1px;
   }
+
+  select + div {
+    img {
+      left: calc(100% - 38px);
+      top: 6px;
+    }
+  }
+
+  textarea + div {
+    img {
+      top: 10px;
+    }
+  }
+
   option {
     color: rgb(98, 182, 203);
   }
@@ -165,51 +151,51 @@ body {
 
 .form-register-course-content-data-field-error {
   display: flex;
+  align-items: center;
   padding-top: 5px;
   gap: 10px;
-  position: absolute;
-  bottom: -38px;
-  transform: translateY(-100%);
-  .img {
-    bottom: 0;
-  }
+
   label {
     display: contents;
-    width: 12px;
-    color: rgb(255, 0, 0);
+    color: #ff0000;
   }
 
   img {
     position: absolute;
     width: 18px;
-    margin-left: 382px;
-    bottom: 25px;
+    left: calc(100% - 26px);
+    top: 5px;
   }
 
-  img.check-icon {
-    bottom: 44px; /* Ajusta este valor según sea necesario */
+  img.margin-left-additional {
+    left: calc(100% - 28px);
   }
-
 }
 
 .form-register-course-footer {
   display: flex;
   justify-content: space-evenly;
-  width: 70%;
+  width: 100%;
 
   button {
     font-weight: bold;
-    border-radius: 20px;
+    border-radius: 10px;
     border-color: rgb(50, 129, 175);
     background-color: rgb(50, 129, 175);
     color: white;
-    padding: 10px 30px;
+    padding: 5px 30px;
     cursor: pointer;
     border: none;
 
     &:hover {
       background-color: rgb(98, 182, 203);
     }
+  }
+}
+
+.field-img {
+  img {
+    top: 8px;
   }
 }
 
@@ -278,7 +264,6 @@ body {
   align-items: center;
   gap: 20px;
   max-width: 600px;
-
 }
 
 .form-register-instructor-content {
@@ -331,7 +316,7 @@ body {
     border-radius: 8px;
     width: 400px;
     padding: 5px;
-    margin: 0; 
+    margin: 0;
     padding-right: 30px; /* Añadimos espacio para el icono a la derecha */
   }
 
@@ -343,72 +328,71 @@ body {
     color: rgb(98, 182, 203);
     font-size: 12px;
   }
-  
+
   option {
     color: rgb(98, 182, 203);
   }
-  
+
   input {
     color: rgb(12, 98, 145);
   }
+}
 
-  }
+select {
+  color: rgb(12, 98, 145);
+  margin-left: -5px;
+  width: calc(100% - -5px); /* Restamos el ancho del ícono y del margen */
+}
 
-  select {
-    color: rgb(12, 98, 145);
-    margin-left: -5px;
-    width: calc(100% - -5px); /* Restamos el ancho del ícono y del margen */
-  }
-  
-  .input-container select {
-    width: 400px; /* Establecemos el ancho del select */
-  }
+.input-container select {
+  width: 400px; /* Establecemos el ancho del select */
+}
 
-  .icon-container {
-    position: absolute;
-    top: 70%;
-    right: 17px;
-    transform: translateY(-70%);
-  }
+.icon-container {
+  position: absolute;
+  top: 70%;
+  right: 17px;
+  transform: translateY(-70%);
+}
 
-  .icon {
-    width: 15px; /* Tamaño del icono ajustado */
-  }
-  
-  option {
-    color: rgb(98, 182, 203);
-  }
-  
-  input {
-    color: rgb(12, 98, 145);
-    font-weight: 500;
-  }
+.icon {
+  width: 15px; /* Tamaño del icono ajustado */
+}
 
-  .input-container select {
-    width: 420px; /* Establecemos el ancho del select */
-  }
+option {
+  color: rgb(98, 182, 203);
+}
 
-  select {
-    color: rgb(12, 98, 145);
-    margin-left: -5px;
-    width: calc(100% - -5px); /* Restamos el ancho del ícono y del margen */
-  }
-  
-  .input-container {
-    position: relative;
-    display: inline-block;
-  }
+input {
+  color: rgb(12, 98, 145);
+  font-weight: 500;
+}
 
-  .icon-container {
-    position: absolute;
-    top: 70%;
-    right: 17px;
-    transform: translateY(-70%);
-  }
+.input-container select {
+  width: 420px; /* Establecemos el ancho del select */
+}
 
-  .icon {
-    width: 15px; /* Tamaño del icono ajustado */
-  }
+select {
+  color: rgb(12, 98, 145);
+  margin-left: -5px;
+  width: calc(100% - -5px); /* Restamos el ancho del ícono y del margen */
+}
+
+.input-container {
+  position: relative;
+  display: inline-block;
+}
+
+.icon-container {
+  position: absolute;
+  top: 70%;
+  right: 17px;
+  transform: translateY(-70%);
+}
+
+.icon {
+  width: 15px; /* Tamaño del icono ajustado */
+}
 
 .form-register-instructor-footer {
   padding-top: 15px;
@@ -436,8 +420,8 @@ body {
   left: 30px;
   font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
   font-weight: bold;
-  font-size: 13px; 
-  color: red; 
+  font-size: 13px;
+  color: red;
   top: 70px;
 }
 
@@ -454,8 +438,8 @@ textarea.success-input {
 
 input.error-input,
 select.error-input,
-textarea.error-input{
-  border-color: red; /* Cambia el color del borde a rojo cuando hay error */
+textarea.error-input {
+  border-color: #ff0000; /* Cambia el color del borde a rojo cuando hay error */
 }
 
 .list-courses {
@@ -521,7 +505,7 @@ textarea.error-input{
   font-weight: bold;
 }
 
-.list-no-courses-message{
+.list-no-courses-message {
   color: rgb(36, 35, 103);
   font-size: 20px;
   font-weight: bold;
