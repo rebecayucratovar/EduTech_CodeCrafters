@@ -121,8 +121,8 @@ body {
   input,
   textarea,
   select {
-    background-color: rgb(222, 240, 253);
-    border: 2px solid rgb(98, 181, 202);
+    background-color: #def0fd;
+    border: 2px solid #62b6cb;
     border-radius: 5px;
     width: 100%;
     padding: 5px;
