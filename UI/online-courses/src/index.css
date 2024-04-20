@@ -486,6 +486,8 @@ textarea.error-input {
 .list-courses-content-card {
   display: flex;
   gap: 50px;
+  max-width: 100%;
+  flex-wrap: wrap;
 }
 
 .list-courses-content-card-wrapper {

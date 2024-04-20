@@ -59,6 +59,7 @@ export const FormRegisterCourse = () => {
         file: data.file[0],
       };
       dispatch(addCourse(course));
+      setShowModalByClickInAccept(true);
     }
   });
 
