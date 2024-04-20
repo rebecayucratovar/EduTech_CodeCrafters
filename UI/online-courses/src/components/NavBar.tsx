@@ -11,7 +11,7 @@ export const NavBar = () => {
         </Link>
       </div>
       <div className="navbar-content">
-        <Link to="/registro-instructor" className="navbar-content-link">
+        <Link to="/" className="navbar-content-link">
           Registrarse
         </Link>
         <Link to="/registro-curso" className="navbar-content-link">
