@@ -262,11 +262,13 @@ export const FormRegisterCourse = () => {
               <div className="form-register-course-content-data-field-input field-img">
                 <input
                   type="file"
+                  accept=".jpg, .jpeg, .png, .webp"
                   {...register("file", {
                     required: {
                       value: true,
                       message: "Seleccione alguna imagen",
                     },
+
                   })}
                   className={`${errors.file ? "error-input" : ""} ${
                     dirtyFields.file && !errors.file ? "success-input" : ""
@@ -316,8 +318,13 @@ export const FormRegisterCourse = () => {
                     },
                   })}
                   className={`${errors.costo ? "error-input" : ""} ${
-                    dirtyFields.costo && !errors.costo ? "success-input" : ""
-                  }`}
+                    dirtyFields.costo && !errors.costo ? "success-input" : ""}`}
+                  onKeyPress={(event) => {
+                    // Permite solo números y puntos (para decimales)
+                    if (!/[0-9.]/.test(event.key)) {
+                      event.preventDefault();
+                    }
+                  }}
                 />
 
                 {errors.costo && (
@@ -457,7 +464,7 @@ export const FormRegisterCourse = () => {
       {showModalByClickInRegister && (
         <Modal
           title="Registro exitoso"
-          description="Se registro correctamente el curso"
+          description="Se registró correctamente el curso"
           txtBtnAccept="Aceptar"
           onAccept={() => {
             reset();
@@ -481,8 +488,8 @@ export const FormRegisterCourse = () => {
 
       {showModalByClickInCancel && (
         <Modal
-          title="¿Estas seguro?"
-          description="¿Estas seguro de que desea cancelar el registro del curso?"
+          title="¿Estás seguro?"
+          description="¿Estás seguro de que desea cancelar el registro del curso?"
           txtBtnAccept="Si, seguro"
           txtBtnCancel="No, continuar"
           showBtnCancel={true}
