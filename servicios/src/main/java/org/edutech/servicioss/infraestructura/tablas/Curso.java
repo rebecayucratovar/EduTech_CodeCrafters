@@ -20,7 +20,7 @@ public class Curso {
 
   private Categoria categoria;
 
-  private byte[] imagen;
+  private String imagen;
 
   private int costo;
 

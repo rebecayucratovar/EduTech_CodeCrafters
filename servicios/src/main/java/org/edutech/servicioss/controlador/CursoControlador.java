@@ -2,8 +2,12 @@ package org.edutech.servicioss.controlador;
 
 import lombok.RequiredArgsConstructor;
 import org.edutech.servicioss.infraestructura.tablas.Curso;
-import org.edutech.servicioss.infraestructura.tablas.Usuario;
 import org.edutech.servicioss.servicios.CursoServicio;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +20,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/cursos")
 @RequiredArgsConstructor
 public class CursoControlador {
@@ -28,25 +33,26 @@ public class CursoControlador {
     }
 
     if(!imagen.isEmpty()){
-      Path directorioImagenes = Paths.get("servicios//src//main//resources//static/imagen");
+      Path directorioImagenes = Paths.get("servicios//src//main//resources//static//imagen");
       String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
 
       try {
+        if (!imagen.getOriginalFilename().endsWith(".png")) {
+          return ResponseEntity.badRequest().build(); // Retornar una respuesta de error si no es una imagen PNG
+        }
+
         byte[] bytesImg = imagen.getBytes();
         Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
         Files.write(rutaCompleta, bytesImg);
 
-        if (imagen.getOriginalFilename() != null) {
-          curso.setImagen(imagen.getOriginalFilename().getBytes());
-        }
+        curso.setImagen(imagen.getOriginalFilename());
 
       }catch (IOException e){
         e.printStackTrace();
-
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // Retornar una respuesta de error en caso de una excepción
       }
     }
     return ResponseEntity.ok(cursoServicio.save(curso));
-
   }
 
   @GetMapping("/lista")
@@ -55,12 +61,33 @@ public class CursoControlador {
     if (cursos.isEmpty()){
       return ResponseEntity.noContent().build();
     }
-    for (Curso curso : cursos) {
-      Usuario instructor = curso.getUsuario();
-      //instructor.getNombreCompleto(); // Asegúrate de que se carguen los datos del instructor desde la base de datos
-    }
-
     return ResponseEntity.ok(cursos);
+  }
+  @GetMapping("/images/${nombreImagen}")
+  public ResponseEntity<Resource> obtenerImagen(@PathVariable String nombreImagen) {
+    try {
+      // Construir la ruta completa de la imagen
+      String rutaImagen = "static/imagen/" + nombreImagen; // La misma ruta donde se guarda la imagen
+      Resource imagen = new ClassPathResource(rutaImagen);
+
+      // Verificar si la imagen existe
+      if (imagen.exists()) {
+        // Configurar el encabezado Content-Type para la imagen PNG
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+
+        // Devolver la imagen como una respuesta HTTP
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(imagen);
+      } else {
+        // Si la imagen no existe, devolver una respuesta HTTP 404 (No encontrado)
+        return ResponseEntity.notFound().build();
+      }
+    } catch (Exception e) {
+      // Si ocurre algún error al obtener la imagen, devolver una respuesta HTTP 500 (Error interno del servidor)
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
   }
 
   @PostMapping("/{cursoId}")

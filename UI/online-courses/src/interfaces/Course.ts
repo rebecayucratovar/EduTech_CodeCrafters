@@ -3,4 +3,5 @@ export interface Course {
   titulo: string;
   imagen: string;
   costo: number;
+  urlImagen: string;
 }
