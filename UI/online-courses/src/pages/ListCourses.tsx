@@ -12,13 +12,41 @@ export const ListCourses = () => {
           return response.json();
         })
         .then(data => {
-          setCourses(data);
+            setCourses(data);
+            // Llamar al método del controlador para obtener cada imagen
+            data.forEach((course:Course) => {
+                fetchImage(course.imagen);
+            });
         })
         .catch(error => {
-          console.error("Error:", error);
+            console.error("Error:", error);
         });
   }, []);
-  return (
+    const fetchImage = (nombreImagen:string) => {
+        fetch(`http://localhost:3039/v1/cursos/imagen/${nombreImagen}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Error al obtener la imagen");
+                }
+                return response.blob(); // Convertir la respuesta a un objeto Blob
+            })
+            .then(blob => {
+                const url = URL.createObjectURL(blob); // Crear una URL para el objeto Blob
+                setCourses(prevCourses => {
+                    return prevCourses.map(course => {
+                        if (course.imagen === nombreImagen) {
+                            return { ...course, urlImagen: url };
+                        }
+                        return course;
+                    });
+                });
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+    };
+
+    return (
     <article className="list-courses">
       <section className="list-courses-content">
         <label
@@ -36,19 +64,19 @@ export const ListCourses = () => {
                   className="list-courses-content-card-wrapper"
                   key={course.id}
                 >
-                  <img src={course.imagen} alt="img-course" />
-
-                  <div className="list-courses-content-card-wrapper-description">
-                    <label
-                        htmlFor="card-title"
+                    {course.urlImagen && (
+                        <img src={course.urlImagen} alt="img-course" />
+                    )}                    <div className="list-courses-content-card-wrapper-description">
+                        <label
+                            htmlFor="card-title"
                         className="list-courses-content-card-wrapper-description-title"
                         title={course.titulo}
                     >
                       {course.titulo}
                     </label>
                     <label
-                        //htmlFor="card-name-instructor"
-                        //className="list-courses-content-card-wrapper-description-instructor"
+                       // htmlFor="card-name-instructor"
+                        // className="list-courses-content-card-wrapper-description-instructor"
                         //title={course.instructor}
                     >
                       {/* {course.instructor}  */}
