@@ -8,7 +8,7 @@ export interface Course {
   file: File | null;
   costo: any;
   requisitos: string;
-  descripcion: string;
+  descripcion?: string;
 }
 
 export interface CoursesState {

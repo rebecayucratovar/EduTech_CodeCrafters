@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import AlertIcon from "../assets/icons/AlertIcon.svg";
 import CheckIcon from "../assets/icons/CheckIcon.svg";
 import { addCourse } from "../slices/courses";
-// import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -21,7 +20,7 @@ export const FormRegisterCourse = () => {
   } = useForm({
     defaultValues: {
       titulo: "",
-      descripcion: "",
+      instructor: "",
       categoria: "default",
       file: null,
       costo: null,
@@ -34,6 +33,7 @@ export const FormRegisterCourse = () => {
     useState(false);
   const [showModalByClickInCancel, setShowModalByClickInCancel] =
     useState(false);
+  const [showModalError, setShowModalError] = useState(false);
 
   const handleCancel = () => {
     setShowModalByClickInCancel(true);
@@ -42,7 +42,7 @@ export const FormRegisterCourse = () => {
   const onSubmit = handleSubmit(async (data) => {
     if (
       errors.titulo ||
-      errors.descripcion ||
+      errors.instructor ||
       errors.categoria ||
       errors.file ||
       errors.costo ||
@@ -64,7 +64,7 @@ export const FormRegisterCourse = () => {
       const formData = new FormData();
 
       formData.append("titulo", data.titulo);
-      formData.append("descripcion", data.descripcion);
+      formData.append("instructor", data.instructor);
       formData.append("categoria", data.categoria);
       if (data.costo) {
         formData.append("costo", data.costo);
@@ -111,13 +111,14 @@ export const FormRegisterCourse = () => {
                   {...register("titulo", {
                     required: {
                       value: true,
-                      message: "El título es requerido",
+                      message: "Por favor, ingrese el titulo del curso",
                     },
                     maxLength: {
                       value: 40,
-                      message: "El titulo no deben tener mas de 40 caracteres",
+                      message: "El titulo no debe tener mas de 40 caracteres",
                     },
                   })}
+                  maxLength={40}
                   className={`${errors.titulo ? "error-input" : ""} ${
                     dirtyFields.titulo && !errors.titulo ? "success-input" : ""
                   }`}
@@ -148,34 +149,38 @@ export const FormRegisterCourse = () => {
             </div>
 
             <div className="form-register-course-content-data-field">
-              <label htmlFor="descripcion">Descripción*</label>
+              <label htmlFor="instructor">Instructor*</label>
               <div className="form-register-course-content-data-field-input">
                 <input
                   type="text"
-                  id="descripcion"
-                  placeholder="Ingrese la descripción"
-                  {...register("descripcion", {
+                  id="instructor"
+                  placeholder="Ingrese su nombre completo"
+                  {...register("instructor", {
                     required: {
                       value: true,
-                      message: "La descripción es requerida",
+                      message: "Porfavor, ingrese su nombre",
                     },
                     maxLength: {
-                      value: 400,
-                      message:
-                        "La descripción no deben tener mas de 400 caracteres",
+                      value: 40,
+                      message: "El nombre del intructor no debe ser mayor a 40",
+                    },
+                    pattern: {
+                      value: /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/,
+                      message: "El nombre solo debe contener letras",
                     },
                   })}
-                  className={`${errors.descripcion ? "error-input" : ""} ${
-                    dirtyFields.descripcion && !errors.descripcion
+                  maxLength={40}
+                  className={`${errors.instructor ? "error-input" : ""} ${
+                    dirtyFields.instructor && !errors.instructor
                       ? "success-input"
                       : ""
                   }`}
                 />
 
-                {errors.descripcion && (
+                {errors.instructor && (
                   <div className="form-register-course-content-data-field-error">
                     <label htmlFor="error">
-                      {JSON.stringify(errors.descripcion.message).replace(
+                      {JSON.stringify(errors.instructor.message).replace(
                         /^"|"$/g,
                         ""
                       )}
@@ -184,7 +189,7 @@ export const FormRegisterCourse = () => {
                   </div>
                 )}
 
-                {dirtyFields.descripcion && !errors.descripcion && (
+                {dirtyFields.instructor && !errors.instructor && (
                   <div className="form-register-course-content-data-field-error">
                     <img
                       className="check-icon"
@@ -204,7 +209,7 @@ export const FormRegisterCourse = () => {
                   {...register("categoria", {
                     required: {
                       value: true,
-                      message: "La categoria es requerida",
+                      message: "Seleccione alguna categoria",
                     },
                     validate: (value) =>
                       value !== "default" || "La categoría es requerida",
@@ -264,7 +269,7 @@ export const FormRegisterCourse = () => {
                   {...register("file", {
                     required: {
                       value: true,
-                      message: "Seleccione algun archivo",
+                      message: "Seleccione alguna imagen",
                     },
                   })}
                   className={`${errors.file ? "error-input" : ""} ${
@@ -466,11 +471,23 @@ export const FormRegisterCourse = () => {
         <Modal
           title="Registro exitoso"
           description="Se registró correctamente el curso"
-          txtBtnAccept="Acceptar"
+          txtBtnAccept="Aceptar"
           onAccept={() => {
             reset();
             setShowModalByClickInAccept(false);
             navigate("/lista-cursos");
+          }}
+        />
+      )}
+
+      {showModalError && (
+        <Modal
+          title="Error inesperado"
+          description="No se pudo guardar el registro"
+          txtBtnAccept="Aceptar"
+          onAccept={() => {
+            reset();
+            setShowModalError(false);
           }}
         />
       )}
