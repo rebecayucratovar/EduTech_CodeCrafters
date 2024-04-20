@@ -6,7 +6,7 @@ import { FormRegisterInstructor } from "./FormRegisterInstructor";
 import { ListCourses } from "./ListCourses";
 export const App = () => {
   return (
-    <div>
+    <div className="app-content">
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="registro-instructor" element={<FormRegisterInstructor />}></Route>
