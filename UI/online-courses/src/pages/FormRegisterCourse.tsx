@@ -60,6 +60,31 @@ export const FormRegisterCourse = () => {
       };
       dispatch(addCourse(course));
       setShowModalByClickInAccept(true);
+
+      const formData = new FormData();
+
+      formData.append("titulo", data.titulo);
+      formData.append("descripcion", data.descripcion);
+      formData.append("categoria", data.categoria);
+      if (data.costo) {
+        formData.append("costo", data.costo);
+      }
+      formData.append("requisitos", data.requisitos);
+      formData.append("aprenderas", data.aprenderas);
+      formData.append("file", data.file[0]);
+      try {
+        // TODO: Cambiar el path por el de la API deployada
+        const response = await fetch("http://localhost:3039/v1/cursos/save", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error("Error al registrar el curso");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
     }
   });
 
