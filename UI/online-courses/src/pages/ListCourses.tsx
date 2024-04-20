@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import ImageExample from "../assets/images/ImageExample.jpeg";
 import { RootState } from "../store/store";
 
 export const ListCourses = () => {
@@ -23,40 +22,40 @@ export const ListCourses = () => {
                   className="list-courses-content-card-wrapper"
                   key={course.id}
                 >
-                  <img src={ImageExample} alt="img-course" />
-
+                  {course.file && (
+                    <img
+                      src={URL.createObjectURL(course.file)}
+                      alt="img-course"
+                    />
+                  )}
                   <div className="list-courses-content-card-wrapper-description">
                     <label
-                        htmlFor="card-title"
-                        className="list-courses-content-card-wrapper-description-title"
-                        title={course.titulo}
+                      htmlFor="card-title"
+                      className="list-courses-content-card-wrapper-description-title"
+                      title={course.titulo}
                     >
                       {course.titulo}
                     </label>
+                    <label>Pedro Perez</label>
                     <label
-                        //htmlFor="card-name-instructor"
-                        //className="list-courses-content-card-wrapper-description-instructor"
-                        //title={course.instructor}
+                      htmlFor="card-costo"
+                      className="list-courses-content-card-wrapper-description-costo"
                     >
-                      {/* {course.instructor}  */}
-                      Pedro Perez 
-                    </label>
-                    <label
-                        htmlFor="card-costo"
-                        className="list-courses-content-card-wrapper-description-costo"
-                    >
-                      {course.costo} Bs.
+                      {!Number.isInteger(course.costo)
+                        ? parseFloat(course.costo).toFixed(2)
+                        : course.costo}{" "}
+                      Bs.
                     </label>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-              <div className="list-no-courses-message-container">
-                <div className="list-no-courses-message">
-                  <p>No existen cursos disponibles actualmente</p>
-                </div>
+            <div className="list-no-courses-message-container">
+              <div className="list-no-courses-message">
+                <p>No existen cursos disponibles actualmente</p>
               </div>
+            </div>
           )}
         </section>
       </section>
