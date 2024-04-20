@@ -22,8 +22,8 @@ export const FormRegisterCourse = () => {
       titulo: "",
       instructor: "",
       categoria: "default",
-      file: "",
-      costo: "",
+      file: null,
+      costo: null,
       requisitos: "",
       aprenderas: "",
     },
@@ -33,8 +33,7 @@ export const FormRegisterCourse = () => {
     useState(false);
   const [showModalByClickInCancel, setShowModalByClickInCancel] =
     useState(false);
-  const [showModalError, setShowModalError] =
-    useState(false);
+  const [showModalError, setShowModalError] = useState(false);
 
   const handleCancel = () => {
     setShowModalByClickInCancel(true);
@@ -53,35 +52,39 @@ export const FormRegisterCourse = () => {
       return;
     }
 
-    if (/^\d+$/.test(data.costo)) {
-      data.costo += ",00";
-    }
-
-    const formData = new FormData();
-
-    formData.append("titulo", data.titulo);
-    formData.append("instructor", data.instructor);
-    formData.append("categoria", data.categoria);
-    formData.append("costo", data.costo);
-    formData.append("requisitos", data.requisitos);
-    formData.append("aprenderas", data.aprenderas);
-    formData.append("file", data.file[0]);
-    try {
-      const response = await fetch("http://localhost:3039/v1/cursos/save", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error("Error al registrar el curso");
-      }
-
-      const responseData = await response.json();
-      dispatch(addCourse(responseData)); // Aquí asumo que el backend devuelve el curso creado
+    if (data.file) {
+      const course = {
+        id: Date.now().toString(),
+        ...data,
+        file: data.file[0],
+      };
+      dispatch(addCourse(course));
       setShowModalByClickInAccept(true);
-    } catch (error) {
-      console.error("Error:", error);
-      setShowModalError(true);
+
+      const formData = new FormData();
+
+      formData.append("titulo", data.titulo);
+      formData.append("instructor", data.instructor);
+      formData.append("categoria", data.categoria);
+      if (data.costo) {
+        formData.append("costo", data.costo);
+      }
+      formData.append("requisitos", data.requisitos);
+      formData.append("aprenderas", data.aprenderas);
+      formData.append("file", data.file[0]);
+      try {
+        // TODO: Cambiar el path por el de la API deployada
+        const response = await fetch("http://localhost:3039/v1/cursos/save", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error("Error al registrar el curso");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
     }
   });
 
@@ -119,6 +122,7 @@ export const FormRegisterCourse = () => {
                   className={`${errors.titulo ? "error-input" : ""} ${
                     dirtyFields.titulo && !errors.titulo ? "success-input" : ""
                   }`}
+                  maxLength={40}
                 />
                 {errors.titulo && (
                   <div className="form-register-course-content-data-field-error">
@@ -158,8 +162,7 @@ export const FormRegisterCourse = () => {
                     },
                     maxLength: {
                       value: 40,
-                      message:
-                        "El nombre del intructor no debe ser mayor a 40",
+                      message: "El nombre del intructor no debe ser mayor a 40",
                     },
                     pattern: {
                       value: /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/,
@@ -268,7 +271,6 @@ export const FormRegisterCourse = () => {
                       value: true,
                       message: "Seleccione alguna imagen",
                     },
-
                   })}
                   className={`${errors.file ? "error-input" : ""} ${
                     dirtyFields.file && !errors.file ? "success-input" : ""
@@ -306,6 +308,9 @@ export const FormRegisterCourse = () => {
                   type="number"
                   id="costo"
                   placeholder="Ingrese el monto en bolivianos"
+                  min={0}
+                  max={99999.99}
+                  step={0.01}
                   {...register("costo", {
                     required: {
                       value: true,
@@ -318,10 +323,11 @@ export const FormRegisterCourse = () => {
                     },
                   })}
                   className={`${errors.costo ? "error-input" : ""} ${
-                    dirtyFields.costo && !errors.costo ? "success-input" : ""}`}
+                    dirtyFields.costo && !errors.costo ? "success-input" : ""
+                  }`}
                   onKeyPress={(event) => {
                     // Permite solo números y puntos (para decimales)
-                    if (!/[0-9.]/.test(event.key)) {
+                    if (!/[0-9.0-9]/.test(event.key)) {
                       event.preventDefault();
                     }
                   }}
