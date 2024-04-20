@@ -257,12 +257,6 @@ export const FormRegisterCourse = () => {
                       value: true,
                       message: "Seleccione algun archivo",
                     },
-                    validate: {
-                      isSupportedFile: (fileList) => {
-                        if (!fileList.length) return true; // Si no se selecciona un archivo, esto no interfiere con la validación de required
-                        return "El tipo de archivo seleccionado no es válido" || ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(fileList[0].type);
-                      }
-                    }
 
                   })}
                   className={`${errors.file ? "error-input" : ""} ${
