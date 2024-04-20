@@ -253,7 +253,7 @@ body {
 .modal-content-button {
   border: none;
   border-radius: 15px;
-  padding: 6px 40px;
+  padding: 6px 20px;
   background-color: rgb(50, 129, 175);
   color: white;
   cursor: pointer;
