@@ -3,11 +3,7 @@ package org.edutech.servicioss.controlador;
 import lombok.RequiredArgsConstructor;
 import org.edutech.servicioss.infraestructura.tablas.Curso;
 import org.edutech.servicioss.servicios.CursoServicio;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,12 +23,12 @@ public class CursoControlador {
   private final CursoServicio cursoServicio;
 
   @PostMapping("/save")
-  public ResponseEntity<Curso> saveCurso(@RequestParam("file")MultipartFile imagen,Curso curso,RedirectAttributes attributes){
-    if(curso.getTitulo()==null|| curso.getTitulo().trim().isEmpty()){
+  public ResponseEntity<Curso> saveCurso(@RequestParam("file") MultipartFile imagen, Curso curso, RedirectAttributes attributes) {
+    if (curso.getTitulo() == null || curso.getTitulo().trim().isEmpty()) {
       return ResponseEntity.badRequest().build();
     }
 
-    if(!imagen.isEmpty()){
+    if (!imagen.isEmpty()) {
       Path directorioImagenes = Paths.get("servicios//src//main//resources//static//imagen");
       String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
 
@@ -42,18 +38,24 @@ public class CursoControlador {
         }
 
         byte[] bytesImg = imagen.getBytes();
-        Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+        String nombreImagen = imagen.getOriginalFilename();
+        Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + nombreImagen);
         Files.write(rutaCompleta, bytesImg);
 
-        curso.setImagen(imagen.getOriginalFilename());
+        // Construir la ruta relativa a partir de la ruta absoluta
+        String rutaRelativa = "static/imagen/" + nombreImagen;
 
-      }catch (IOException e){
+        // Guardar la ruta relativa en el objeto curso
+        curso.setImagen(rutaRelativa);
+
+      } catch (IOException e) {
         e.printStackTrace();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // Retornar una respuesta de error en caso de una excepción
       }
     }
     return ResponseEntity.ok(cursoServicio.save(curso));
   }
+
 
   @GetMapping("/lista")
   public ResponseEntity<List<Curso>> getAllCursos(){
@@ -62,32 +64,6 @@ public class CursoControlador {
       return ResponseEntity.noContent().build();
     }
     return ResponseEntity.ok(cursos);
-  }
-  @GetMapping("/images/${nombreImagen}")
-  public ResponseEntity<Resource> obtenerImagen(@PathVariable String nombreImagen) {
-    try {
-      // Construir la ruta completa de la imagen
-      String rutaImagen = "static/imagen/" + nombreImagen; // La misma ruta donde se guarda la imagen
-      Resource imagen = new ClassPathResource(rutaImagen);
-
-      // Verificar si la imagen existe
-      if (imagen.exists()) {
-        // Configurar el encabezado Content-Type para la imagen PNG
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_PNG);
-
-        // Devolver la imagen como una respuesta HTTP
-        return ResponseEntity.ok()
-                .headers(headers)
-                .body(imagen);
-      } else {
-        // Si la imagen no existe, devolver una respuesta HTTP 404 (No encontrado)
-        return ResponseEntity.notFound().build();
-      }
-    } catch (Exception e) {
-      // Si ocurre algún error al obtener la imagen, devolver una respuesta HTTP 500 (Error interno del servidor)
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-    }
   }
 
   @PostMapping("/{cursoId}")
