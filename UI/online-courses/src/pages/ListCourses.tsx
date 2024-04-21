@@ -36,7 +36,7 @@ return (
                                     className="list-courses-content-card-wrapper"
                                     key={course.id}
                                 >
-                                    {course.imagen && <img src={course.imagen} alt="img-course" />}
+                                    {course.imagen && <img src={`/static/imagen/${course.imagen}`} alt="img-course" />}
                                     <div className="list-courses-content-card-wrapper-description">
                                         <label
                                             htmlFor="card-title"
