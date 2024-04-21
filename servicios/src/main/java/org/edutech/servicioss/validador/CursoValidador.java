@@ -16,11 +16,11 @@ public class CursoValidador {
       throw new IllegalArgumentException("El nombre debe tener 40 caracteres máximo");
     }
 
-    if (curso.getDescripcion() == null || curso.getDescripcion().trim().isEmpty()) {
+    if (curso.getAprenderas() == null || curso.getAprenderas().trim().isEmpty()) {
       throw new IllegalArgumentException("Aprendizaje no puede estar vacio");
     }
 
-    if (curso.getDescripcion().length() > 400) {
+    if (curso.getAprenderas().length() > 400) {
       throw new IllegalArgumentException("El aprendizaje debe tener 400 caracteres máximo");
     }
 

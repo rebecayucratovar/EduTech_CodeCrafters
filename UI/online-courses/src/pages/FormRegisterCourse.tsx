@@ -20,7 +20,7 @@ export const FormRegisterCourse = () => {
   } = useForm({
     defaultValues: {
       titulo: "",
-      instructor: "",
+      descripcion: "",
       categoria: "default",
       file: null,
       costo: null,
@@ -42,7 +42,7 @@ export const FormRegisterCourse = () => {
   const onSubmit = handleSubmit(async (data) => {
     if (
       errors.titulo ||
-      errors.instructor ||
+      errors.descripcion ||
       errors.categoria ||
       errors.file ||
       errors.costo ||
@@ -64,7 +64,7 @@ export const FormRegisterCourse = () => {
       const formData = new FormData();
 
       formData.append("titulo", data.titulo);
-      formData.append("instructor", data.instructor);
+      formData.append("descripcion", data.descripcion);
       formData.append("categoria", data.categoria);
       if (data.costo) {
         formData.append("costo", data.costo);
@@ -122,7 +122,6 @@ export const FormRegisterCourse = () => {
                   className={`${errors.titulo ? "error-input" : ""} ${
                     dirtyFields.titulo && !errors.titulo ? "success-input" : ""
                   }`}
-                  maxLength={40}
                 />
                 {errors.titulo && (
                   <div className="form-register-course-content-data-field-error">
@@ -149,13 +148,13 @@ export const FormRegisterCourse = () => {
             </div>
 
             <div className="form-register-course-content-data-field">
-              <label htmlFor="instructor">Instructor*</label>
+              <label htmlFor="descripcion">Descripcion*</label>
               <div className="form-register-course-content-data-field-input">
                 <input
                   type="text"
-                  id="instructor"
-                  placeholder="Ingrese su nombre completo"
-                  {...register("instructor", {
+                  id="descripcion"
+                  placeholder="Ingrese la descripcion del curso"
+                  {...register("descripcion", {
                     required: {
                       value: true,
                       message: "Porfavor, ingrese su nombre",
@@ -170,17 +169,17 @@ export const FormRegisterCourse = () => {
                     },
                   })}
                   maxLength={40}
-                  className={`${errors.instructor ? "error-input" : ""} ${
-                    dirtyFields.instructor && !errors.instructor
+                  className={`${errors.descripcion ? "error-input" : ""} ${
+                    dirtyFields.descripcion && !errors.descripcion
                       ? "success-input"
                       : ""
                   }`}
                 />
 
-                {errors.instructor && (
+                {errors.descripcion && (
                   <div className="form-register-course-content-data-field-error">
                     <label htmlFor="error">
-                      {JSON.stringify(errors.instructor.message).replace(
+                      {JSON.stringify(errors.descripcion.message).replace(
                         /^"|"$/g,
                         ""
                       )}
@@ -189,7 +188,7 @@ export const FormRegisterCourse = () => {
                   </div>
                 )}
 
-                {dirtyFields.instructor && !errors.instructor && (
+                {dirtyFields.descripcion && !errors.descripcion && (
                   <div className="form-register-course-content-data-field-error">
                     <img
                       className="check-icon"
