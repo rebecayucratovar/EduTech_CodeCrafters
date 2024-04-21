@@ -27,6 +27,7 @@ export const FormRegisterCourse = () => {
       requisitos: "",
       aprenderas: "",
     },
+    mode: 'onChange'
   });
 
   const [showModalByClickInRegister, setShowModalByClickInAccept] =
@@ -271,6 +272,17 @@ export const FormRegisterCourse = () => {
                       value: true,
                       message: "Seleccione alguna imagen",
                     },
+                    validate: {
+                      correctFileType: (fileList: FileList | null) => {
+                        if (!fileList || fileList.length === 0) return "No se seleccionó ningún archivo";  // Esta línea probablemente no sea necesaria debido al check de required
+                        const file = fileList[0];
+                        const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
+                        if (!validTypes.includes(file.type)) {
+                          return "Tipo de archivo no válido";  // Solo muestra este mensaje si el tipo no es válido
+                        }
+                        return true;  // Retornar true si la validación es exitosa
+                      }
+                    }
                   })}
                   className={`${errors.file ? "error-input" : ""} ${
                     dirtyFields.file && !errors.file ? "success-input" : ""
@@ -280,10 +292,7 @@ export const FormRegisterCourse = () => {
                 {errors.file && (
                   <div className="form-register-course-content-data-field-error">
                     <label htmlFor="error">
-                      {JSON.stringify(errors.file.message).replace(
-                        /^"|"$/g,
-                        ""
-                      )}
+                      {errors.file.message}
                     </label>
                     <img src={AlertIcon} alt="Icono de alerta" />
                   </div>
