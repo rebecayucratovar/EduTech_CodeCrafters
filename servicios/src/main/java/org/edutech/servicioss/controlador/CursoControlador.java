@@ -42,11 +42,7 @@ public class CursoControlador {
         Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + nombreImagen);
         Files.write(rutaCompleta, bytesImg);
 
-        // Construir la ruta relativa a partir de la ruta absoluta
-        String rutaRelativa = "static/imagen/" + nombreImagen;
-
-        // Guardar la ruta relativa en el objeto curso
-        curso.setImagen(rutaRelativa);
+        curso.setImagen(nombreImagen);
 
       } catch (IOException e) {
         e.printStackTrace();
