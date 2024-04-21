@@ -10,8 +10,16 @@ body {
   padding: 0;
 }
 
+#root,
+.app-content,
+.content-layout {
+  width: 100%;
+  height: 100%;
+}
+
 .navbar {
   width: 100%;
+  height: 10%;
   background-color: #3281af;
   display: flex;
   justify-content: space-between;
@@ -20,7 +28,7 @@ body {
 }
 
 .logo-container {
-  height: 70px;
+  height: 100%;
 }
 
 .logo {
@@ -61,6 +69,7 @@ body {
   width: 100%;
   height: 100%;
   margin-top: 30px;
+  font-size: 20px;
 }
 
 .form-register-course-content {
@@ -95,7 +104,7 @@ body {
 
   label {
     font-size: 14px;
-    color: rgb(12, 98, 145);
+    color: #62b6cb;
     font-weight: bold;
     font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
     width: calc(30% - 15px);
@@ -112,12 +121,13 @@ body {
   input,
   textarea,
   select {
-    background-color: rgb(222, 240, 253);
-    border: 2px solid rgb(98, 181, 202);
+    background-color: #def0fd;
+    border: 2px solid #62b6cb;
     border-radius: 5px;
     width: 100%;
     padding: 5px;
     padding-right: 38px;
+    outline: none;
   }
 
   input::placeholder,
@@ -244,7 +254,7 @@ body {
 .modal-content-button {
   border: none;
   border-radius: 15px;
-  padding: 6px 40px;
+  padding: 6px 20px;
   background-color: rgb(50, 129, 175);
   color: white;
   cursor: pointer;
@@ -445,15 +455,17 @@ textarea.error-input {
 .list-courses {
   display: flex;
   flex-direction: column;
-  width: 95%; /* Establece el ancho del contenedor al 90% del viewport */
-  max-width: 100%; /* El ancho máximo del contenedor es igual al 100% del viewport */
-  margin: 0 auto; /* Centra el contenedor */
+  width: 100%;
+  height: 90%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding-left: 50px;
 }
 
 .list-courses-content {
   display: flex;
   width: 100%;
-  flex-wrap: wrap;
+  height: 100%;
   flex-direction: column;
 }
 
@@ -462,18 +474,22 @@ textarea.error-input {
   font-size: 30px;
   font-weight: bold;
   font-family: "Lucida Sans", sans-serif;
-  margin-top: 50px;
+  padding: 20px 0;
+  height: 10%;
+  display: flex;
+  align-items: center;
+}
+
+.list-courses-content-wrapper {
+  height: 90%;
+  width: 100%;
 }
 
 .list-courses-content-card {
-  border-radius: 5px;
-  border: none;
-  background-color: rgb(241, 240, 240);
-  width: 18%;
-  padding: 10px;
-  margin-top: 20px;
   display: flex;
   gap: 50px;
+  max-width: 100%;
+  flex-wrap: wrap;
 }
 
 .list-courses-content-card-wrapper {
@@ -483,10 +499,19 @@ textarea.error-input {
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
   padding: 10px;
-  box-sizing: border-box;
-  width: 100%;
+  width: 250px;
+  height: 300px;
+  box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.1),
+    0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.8s ease;
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+  }
 
   img {
+    height: calc(60% - 5px);
     border-radius: 10px;
   }
 }
@@ -498,19 +523,30 @@ textarea.error-input {
   font-family: "Times New Roman", Times, serif;
   color: rgb(36, 35, 103);
   overflow: hidden;
+  height: calc(40% - 5px);
 }
 
 .list-courses-content-card-wrapper-description-title {
   font-size: 18px;
   font-weight: bold;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.list-no-courses-message-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 .list-no-courses-message {
   color: rgb(36, 35, 103);
   font-size: 20px;
   font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Hace que el cuerpo ocupe toda la altura de la ventana */
 }

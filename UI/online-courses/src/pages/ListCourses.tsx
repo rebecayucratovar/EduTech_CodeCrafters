@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 import {useEffect, useState} from "react";
 import { Course } from "../interfaces/Course.ts";
 
@@ -46,7 +48,7 @@ export const ListCourses = () => {
             });
     };
 
-    return (
+  return (
     <article className="list-courses">
       <section className="list-courses-content">
         <label
@@ -71,6 +73,17 @@ export const ListCourses = () => {
                             htmlFor="card-title"
                         className="list-courses-content-card-wrapper-description-title"
                         title={course.titulo}
+                  {course.file && (
+                    <img
+                      src={URL.createObjectURL(course.file)}
+                      alt="img-course"
+                    />
+                  )}
+                  <div className="list-courses-content-card-wrapper-description">
+                    <label
+                      htmlFor="card-title"
+                      className="list-courses-content-card-wrapper-description-title"
+                      title={course.titulo}
                     >
                       {course.titulo}
                     </label>
@@ -82,22 +95,26 @@ export const ListCourses = () => {
                       {/* {course.instructor}  */}
                       Pedro Perez
                     </label>
+                    <label>Pedro Perez</label>
                     <label
-                        htmlFor="card-costo"
-                        className="list-courses-content-card-wrapper-description-costo"
+                      htmlFor="card-costo"
+                      className="list-courses-content-card-wrapper-description-costo"
                     >
-                      {course.costo} Bs.
+                      {!Number.isInteger(course.costo)
+                        ? parseFloat(course.costo).toFixed(2)
+                        : course.costo}{" "}
+                      Bs.
                     </label>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-              <div className="list-no-courses-message-container">
-                <div className="list-no-courses-message">
-                  <p>No existen cursos disponibles actualmente</p>
-                </div>
+            <div className="list-no-courses-message-container">
+              <div className="list-no-courses-message">
+                <p>No existen cursos disponibles actualmente</p>
               </div>
+            </div>
           )}
         </section>
       </section>
