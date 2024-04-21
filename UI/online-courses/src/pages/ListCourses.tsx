@@ -3,6 +3,7 @@ import { RootState } from "../store/store";
 
 export const ListCourses = () => {
   const courses = useSelector((state: RootState) => state.courses.courses);
+  // Utilizar esta implementacion cuando el proyecto de Spring boot stee deployado
   //const [courses, setCourses] = useState<Course[]>([]);
   //useEffect(() => {
   //  fetch("http://localhost:3039/v1/cursos/lista")
