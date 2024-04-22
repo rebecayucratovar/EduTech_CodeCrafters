@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for edutech-codecrafters-cold-dawn-3999 on 2024-04-21T23:33:47-04:00
+# fly.toml app configuration file generated for edutech-codecrafters-wispy-wave-796 on 2024-04-22T19:27:24-04:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'edutech-codecrafters-cold-dawn-3999'
+app = 'edutech-codecrafters-wispy-wave-796'
 primary_region = 'scl'
 
 [build]
