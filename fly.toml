@@ -1,0 +1,22 @@
+# fly.toml app configuration file generated for edutech-codecrafters-cold-dawn-3999 on 2024-04-21T23:33:47-04:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'edutech-codecrafters-cold-dawn-3999'
+primary_region = 'scl'
+
+[build]
+
+[http_service]
+  internal_port = 3039
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1

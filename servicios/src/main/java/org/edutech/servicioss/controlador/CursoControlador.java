@@ -20,9 +20,7 @@ import java.util.UUID;
 @RequestMapping("/cursos")
 @RequiredArgsConstructor
 public class CursoControlador {
-  private final CursoServicio cursoServicio;
-
-  @PostMapping("/save")
+  private final CursoServicio cursoServicio;  @PostMapping("/save")
   public ResponseEntity<Curso> saveCurso(@RequestParam("file") MultipartFile imagen, Curso curso, RedirectAttributes attributes) {
     if (curso.getTitulo() == null || curso.getTitulo().trim().isEmpty()) {
       return ResponseEntity.badRequest().build();
