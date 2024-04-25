@@ -35,14 +35,14 @@ export const FormRegisterInstructor = () => {
   const [errorCorreo, setErrorCorreo] = useState("");
   const [inputClassCorreo, setInputClassCorreo] = useState("");
 
-  const [contraseña, setContraseña] = useState("");
-  const [errorContraseña, setErrorContraseña] = useState("");
-  const [inputClassContraseña, setInputClassContraseña] = useState("");
+  const [contrasenia, setContrasenia] = useState("");
+  const [errorContrasenia, setErrorContrasenia] = useState("");
+  const [inputClassContrasenia, setInputClassContrasenia] = useState("");
 
-  const [confirmacionContraseña, setConfirmacionContraseña] = useState("");
-  const [errorConfirmacionContraseña, setErrorConfirmacion] = useState("");
-  const [inputClassConfirmacionContraseña, setInputClassConfirmacion] = useState("");
-  
+  const [confirmacionContrasenia, setConfirmacionContrasenia] = useState("");
+  const [errorConfirmacionContrasenia, setErrorConfirmacion] = useState("");
+  const [inputClassConfirmacionContrasenia, setInputClassConfirmacion] = useState("");
+
 
   const handleNombreCompletoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value.replace(/ {2,}/g, ' '); // Reemplazar múltiples espacios por uno solo
@@ -151,52 +151,52 @@ export const FormRegisterInstructor = () => {
     }
   }
 
-  const handleContraseñaKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleContraseniaKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === " ") { // Verificar si la tecla presionada es un espacio
       event.preventDefault(); // Prevenir la acción por defecto (no permitir escribir el espacio)
     }
   };
 
-  const handleContraseñaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleContraseniaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^a-zA-Z0-9\s]/g, ''); // Eliminar caracteres no alfabéticos
-    setContraseña(value);
+    setContrasenia(value);
   };
 
-  const validateContraseña = () => {
-    if (contraseña.length === 0) {
-      setErrorContraseña("Por favor, ingrese una contraseña");
-      setInputClassContraseña("error-input");
-    }else if (contraseña.length > 20){
-      setErrorContraseña("La contraseña es demasiado larga");
-      setInputClassContraseña("error-input");
-    }else if(contraseña.length  < 9){
-      setErrorContraseña("La contraseña es muy corta");
-      setInputClassContraseña("error-input");
+  const validateContrasenia = () => {
+    if (contrasenia.length === 0) {
+      setErrorContrasenia("Por favor, ingrese una contraseña");
+      setInputClassContrasenia("error-input");
+    }else if (contrasenia.length > 20){
+      setErrorContrasenia("La contraseña es demasiado larga");
+      setInputClassContrasenia("error-input");
+    }else if(contrasenia.length  < 9){
+      setErrorContrasenia("La contraseña es muy corta");
+      setInputClassContrasenia("error-input");
     }else{
-      setErrorContraseña("");
-      setInputClassContraseña("success-input");
+      setErrorContrasenia("");
+      setInputClassContrasenia("success-input");
     }
   };
   
-  const handleConfirmacionContraseñaKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleConfirmacionContraseniaKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === " ") { // Verificar si la tecla presionada es un espacio
       event.preventDefault(); // Prevenir la acción por defecto (no permitir escribir el espacio)
     }
   };
 
-  const handleConfirmacionContraseñaChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleConfirmacionContraseniaChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value.replace(/[^a-zA-Z0-9\s]/g, ''); // Eliminar caracteres no alfabéticos
-    setConfirmacionContraseña(value);
+    setConfirmacionContrasenia(value);
   };
 
-  const verifyContraseña = () => {
-    if (contraseña.length === 0) {
+  const verifyContrasenia = () => {
+    if (contrasenia.length === 0) {
       setErrorConfirmacion("Porfavor, confirme su contraseña ");
       setInputClassConfirmacion("error-input");
-    }else if (contraseña.length < 8) {
+    }else if (contrasenia.length < 8) {
       setErrorConfirmacion("La contraseña es muy corta ");
       setInputClassConfirmacion("error-input");
-    }else if (contraseña === confirmacionContraseña) {
+    }else if (contrasenia === confirmacionContrasenia) {
       setErrorConfirmacion("");
       setInputClassConfirmacion("success-input");
     }else{
@@ -222,8 +222,8 @@ export const FormRegisterInstructor = () => {
     validateFechaNacimiento();
     validateTipoUsuario();
     validateCorreo();
-    validateContraseña();
-    verifyContraseña();
+    validateContrasenia();
+    verifyContrasenia();
   
     // Comprobar si todos los campos son válidos
     const allFieldsValid =
@@ -232,15 +232,15 @@ export const FormRegisterInstructor = () => {
         fechaNacimiento !== "" &&
         tipoUsuario !== "" &&
         correo !== "" &&
-        contraseña !== "" &&
-        confirmacionContraseña !== "" &&
+        contrasenia !== "" &&
+        confirmacionContrasenia !== "" &&
         errorNombreCompleto === "" &&
         errorNombreUsuario === "" &&
         errorFechaNacimiento === "" &&
         errorTipoUsuario === "" &&
         errorCorreo === "" &&
-        errorContraseña === "" &&
-        errorConfirmacionContraseña === "";
+        errorContrasenia === "" &&
+        errorConfirmacionContrasenia === "";
   
     if (allFieldsValid) {
         setShowModalSuccess(true);
@@ -397,37 +397,37 @@ export const FormRegisterInstructor = () => {
               </div>
             </div>
 
-            {errorContraseña && <div className="error-message">{errorContraseña}</div>}
+            {errorContrasenia && <div className="error-message">{errorContrasenia}</div>}
             <div className="form-register-instructor-content-data-field">
               <label htmlFor="">Contraseña*</label>
               <input
                 type="password"
                 id="contraseña"
                 placeholder="Ingrese su contraseña"
-                value={contraseña}
-                onChange={handleContraseñaChange}
-                onKeyPress={handleContraseñaKeyPress}
-                className={`${contraseña} ${inputClassContraseña}`}
+                value={contrasenia}
+                onChange={handleContraseniaChange}
+                onKeyPress={handleContraseniaKeyPress}
+                className={`${contrasenia} ${inputClassContrasenia}`}
               />
               <div className="icon-container">
-                {determineIconVisibility(inputClassContraseña)}
+                {determineIconVisibility(inputClassContrasenia)}
               </div>
             </div>
 
-            {errorConfirmacionContraseña && <div className="error-message">{errorConfirmacionContraseña}</div>}
+            {errorConfirmacionContrasenia && <div className="error-message">{errorConfirmacionContrasenia}</div>}
             <div className="form-register-instructor-content-data-field">
               <label htmlFor="">Confirmar contraseña*</label>
               <input
                 type="password"
                 id="confirmacionContraseña"
                 placeholder="Confirme su contraseña"
-                value={confirmacionContraseña}
-                onChange={handleConfirmacionContraseñaChange}
-                onKeyPress={handleConfirmacionContraseñaKeyPress}
-                className={`${confirmacionContraseña} ${inputClassConfirmacionContraseña}`}
+                value={confirmacionContrasenia}
+                onChange={handleConfirmacionContraseniaChange}
+                onKeyPress={handleConfirmacionContraseniaKeyPress}
+                className={`${confirmacionContrasenia} ${inputClassConfirmacionContrasenia}`}
               />
               <div className="icon-container">
-                {determineIconVisibility(inputClassConfirmacionContraseña)}
+                {determineIconVisibility(inputClassConfirmacionContrasenia)}
               </div>
             </div>
           </div>
