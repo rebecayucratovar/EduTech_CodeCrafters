@@ -17,6 +17,9 @@ import com.google.cloud.storage.Bucket;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 import java.util.List;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.beans.factory.annotation.Autowired;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -28,8 +31,9 @@ import org.springframework.beans.factory.annotation.Value;
 public class CursoControlador {
   private final CursoServicio cursoServicio;
 
-  @Value("${google.cloud.credentials.path}")
-  private String credentialsPath;
+    @Autowired
+    private ResourceLoader resourceLoader;
+
   @PostMapping("/save")
   public ResponseEntity<Curso> saveCurso(@RequestParam("file") MultipartFile imagen, Curso curso, RedirectAttributes attributes) {
     if (curso.getTitulo() == null || curso.getTitulo().trim().isEmpty()) {
@@ -37,18 +41,24 @@ public class CursoControlador {
     }
 
     try {
-      // Inicializar StorageOptions con las credenciales del archivo JSON
-      Storage storage = StorageOptions.newBuilder()
-              .setCredentials(ServiceAccountCredentials.fromStream(new FileInputStream(credentialsPath)))
-              .build().getService();
+        Resource resource = resourceLoader.getResource("classpath:google-cloud-credentials.json");
+
+        // Inicializar StorageOptions con las credenciales del archivo JSON
+        Storage storage = StorageOptions.newBuilder()
+                .setCredentials(ServiceAccountCredentials.fromStream(resource.getInputStream()))
+                .build().getService();
 
       Bucket bucket = storage.get("img-codecrafters");
 
       String nombreImagen = UUID.randomUUID().toString() + "_" + imagen.getOriginalFilename();
 
       Blob blob = bucket.create(nombreImagen, imagen.getBytes(), imagen.getContentType());
+      // Construir la URL de la imagen
+      String bucketName = "img-codecrafters"; // Reemplaza esto con el nombre de tu bucket
+      String objectName = nombreImagen; // Nombre del objeto que acabas de crear
+      String imageUrl = "https://storage.googleapis.com/" + bucketName + "/" + objectName;
 
-      curso.setImagen(blob.getMediaLink());
+      curso.setImagen(imageUrl);
     } catch (IOException e) {
       e.printStackTrace();
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
