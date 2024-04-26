@@ -469,7 +469,7 @@ export const FormRegisterInstructor = () => {
       {showModalCancel && (
         <Modal
           title="¿Estás seguro?"
-          description="¿Estás seguro de que deseas cancelar el registro del curso?"
+          description="¿Estás seguro de que deseas cancelar?"
           txtBtnAccept="Sí, seguro"
           txtBtnCancel="No, continuar"
           showBtnCancel={true}
@@ -482,4 +482,4 @@ export const FormRegisterInstructor = () => {
       )}
     </>
   );
-}; 
+};
