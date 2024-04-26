@@ -41,22 +41,22 @@ public class UsuarioValidador {
       }
     }
     private void validarCorreoElectronico(Usuario user){
-      if(campoVacio(user.getCorreoElectronico())) {
+      if(campoVacio(user.getCorreo())) {
         throw new IllegalArgumentException("Por favor, ingrese su correo electronico");
       }
-      if (!user.getCorreoElectronico().matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+      if (!user.getCorreo().matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
         throw new IllegalArgumentException("El correo electrónico no cumple con el formato válido");
       }
-      if (usuarioRepositorio.existsByCorreoElectronico(user.getCorreoElectronico())) {
+      if (usuarioRepositorio.existsByCorreoElectronico(user.getCorreo())) {
         throw new IllegalArgumentException("Correo electronico existente, ingrese otro");
       }
     }
   private void validarContrasenia(Usuario user){
-    if (campoVacio(user.getContrasenia())) {
+    if (campoVacio(user.getContraseña())) {
       throw new IllegalArgumentException("La contraseña no cumple con el formato válido");
     }
 
-    String contrasenia = user.getContrasenia();
+    String contrasenia = user.getContraseña();
 
     // Validar longitud de la contraseña
     if (contrasenia.length() < 8 || contrasenia.length() > 20) {
@@ -70,12 +70,12 @@ public class UsuarioValidador {
   }
 
   private void validarConfirmacionContrasenia(Usuario user){
-    if (campoVacio(user.getConfirmarContrasenia()))  {
+    if (campoVacio(user.getConfirmacionContraseña()))  {
       throw new IllegalArgumentException("Por favor, confirme su contraseña");
     }
 
     // Validar si la Contraseña coincide con la Confirmación de Contraseña
-    if (!user.getContrasenia().equals(user.getConfirmarContrasenia())) {
+    if (!user.getContraseña().equals(user.getConfirmacionContraseña())) {
       throw new IllegalArgumentException("La contraseña ingresada no es la misma");
     }
   }

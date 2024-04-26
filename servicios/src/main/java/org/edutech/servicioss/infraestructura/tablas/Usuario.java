@@ -25,12 +25,12 @@ public class Usuario {
 
   private TipoUsuario tipoUsuario;
 
-  private String correoElectronico;
+  private String correo;
 
-  private String contrasenia;
+  private String contraseña;
 
   @Transient
-  private String confirmarContrasenia;
+  private String confirmacionContraseña;
 
   @OneToMany(mappedBy = "usuario")
   private List<Curso> cursos;
