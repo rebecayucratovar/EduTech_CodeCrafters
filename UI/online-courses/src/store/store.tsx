@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import coursesReducer from "../slices/courses";
+import instructorsReducer from "../slices/instructors";
 
 export const store = configureStore({
   reducer: {
     courses: coursesReducer,
+    instructors: instructorsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
