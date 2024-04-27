@@ -52,7 +52,7 @@ export const FormRegistInstructor = () => {
     ) {
       return;
     }
-
+    setShowModalByClickInAccept(true);
     /**if (data.file) {
       const course = {
         id: Date.now().toString(),
