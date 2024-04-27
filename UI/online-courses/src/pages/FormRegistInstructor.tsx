@@ -7,7 +7,6 @@ import CheckIcon from "../assets/icons/CheckIcon.svg";
 //import { addInstructor} from "../slices/instructors.tsx";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-//import {addCourse} from "../slices/courses.tsx";
 
 export const FormRegistInstructor = () => {
   const navigate = useNavigate();
@@ -103,7 +102,7 @@ export const FormRegistInstructor = () => {
 
             <div className="form-register-course-content-data">
               <div className="form-register-course-content-data-field">
-                <label htmlFor="nombreCompleto">NombreCompleto*</label>
+                <label htmlFor="nombreCompleto">Nombre Completo*</label>
                 <div className="form-register-course-content-data-field-input">
                   <input
                       type="text"
@@ -112,14 +111,31 @@ export const FormRegistInstructor = () => {
                       {...register("nombreCompleto", {
                         required: {
                           value: true,
-                          message: "Por favor, ingrese el nombreCompleto del curso",
+                          message: "Por favor, ingrese el nombreCompleto",
                         },
                         maxLength: {
-                          value: 40,
-                          message: "El nombreCompleto no debe tener mas de 40 caracteres",
+                          value: 20,
+                          message: "El nombreCompleto no debe tener mas de 20 caracteres",
                         },
+                        minLength: {
+                          value: 2,
+                          message: "El nombreCompleto debe tener mas de 2 caracteres",
+                        },
+                        pattern: {
+                          value: /^[A-Za-zÀ-ÖØ-öø-ÿ ]+$/,  // Acepta letras y espacios
+                          message: "El nombre completo solo debe contener letras",
+                        }
                       })}
-                      maxLength={40}
+                      maxLength={20}
+                      onKeyDown={(e) => {
+                        const target = e.target as HTMLInputElement;
+                        if (e.key === " " && target.value.slice(-1) === " ") {
+                          e.preventDefault(); // Evita que se ingrese el segundo espacio en blanco
+                        }
+                        if (target.value.length >= 20 && e.key !== "Backspace" && e.key !== "Delete") {
+                          e.preventDefault();
+                        }
+                      }}
                       className={`${errors.nombreCompleto ? "error-input" : ""} ${
                           dirtyFields.nombreCompleto && !errors.nombreCompleto ? "success-input" : ""
                       }`}
@@ -154,22 +170,31 @@ export const FormRegistInstructor = () => {
                   <input
                       type="text"
                       id="nombreUsuario"
-                      placeholder="Ingrese la nombreUsuario del curso"
+                      placeholder="Ingrese el nombre de Usuario"
                       {...register("nombreUsuario", {
                         required: {
                           value: true,
                           message: "Porfavor, ingrese su nombre",
                         },
                         maxLength: {
-                          value: 40,
-                          message: "El nombre del intructor no debe ser mayor a 40",
+                          value: 20,
+                          message: "El nombre del intructor no debe ser mayor a 20",
                         },
                         pattern: {
-                          value: /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/,
-                          message: "El nombre solo debe contener letras",
+                          value: /^[A-Za-zÁÉÍÓÚáéíóúñÑ0-9\s]+$/,
+                          message: "No acepta caracteres especiales",
                         },
                       })}
-                      maxLength={40}
+                      maxLength={20}
+                      onKeyDown={(e) => {
+                        const target = e.target as HTMLInputElement;
+                        if (e.key === " " && target.value.slice(-1) === " ") {
+                          e.preventDefault(); // Evita que se ingrese el segundo espacio en blanco
+                        }
+                        if (target.value.length >= 20 && e.key !== "Backspace" && e.key !== "Delete") {
+                          e.preventDefault();
+                        }
+                      }}
                       className={`${errors.nombreUsuario ? "error-input" : ""} ${
                           dirtyFields.nombreUsuario && !errors.nombreUsuario
                               ? "success-input"
@@ -195,54 +220,6 @@ export const FormRegistInstructor = () => {
                             className="check-icon"
                             src={CheckIcon}
                             alt="Icono de check"
-                        />
-                      </div>
-                  )}
-                </div>
-              </div>
-
-              <div className="form-register-course-content-data-field">
-                <label htmlFor="fechaNacimiento">Fecha de Nacimiento*</label>
-                <div className="form-register-course-content-data-field-input">
-                <textarea
-                    id="fechaNacimiento"
-                    placeholder="Describa lo que se aprendera una ves terminado el curso"
-                    {...register("fechaNacimiento", {
-                      required: {
-                        value: true,
-                        message: "Por favor, rellene el campo.",
-                      },
-                      maxLength: {
-                        value: 400,
-                        message:
-                            "La nombreUsuario no deben tener mas de 400 caracteres",
-                      },
-                    })}
-                    maxLength={400}
-                    className={`${errors.fechaNacimiento ? "error-input" : ""} ${
-                        dirtyFields.fechaNacimiento && !errors.fechaNacimiento
-                            ? "success-input"
-                            : ""
-                    }`}
-                />
-                  {errors.fechaNacimiento && (
-                      <div className="form-register-course-content-data-field-error">
-                        <label htmlFor="error">
-                          {JSON.stringify(errors.fechaNacimiento.message).replace(
-                              /^"|"$/g,
-                              ""
-                          )}
-                        </label>
-                        <img src={AlertIcon} alt="Icono de check"/>
-                      </div>
-                  )}
-
-                  {dirtyFields.fechaNacimiento && !errors.fechaNacimiento && (
-                      <div className="form-register-course-content-data-field-error">
-                        <img
-                            className="check-icon"
-                            src={CheckIcon}
-                            alt="Icono de alerta"
                         />
                       </div>
                   )}
@@ -295,6 +272,56 @@ export const FormRegistInstructor = () => {
                   )}
                 </div>
               </div>
+
+              <div className="form-register-course-content-data-field">
+                <label htmlFor="fechaNacimiento">Fecha de Nacimiento*</label>
+                <div className="form-register-course-content-data-field-input">
+                <input
+                    type={"date"}
+                    id="fechaNacimiento"
+                    max="2006-01-01"
+                    placeholder="Describa lo que se aprendera una ves terminado el curso"
+                    {...register("fechaNacimiento", {
+                      required: {
+                        value: true,
+                        message: "Por favor, seleccione la fecha de nacimiento.",
+
+                      },
+                      validate: {
+                        dateBefore20060101: value => value <= '2006-01-01' || "La fecha de nacimiento debe ser anterior al 01/01/2006",
+                        dateNotEmpty: value => value !== '' || "La fecha de nacimiento es obligatoria",
+                      }
+                    })}
+                    className={`${errors.fechaNacimiento ? "error-input" : ""} ${
+                        dirtyFields.fechaNacimiento && !errors.fechaNacimiento
+                            ? "success-input"
+                            : ""
+                    }`}
+                />
+                  {errors.fechaNacimiento && (
+                      <div className="form-register-course-content-data-field-error">
+                        <label htmlFor="error">
+                          {JSON.stringify(errors.fechaNacimiento.message).replace(
+                              /^"|"$/g,
+                              ""
+                          )}
+                        </label>
+                        <img src={AlertIcon} alt="Icono de check"/>
+                      </div>
+                  )}
+
+                  {dirtyFields.fechaNacimiento && !errors.fechaNacimiento && (
+                      <div className="form-register-course-content-data-field-error">
+                        <img
+                            className="check-icon"
+                            src={CheckIcon}
+                            alt="Icono de alerta"
+                        />
+                      </div>
+                  )}
+                </div>
+              </div>
+
               <div className="form-register-course-content-data-field">
                 <label htmlFor="correo">Correo electrónico*</label>
                 <div className="form-register-course-content-data-field-input">
@@ -412,7 +439,7 @@ export const FormRegistInstructor = () => {
               </div>
 
               <div className="form-register-course-content-data-field">
-                <label htmlFor="confirmacionContraseña">Confirmar contraseña</label>
+                <label htmlFor="confirmacionContraseña">Confirmar contraseña*</label>
                 <div className="form-register-course-content-data-field-input">
                   <input
                       type="password"
@@ -482,7 +509,7 @@ export const FormRegistInstructor = () => {
         {showModalByClickInRegister && (
             <Modal
                 title="Registro exitoso"
-                description="Se registró correctamente el curso"
+                description="Se registró correctamente"
                 txtBtnAccept="Aceptar"
                 onAccept={() => {
                   reset();
@@ -507,7 +534,7 @@ export const FormRegistInstructor = () => {
         {showModalByClickInCancel && (
             <Modal
                 title="¿Estás seguro?"
-                description="¿Estás seguro de que desea cancelar el registro del curso?"
+                description="¿Estás seguro de que desea cancelar el registro?"
                 txtBtnAccept="Si, seguro"
                 txtBtnCancel="No, continuar"
                 showBtnCancel={true}

@@ -4,7 +4,7 @@ export interface Instructors {
   id: string;
   nombreCompleto: string;
   nombreUsuario: string;
-  fechaNacimiento: string;
+  fechaNacimiento: Date;
   tipoUsuario: string;
   correo: string;
   contraseña: string;
