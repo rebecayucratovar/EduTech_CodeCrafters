@@ -25,7 +25,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173", "https://edutech-codecrafters.netlify.app"})
 @RequestMapping("/cursos")
 @RequiredArgsConstructor
 public class CursoControlador {
