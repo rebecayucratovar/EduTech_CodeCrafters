@@ -1,17 +1,17 @@
 import logo from "../assets/LogoForm.png";
 import { Modal } from "../components/Modal";
-import { useDispatch } from "react-redux";
+//import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import AlertIcon from "../assets/icons/AlertIcon.svg";
 import CheckIcon from "../assets/icons/CheckIcon.svg";
-import { addInstructor} from "../slices/instructors.tsx";
+//import { addInstructor} from "../slices/instructors.tsx";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import {addCourse} from "../slices/courses.tsx";
+//import {addCourse} from "../slices/courses.tsx";
 
 export const FormRegistInstructor = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+ // const dispatch = useDispatch();
 
   const {
     register,
@@ -98,7 +98,7 @@ export const FormRegistInstructor = () => {
 
           <section className="form-register-course-content">
             <label className="form-register-course-content-title">
-              Registro de nuevo curso
+              Formulario de registro
             </label>
 
             <div className="form-register-course-content-data">
@@ -132,7 +132,7 @@ export const FormRegistInstructor = () => {
                               ""
                           )}
                         </label>
-                        <img src={AlertIcon} alt="Icono de alerta" />
+                        <img src={AlertIcon} alt="Icono de alerta"/>
                       </div>
                   )}
 
@@ -185,7 +185,7 @@ export const FormRegistInstructor = () => {
                               ""
                           )}
                         </label>
-                        <img src={AlertIcon} alt="Icono de alerta" />
+                        <img src={AlertIcon} alt="Icono de alerta"/>
                       </div>
                   )}
 
@@ -233,7 +233,7 @@ export const FormRegistInstructor = () => {
                               ""
                           )}
                         </label>
-                        <img src={AlertIcon} alt="Icono de check" />
+                        <img src={AlertIcon} alt="Icono de check"/>
                       </div>
                   )}
 
@@ -280,7 +280,7 @@ export const FormRegistInstructor = () => {
                               ""
                           )}
                         </label>
-                        <img src={AlertIcon} alt="Icono de alerta" />
+                        <img src={AlertIcon} alt="Icono de alerta"/>
                       </div>
                   )}
 
@@ -295,31 +295,98 @@ export const FormRegistInstructor = () => {
                   )}
                 </div>
               </div>
+              <div className="form-register-course-content-data-field">
+                <label htmlFor="correo">Correo electrónico*</label>
+                <div className="form-register-course-content-data-field-input">
+                  <input
+                      type="text"
+                      id="correo"
+                      placeholder="Ingrese su correo"
+                      {...register("correo", {
+                        required: {
+                          value: true,
+                          message: "Porfavor, ingrese su correo electrónico",
+                        },
+                        pattern: {
+                          value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                          message: "Por favor, ingrese una dirección de correo electrónico válida",
+                        },
+                      })}
+                      maxLength={150}
+                      onKeyDown={(e) => {
+                        if (e.key === " ") {
+                          e.preventDefault();
+                        }
+                      }}
+                      className={`${errors.correo ? "error-input" : ""} ${
+                          dirtyFields.correo && !errors.correo
+                              ? "success-input"
+                              : ""
+                      }`}
+                  />
 
+                  {errors.correo && (
+                      <div className="form-register-course-content-data-field-error">
+                        <label htmlFor="error">
+                          {JSON.stringify(errors.correo.message).replace(
+                              /^"|"$/g,
+                              ""
+                          )}
+                        </label>
+                        <img src={AlertIcon} alt="Icono de alerta"/>
+                      </div>
+                  )}
+
+                  {dirtyFields.correo && !errors.correo && (
+                      <div className="form-register-course-content-data-field-error">
+                        <img
+                            className="check-icon"
+                            src={CheckIcon}
+                            alt="Icono de check"
+                        />
+                      </div>
+                  )}
+                </div>
+              </div>
               <div className="form-register-course-content-data-field">
                 <label htmlFor="contraseña">Contraseña*</label>
                 <div className="form-register-course-content-data-field-input">
-                <textarea
-                    id="contraseña"
-                    placeholder="Describa lo que se aprendera una ves terminado el curso"
-                    {...register("contraseña", {
-                      required: {
-                        value: true,
-                        message: "Por favor, rellene el campo.",
-                      },
-                      maxLength: {
-                        value: 400,
-                        message:
-                            "La nombreUsuario no deben tener mas de 400 caracteres",
-                      },
-                    })}
-                    maxLength={400}
-                    className={`${errors.contraseña ? "error-input" : ""} ${
-                        dirtyFields.contraseña && !errors.contraseña
-                            ? "success-input"
-                            : ""
-                    }`}
-                />
+                  <input
+                      type="password"
+                      id="contraseña"
+                      placeholder="Ingrese su contraseña"
+                      {...register("contraseña", {
+                        required: 'Por favor, ingrese su contraseña',
+                        validate: (value) => {
+                          const isValidLength = value.length >= 8 && value.length <= 20;
+                          const containsLetter = /[a-zA-Z]/.test(value);
+                          const containsNumber = /\d/.test(value);
+                          const containsSymbol = /[^\w\s]/.test(value); // Verifica si hay un símbolo excepto letras y números
+
+                          if (!isValidLength || !containsLetter || !containsNumber || !containsSymbol) {
+                            return "Contraseña invalida, no cumple con los caracteres del tipo y tamaño";
+                          }
+                          return true;
+                        },
+                      })}
+                      onKeyDown={(e) => {
+                        const target = e.target as HTMLInputElement;
+                        if (e.key === " " && target.value.slice(-1) === " ") {
+                          e.preventDefault(); // Evita que se ingrese el segundo espacio en blanco
+                        }
+                        if (target.value.length >= 20 && e.key !== "Backspace" && e.key !== "Delete") {
+                          e.preventDefault();
+                        }
+                      }}
+                      className={`${errors.contraseña ? "error-input" : ""} ${
+                          dirtyFields.contraseña && !errors.contraseña
+                              ? "success-input"
+                              : ""
+                      }`}
+                  />
+                  <div className="form-register-course-content-data-field-message">
+                    Use 8 o más caracteres con combinación de letras, números y símbolos
+                  </div>
                   {errors.contraseña && (
                       <div className="form-register-course-content-data-field-error">
                         <label htmlFor="error">
@@ -328,7 +395,7 @@ export const FormRegistInstructor = () => {
                               ""
                           )}
                         </label>
-                        <img src={AlertIcon} alt="Icono de check" />
+                        <img src={AlertIcon} alt="Icono de check"/>
                       </div>
                   )}
 
@@ -345,26 +412,31 @@ export const FormRegistInstructor = () => {
               </div>
 
               <div className="form-register-course-content-data-field">
-                <label htmlFor="confirmacionContraseña">confirmacionContraseña</label>
+                <label htmlFor="confirmacionContraseña">Confirmar contraseña</label>
                 <div className="form-register-course-content-data-field-input">
-                <textarea
+                  <input
+                      type="password"
                     id="confirmacionContraseña"
-                    placeholder="Ingrese los confirmacionContraseña para unirse al curso"
+                    placeholder="Confirme su contraseña"
                     {...register("confirmacionContraseña", {
-                      maxLength: {
-                        value: 400,
-                        message:
-                            "Los confirmacionContraseña no deben tener mas de 400 caracteres",
-                      },
+                      required: 'Por favor, confirme su contraseña',
+                      validate: (value, { contraseña }) => value === contraseña || 'Las contraseñas no coinciden',
                     })}
+                      onKeyDown={(e) => {
+                        const target = e.target as HTMLInputElement;
+                        if (e.key === " " && target.value.slice(-1) === " ") {
+                          e.preventDefault(); // Evita que se ingrese el segundo espacio en blanco
+                        }
+                        if (target.value.length >= 20 && e.key !== "Backspace" && e.key !== "Delete") {
+                          e.preventDefault();
+                        }
+                      }}
                     className={`${errors.confirmacionContraseña ? "error-input" : ""} ${
                         dirtyFields.confirmacionContraseña && !errors.confirmacionContraseña
                             ? "success-input"
                             : ""
                     }`}
-                    maxLength={400}
                 />
-
                   {errors.confirmacionContraseña && (
                       <div className="form-register-course-content-data-field-error">
                         <label htmlFor="error">
@@ -383,7 +455,7 @@ export const FormRegistInstructor = () => {
 
                   {dirtyFields.confirmacionContraseña && !errors.confirmacionContraseña && (
                       <div className="form-register-course-content-data-field-error">
-                        <img src={CheckIcon} alt="Icono de alerta" />
+                        <img src={CheckIcon} alt="Icono de alerta"/>
                       </div>
                   )}
                 </div>
