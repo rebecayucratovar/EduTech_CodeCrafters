@@ -42,7 +42,7 @@ export const FormRegistInstructor = () => {
 
     const onSubmit = handleSubmit(async (formData) => {
         try {
-            const response = await fetch("https://edutech--muddy-smoke-1854.fly.dev/v1/usuarios/saveUsuario", {
+            const response = await fetch("https://edutech--snowy-pine-1388.fly.dev/v1/usuarios/saveUsuario", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
