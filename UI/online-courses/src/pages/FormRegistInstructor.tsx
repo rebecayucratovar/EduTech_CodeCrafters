@@ -40,55 +40,35 @@ export const FormRegistInstructor = () => {
     setShowModalByClickInCancel(true);
   };
 
-  const onSubmit = handleSubmit(async () => {
-    if (
-        errors.nombreCompleto ||
-        errors.nombreUsuario ||
-        errors.fechaNacimiento ||
-        errors.tipoUsuario ||
-        errors.correo ||
-        errors.contraseña ||
-        errors.confirmacionContraseña
-    ) {
-      return;
-    }
-    setShowModalByClickInAccept(true);
-    /**if (data.file) {
-      const course = {
-        id: Date.now().toString(),
-        ...data,
-        file: data.file[0],
-      };
-      dispatch(addCourse(course));
-      setShowModalByClickInAccept(true);
+    const onSubmit = handleSubmit(async (formData) => {
+        try {
+            const response = await fetch("https://edutech--muddy-smoke-1854.fly.dev/usuarios/saveUsuario", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            });
 
-      const formData = new FormData();
-
-      formData.append("titulo", data.titulo);
-      formData.append("descripcion", data.descripcion);
-      formData.append("categoria", data.categoria);
-      if (data.costo) {
-        formData.append("costo", data.costo);
-      }
-      formData.append("requisitos", data.requisitos);
-      formData.append("aprenderas", data.aprenderas);
-      formData.append("file", data.file[0]);
-      try {
-        // TODO: Cambiar el path por el de la API deployada
-        const response = await fetch("http://localhost:3039/v1/cursos/save", {
-          method: "POST",
-          body: formData,
-        });
-
-        if (!response.ok) {
-          throw new Error("Error al registrar el curso");
+            if (response.ok) {
+                // Si la solicitud fue exitosa, puedes manejar la respuesta aquí
+                const usuarioGuardado = await response.json();
+                console.log("Usuario guardado:", usuarioGuardado);
+                setShowModalByClickInAccept(true); // Mostrar modal de éxito
+            } else {
+                // Si la solicitud no fue exitosa, puedes manejar el error aquí
+                console.error("Error al guardar el usuario:", response.status);
+                // Puedes mostrar un mensaje de error al usuario si lo deseas
+                setShowModalError(true); // Mostrar modal de error
+            }
+        } catch (error) {
+            console.error("Error al procesar la solicitud:", error);
+            // Puedes manejar cualquier error de red u otros errores aquí
+            setShowModalError(true); // Mostrar modal de error
         }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }**/
-  });
-  return (
+    });
+
+    return (
       <>
         <form className="form-register-course" onSubmit={onSubmit}>
           <section className="form-register-course-logo">
@@ -107,19 +87,19 @@ export const FormRegistInstructor = () => {
                   <input
                       type="text"
                       id="nombreCompleto"
-                      placeholder="Ingrese el nombreCompleto del curso"
+                      placeholder="Ingrese su nombre completo"
                       {...register("nombreCompleto", {
                         required: {
                           value: true,
-                          message: "Por favor, ingrese el nombreCompleto",
+                          message: "Por favor, ingrese su nombre completo",
                         },
                         maxLength: {
                           value: 20,
-                          message: "El nombreCompleto no debe tener mas de 20 caracteres",
+                          message: "El nombre completo no debe tener mas de 20 caracteres",
                         },
                         minLength: {
                           value: 2,
-                          message: "El nombreCompleto debe tener mas de 2 caracteres",
+                          message: "El nombre completo debe tener mas de 2 caracteres",
                         },
                         pattern: {
                           value: /^[A-Za-zÀ-ÖØ-öø-ÿ ]+$/,  // Acepta letras y espacios
@@ -170,11 +150,11 @@ export const FormRegistInstructor = () => {
                   <input
                       type="text"
                       id="nombreUsuario"
-                      placeholder="Ingrese el nombre de Usuario"
+                      placeholder="Ingrese un nombre de Usuario"
                       {...register("nombreUsuario", {
                         required: {
                           value: true,
-                          message: "Porfavor, ingrese su nombre",
+                          message: "Porfavor, ingrese un nombre de usuario",
                         },
                         maxLength: {
                           value: 20,
@@ -246,7 +226,7 @@ export const FormRegistInstructor = () => {
                       }`}
                   >
                     <option value="default">Selecciona tipo de usuario</option>
-                    <option value="DESARROLLO_WEB"> Instructor</option>
+                    <option value="INSTRUCTOR"> Instructor</option>
                   </select>
 
                   {errors.tipoUsuario && (
@@ -284,7 +264,7 @@ export const FormRegistInstructor = () => {
                     {...register("fechaNacimiento", {
                       required: {
                         value: true,
-                        message: "Por favor, seleccione la fecha de nacimiento.",
+                        message: "Por favor, seleccione su fecha de nacimiento.",
 
                       },
                       validate: {
