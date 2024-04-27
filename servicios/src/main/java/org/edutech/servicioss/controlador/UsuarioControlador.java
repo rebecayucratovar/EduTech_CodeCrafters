@@ -7,7 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 import org.edutech.servicioss.servicios.UsuarioServicio;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -60,5 +63,13 @@ public class UsuarioControlador {
   public ResponseEntity<Void> delete(@PathVariable("usuarioId") UUID usuarioId) {
     usuarioServicio.deleteById(usuarioId);
     return ResponseEntity.noContent().build();
+  }
+
+  @GetMapping("/verificar-correo")
+  public ResponseEntity<Map<String, Boolean>> verificarCorreo(@RequestParam String correo) {
+    boolean correoExistente = usuarioServicio.existeCorreo(correo);
+    Map<String, Boolean> response = new HashMap<>();
+    response.put("correoValido", !correoExistente);
+    return ResponseEntity.ok(response);
   }
 }
