@@ -25,7 +25,6 @@ public class Usuario {
 
   private TipoUsuario tipoUsuario;
 
-  @Column(unique = true)
   private String correo;
 
   private String contraseña;

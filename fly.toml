@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for edutech--cold-dream-305 on 2024-04-26T15:37:44-04:00
+# fly.toml app configuration file generated for edutech--muddy-smoke-1854 on 2024-04-27T08:13:34-04:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'edutech--cold-dream-305'
+app = 'edutech--muddy-smoke-1854'
 primary_region = 'scl'
 
 [build]
