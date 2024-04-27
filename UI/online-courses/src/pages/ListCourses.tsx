@@ -4,7 +4,7 @@ import { Course } from "../interfaces/Course.ts";
 export const ListCourses = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   useEffect(() => {
-    fetch("https://edutech--muddy-smoke-1854.fly.dev/v1/cursos/lista")
+    fetch("https://edutech--snowy-pine-1388.fly.dev/v1/cursos/lista")
         .then(response => {
           if (!response.ok) {
             throw new Error("Error al obtener los cursos");
