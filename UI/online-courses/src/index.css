@@ -550,3 +550,204 @@ textarea.error-input {
   font-size: 20px;
   font-weight: bold;
 }
+
+.modal-curso-detail-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 1000px;
+  height: 700px;
+  background-color: red;
+}
+
+.modal-curso-btn-close {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 35px;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid #62b6cb;
+
+  &:hover {
+    background-color: #def0fd;
+  }
+}
+
+.modal-curso-detail-content {
+  top: 35px;
+  position: absolute;
+  background-color: white;
+  border: 20px solid #62b6cb;
+  display: flex;
+  gap: 30px;
+  width: 1000px;
+  height: 665px;
+}
+
+.modal-curso-detail-content-panel-left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  width: calc(60% - 15px);
+}
+
+.modal-curso-detail-content-panel-right {
+  display: flex;
+  flex-direction: column;
+  width: calc(40% - 15px);
+  background-color: #def0fd;
+}
+
+.modal-curso-detail-content-panel-left-title {
+  font-size: 25px;
+  font-weight: bold;
+  color: #242367;
+  font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+  text-align: center;
+}
+
+.modal-curso-detail-content-panel-left-subtitle {
+  font-size: 16px;
+  font-weight: bold;
+  color: #62b6cb;
+  font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+}
+
+.modal-curso-detail-content-panel-left-description {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-curso-detail-content-panel-left-description-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #3281af;
+  font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+}
+
+.modal-curso-detail-content-panel-left-description-text {
+  font-size: 16px;
+  color: #62b6cb;
+  margin-top: 5px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+}
+
+.modal-curso-detail-content-panel-left-list {
+  border-radius: 10px;
+  border: 2px solid #62b6cb;
+  margin: 0 20px;
+  display: flex;
+  flex-direction: column;
+  font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+  padding-left: 20px;
+}
+
+.modal-curso-detail-content-panel-left-list-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #3281af;
+}
+
+.modal-curso-detail-content-panel-left-list-title-items {
+  font-size: 16px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.modal-curso-detail-content-panel-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-curso-detail-content-panel-right-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35%;
+  padding: 12px 28px 28px 28px;
+}
+
+.modal-curso-detail-content-panel-right-img-container {
+  background-color: #f3f3f5;
+  height: 100%;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.modal-curso-detail-content-panel-right-text-first {
+  font-size: 18px;
+  color: #3281af;
+  height: 15%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 28px;
+  gap: 5px;
+  letter-spacing: 1px;
+}
+
+.modal-curso-detail-content-panel-right-text-first-costo {
+  font-size: 22px;
+  color: #242367;
+  font-weight: 600;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.modal-curso-detail-content-panel-right-text-second {
+  font-size: 16px;
+  color: #3281af;
+  height: 25%;
+  gap: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-left: 5px;
+}
+
+.modal-curso-detail-content-panel-right-text-second-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  img {
+    width: 18px;
+  }
+
+  label {
+    font-size: 16px;
+  }
+}
+
+.modal-curso-detail-content-panel-right-buttons {
+  height: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 0 28px;
+
+  button {
+    background-color: #3281af;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #62b6cb;
+    }
+  }
+}
