@@ -4,7 +4,6 @@ import { Layout } from "../components/Layout";
 import { FormRegisterCourse } from "./FormRegisterCourse";
 import { FormRegistInstructor } from "./FormRegistInstructor";
 import { ListCourses } from "./ListCourses";
-import { ModalCursoDetail } from "../components/ModalCursoDetail";
 export const App = () => {
   return (
     <div className="app-content">
@@ -16,7 +15,6 @@ export const App = () => {
           ></Route>
           <Route path="registro-curso" element={<FormRegisterCourse />}></Route>
           <Route path="lista-cursos" element={<ListCourses />}></Route>
-          <Route path="modal-curso" element={<ModalCursoDetail />}></Route>
         </Route>
       </Routes>
     </div>
