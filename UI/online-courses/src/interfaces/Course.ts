@@ -3,4 +3,7 @@ export interface Course {
   titulo: string;
   imagen: string;
   costo: number;
+  categoria: string;
+  requisitos: string;
+  aprenderas: string;
 }
