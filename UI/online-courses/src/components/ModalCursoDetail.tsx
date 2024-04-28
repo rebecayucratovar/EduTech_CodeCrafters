@@ -33,7 +33,7 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                   htmlFor="subtitle"
                   className="modal-curso-detail-content-panel-left-subtitle"
                 >
-                  Categoria: {formattedCategoria}
+                  Categoría: {formattedCategoria}
                 </label>
 
                 <div className="modal-curso-detail-content-panel-left-description">
@@ -41,7 +41,7 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                     htmlFor="descripcion-title"
                     className="modal-curso-detail-content-panel-left-description-title"
                   >
-                    Descripcion:
+                    Descripción:
                   </label>
                   <p className="modal-curso-detail-content-panel-left-description-text">
                     {course.descripcion}
@@ -88,14 +88,14 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                     Costo: {course.costo} bs
                   </label>
 
-                  <label htmlFor="instructor">Instructor: Juan Perez</label>
-                  <label htmlFor="extra">Informacion extra: Ninguna</label>
+                  <label htmlFor="instructor">Instructor: Pedro Perez</label>
+                  <label htmlFor="extra">Información extra: Ninguna</label>
                 </div>
 
                 <div className="modal-curso-detail-content-panel-right-text-second">
                   <div className="modal-curso-detail-content-panel-right-text-second-item">
                     <img src={Timer} alt="icon" />
-                    <label htmlFor="duracion">Duracion: 5 semanas</label>
+                    <label htmlFor="duracion">Duración: 5 semanas</label>
                   </div>
 
                   <div className="modal-curso-detail-content-panel-right-text-second-item">
@@ -106,7 +106,7 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                   <div className="modal-curso-detail-content-panel-right-text-second-item">
                     <img src={Reset} alt="icon" />
                     <label htmlFor="duracion">
-                      Ultima actualizacion: 08/04/2024
+                      Ultima actualización: 08/04/2024
                     </label>
                   </div>
 
