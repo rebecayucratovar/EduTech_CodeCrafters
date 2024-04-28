@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import LogoNavBar from "../assets/LogoNavBar.svg";
 
 export const NavBar = () => {
-
   return (
     <section className="navbar">
       <div className="logo-container">
@@ -21,7 +20,6 @@ export const NavBar = () => {
           Listar cursos
         </Link>
       </div>
-      
     </section>
   );
 };
