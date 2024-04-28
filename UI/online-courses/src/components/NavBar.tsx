@@ -19,10 +19,6 @@ export const NavBar = () => {
         <Link to="/lista-cursos" className="navbar-content-link">
           Listar cursos
         </Link>
-
-        <Link to="/modal-curso" className="navbar-content-link">
-          Modal curso
-        </Link>
       </div>
     </section>
   );
