@@ -75,7 +75,8 @@ export const FormRegisterCourse = () => {
       formData.append("file", data.file[0]);
       try {
         // TODO: Cambiar el path por el de la API deployada
-        const response = await fetch("http://localhost:3039/v1/cursos/save", {
+        // si no da cambiar al anterior http://localhost:3039/v1/cursos/save
+        const response = await fetch("https://edutech--snowy-pine-1388.fly.dev/v1/cursos/save", {
           method: "POST",
           body: formData,
         });
