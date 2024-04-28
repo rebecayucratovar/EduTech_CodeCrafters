@@ -1,25 +1,24 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import {useEffect, useState} from "react";
+import { Course } from "../interfaces/Course.ts";
 
 export const ListCourses = () => {
-  const courses = useSelector((state: RootState) => state.courses.courses);
-  // Utilizar esta implementacion cuando el proyecto de Spring boot stee deployado
-  //const [courses, setCourses] = useState<Course[]>([]);
-  //useEffect(() => {
-  //  fetch("http://localhost:3039/v1/cursos/lista")
-  //    .then((response) => {
-  //      if (!response.ok) {
-  //        throw new Error("Error al obtener los cursos");
-  //      }
-  //      return response.json();
-  //   })
-  //    .then((data) => {
-  //      setCourses(data);
-  //    })
-  //    .catch((error) => {
-  //      console.error("Error:", error);
-  //    });
-  //}, []);
+  const [courses, setCourses] = useState<Course[]>([]);
+  useEffect(() => {
+    fetch("https://edutech--snowy-pine-1388.fly.dev/v1/cursos/lista")
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Error al obtener los cursos");
+          }
+          return response.json();
+        })
+        .then(data => {
+          setCourses(data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+  }, []);
+
   return (
     <article className="list-courses">
       <section className="list-courses-content">
@@ -38,12 +37,7 @@ export const ListCourses = () => {
                   className="list-courses-content-card-wrapper"
                   key={course.id}
                 >
-                  {course.file && (
-                    <img
-                      src={URL.createObjectURL(course.file)}
-                      alt="img-course"
-                    />
-                  )}
+                  {course.imagen && <img src={course.imagen} alt="img-course" />}
                   <div className="list-courses-content-card-wrapper-description">
                     <label
                       htmlFor="card-title"
@@ -57,10 +51,8 @@ export const ListCourses = () => {
                       htmlFor="card-costo"
                       className="list-courses-content-card-wrapper-description-costo"
                     >
-                      {!Number.isInteger(course.costo)
-                        ? parseFloat(course.costo).toFixed(2)
-                        : course.costo}{" "}
-                      Bs.
+                      {course.costo} Bs.
+
                     </label>
                   </div>
                 </div>

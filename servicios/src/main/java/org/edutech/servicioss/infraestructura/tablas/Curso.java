@@ -22,7 +22,7 @@ public class Curso {
 
   private String imagen;
 
-  private int costo;
+  private double costo;
 
   private String requisitos;
 

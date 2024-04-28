@@ -158,7 +158,17 @@ body {
     color: rgb(98, 182, 203);
   }
 }
-
+.form-register-course-content-data-field-message {
+  display: flex;
+  justify-content: center; /* Alinea el contenido al centro horizontalmente */
+  align-items: center; /* Alinea el contenido al centro verticalmente */
+  gap: 30px; /* Espacio entre elementos */
+  font-size: 14px;
+  color: #62b6cb;
+  font-weight: bold;
+  font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+  margin-top: 5px; /* Mueve el mensaje hacia abajo */
+}
 .form-register-course-content-data-field-error {
   display: flex;
   align-items: center;
