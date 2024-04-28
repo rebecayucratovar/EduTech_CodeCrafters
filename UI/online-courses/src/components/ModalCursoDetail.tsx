@@ -44,17 +44,7 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                     Descripcion:
                   </label>
                   <p className="modal-curso-detail-content-panel-left-description-text">
-                    {course.descripcion} Lorem Ipsum is simply dummy text of the
-                    printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an
-                    unknown printer took a galley of type and scrambled it to
-                    make a type specimen book. It has survived not only five
-                    centuries, but also the leap into electronic typesetting,
-                    remaining essentially unchanged. It was popularised in the
-                    1960s with the release of Letraset sheets containing Lorem
-                    Ipsum passages, and more recently with desktop publishing
-                    software like Aldus PageMaker including versions of Lorem
-                    Ipsu
+                    {course.descripcion}
                   </p>
                 </div>
 
@@ -66,29 +56,7 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                     Lo que aprenderás:
                   </label>
                   <ul className="modal-curso-detail-content-panel-left-list-items">
-                    <li>
-                      {course.aprenderas} Lorem Ipsum is simply dummy text of
-                      the printing and typesetting industry. Lorem Ipsum has
-                      been the industry's standard dummy text ever since the
-                      1500s, when an unknown printer took a galley of type and
-                      scrambled it to make a type specimen book. It has survived
-                      not only five centuries, but also the leap into electronic
-                      typesetting, remaining essentially unchanged. It was
-                      popularised in the 1960s with the release of Letraset
-                      sheets containing Lorem Ipsum passages, and more recently
-                      with desktop publishing software like Aldus PageMaker
-                      including versions of Lorem Ipsu Lorem Ipsum is simply
-                      dummy text of the printing and typesetting industry. Lorem
-                      Ipsum has been the industry's standard dummy text ever
-                      since the 1500s, when an unknown printer took a galley of
-                      type and scrambled it to make a type specimen book. It has
-                      survived not only five centuries, but also the leap into
-                      electronic typesetting, remaining essentially unchanged.
-                      It was popularised in the 1960s with the release of
-                      Letraset sheets containing Lorem Ipsum passages, and more
-                      recently with desktop publishing software like Aldus
-                      PageMaker including versions of Lorem Ipsu
-                    </li>
+                    <li>{course.aprenderas}</li>
                   </ul>
                 </div>
 
