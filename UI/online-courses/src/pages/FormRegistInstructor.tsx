@@ -39,7 +39,7 @@ export const FormRegistInstructor = () => {
     const validateCorreo = async (correo: String) => {
         try {
             const response = await fetch(
-                `https://edutech--snowy-pine-1388.fly.dev/v1/usuarios/verificar-correo?correo=${correo}`
+                `https://edutech-codecrafters-blue-water-8441.fly.dev/v1/usuarios/verificar-correo?correo=${correo}`
             );
             const data = await response.json();
             return data.correoValido; // Devuelve true si el correo es único, false si no lo es
@@ -48,10 +48,22 @@ export const FormRegistInstructor = () => {
             return false;
         }
     };
+    const validateUsuario = async (nommbreUsuario: String) => {
+        try {
+            const response = await fetch(
+                `https://edutech-codecrafters-blue-water-8441.fly.dev/v1/usuarios/verificar-usuario?nombreUsuario=${nommbreUsuario}`
+            );
+            const data = await response.json();
+            return data.usuarioValido; // Devuelve true si el correo es único, false si no lo es
+        } catch (error) {
+            console.error("Error al verificar usuario:", error);
+            return false;
+        }
+    };
 
     const onSubmit = handleSubmit(async (formData) => {
         try {
-            const response = await fetch("https://edutech--snowy-pine-1388.fly.dev/v1/usuarios/saveUsuario", {
+            const response = await fetch("https://edutech-codecrafters-blue-water-8441.fly.dev/v1/usuarios/saveUsuario", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -172,6 +184,10 @@ export const FormRegistInstructor = () => {
                                         pattern: {
                                             value: /^[A-Za-zÁÉÍÓÚáéíóúñÑ0-9\s]+$/,
                                             message: "No acepta caracteres especiales",
+                                        },
+                                        validate: async (value) => {
+                                            const usuarioUnico = await validateUsuario(value);
+                                            return usuarioUnico || "Este nombre de usuario esta en uso, ingrese otro";
                                         },
                                     })}
                                     maxLength={20}
