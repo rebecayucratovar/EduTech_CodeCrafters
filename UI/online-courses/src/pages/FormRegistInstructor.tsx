@@ -96,11 +96,11 @@ export const FormRegistInstructor = () => {
                                 <input
                                     type="text"
                                     id="nombreCompleto"
-                                    placeholder="Ingrese su nombre completo"
+                                    placeholder="Ingrese su nombre"
                                     {...register("nombreCompleto", {
                                         required: {
                                             value: true,
-                                            message: "Por favor, ingrese su nombre completo",
+                                            message: "Por favor, ingrese su nombre",
                                         },
                                         maxLength: {
                                             value: 20,
@@ -163,11 +163,15 @@ export const FormRegistInstructor = () => {
                                     {...register("nombreUsuario", {
                                         required: {
                                             value: true,
-                                            message: "Porfavor, ingrese un nombre de usuario",
+                                            message: "Porfavor, ingrese un nombre de usuario.",
                                         },
                                         maxLength: {
                                             value: 20,
                                             message: "El nombre del intructor no debe ser mayor a 20",
+                                        },
+                                        minLength: {
+                                            value: 2,
+                                            message: "El nombre del intructor debe ser mayor a 2",
                                         },
                                         pattern: {
                                             value: /^[A-Za-zÁÉÍÓÚáéíóúñÑ0-9\s]+$/,
@@ -508,8 +512,8 @@ export const FormRegistInstructor = () => {
 
             {showModalError && (
                 <Modal
-                    title="Error inesperado"
-                    description="No se pudo guardar el registro"
+                    title="Error al registrar"
+                    description="Error al registrar, no se pudo guardar el registro"
                     txtBtnAccept="Aceptar"
                     onAccept={() => {
                         reset();
