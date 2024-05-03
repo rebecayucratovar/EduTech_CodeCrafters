@@ -117,9 +117,8 @@ body {
   flex-direction: column;
   position: relative;
 
-  width: calc(400px - 15px);
-  height: 35px;
-  /*width: calc(70% - 15px);*/
+  /*width: calc(400px - 15px); este cumple los estandares pero se ve feo :(*/
+  width: calc(70% - 15px);
 
   input,
   textarea,
