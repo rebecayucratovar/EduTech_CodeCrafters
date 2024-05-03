@@ -1,19 +1,13 @@
 import logo from "../assets/LogoForm.png";
 import { Modal } from "../components/Modal";
-//import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import AlertIcon from "../assets/icons/AlertIcon.svg";
 import CheckIcon from "../assets/icons/CheckIcon.svg";
-//import { addInstructor} from "../slices/instructors.tsx";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export const FormRegistInstructor = () => {
     const navigate = useNavigate();
-    // const dispatch = useDispatch();
-    const [emailUnique, setEmailUnique] = useState(true); // Estado para manejar si el correo es único
-    const [emailError, setEmailError] = useState(""); // Estado para manejar el mensaje de error de correo
-
 
     const {
         register,
@@ -42,40 +36,19 @@ export const FormRegistInstructor = () => {
     const handleCancel = () => {
         setShowModalByClickInCancel(true);
     };
-    const validateEmail = async (email: String) => {
+    const validateCorreo = async (correo: String) => {
         try {
             const response = await fetch(
-                `https://edutech--snowy-pine-1388.fly.dev/v1/usuarios/verificar-correo?correo=${email}`
+                `https://edutech--snowy-pine-1388.fly.dev/v1/usuarios/verificar-correo?correo=${correo}`
             );
             const data = await response.json();
-            setEmailUnique(data.correoValido);
+            return data.correoValido; // Devuelve true si el correo es único, false si no lo es
         } catch (error) {
             console.error("Error al verificar correo:", error);
-            // Puedes manejar el error aquí
+            return false;
         }
     };
-    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const email = e.target.value;
-        // Borrar el mensaje de error anterior
-        setEmailError("");
 
-        // Verificar si el campo está vacío
-        if (email.trim() === "") {
-            setEmailError("Por favor ingrese su correo electrónico");
-            setEmailUnique(true); // Restaurar estado de correo único en caso de campo vacío
-            return; // Detener la validación si el campo está vacío
-        }
-
-        // Validación de formato de correo electrónico
-        if (!/^\S+@\S+\.\S+$/.test(email)) {
-            setEmailError("Por favor, ingrese una dirección de correo electrónico válida");
-            setEmailUnique(true); // Restaurar estado de correo único en caso de formato inválido
-            return; // Detener la validación si el formato es inválido
-        }
-
-        // Verificar correo electrónico existente
-        validateEmail(email);
-    };
     const onSubmit = handleSubmit(async (formData) => {
         try {
             const response = await fetch("https://edutech--snowy-pine-1388.fly.dev/v1/usuarios/saveUsuario", {
@@ -345,9 +318,14 @@ export const FormRegistInstructor = () => {
                                     id="correo"
                                     placeholder="Ingrese su correo"
                                     {...register("correo", {
-                                        required: {
-                                            value: true,
-                                            message: "Porfavor, ingrese un correo electronico",
+                                        required: "Porfavor, ingrese un correo electronico",
+                                        pattern: {
+                                            value: /^\S+@\S+\.\S+$/,
+                                            message: "Por favor, ingrese una dirección de correo electrónico válida",
+                                        },
+                                        validate: async (value) => {
+                                            const correoUnico = await validateCorreo(value);
+                                            return correoUnico || "Correo electronico existente, ingrese otro";
                                         },
                                     })}
                                     maxLength={80}
@@ -355,41 +333,31 @@ export const FormRegistInstructor = () => {
                                         if (e.key === " ") {
                                             e.preventDefault();
                                         }
-                                    }}onChange={handleEmailChange} // Manejar el cambio en el correo electrónico
-                                    className={`${
-                                        (dirtyFields.correo && !errors.correo) || !emailUnique || emailError ? "error-input" : ""
-                                    } ${
-                                        dirtyFields.correo && !errors.correo && emailUnique && !emailError ? "success-input" : ""
+                                    }}
+                                    className={`${errors.correo ? "error-input" : ""} ${
+                                        dirtyFields.correo && !errors.correo
+                                            ? "success-input"
+                                            : ""
                                     }`}
-
-
-
-
                                 />
                                 {errors.correo && (
                                     <div className="form-register-course-content-data-field-error">
-                                        <label htmlFor="error">{errors.correo.message}</label>
-                                        <img src={AlertIcon} alt="Icono de alerta" />
+                                        <label htmlFor="error">
+                                            {JSON.stringify(errors.correo.message).replace(
+                                                /^"|"$/g,
+                                                ""
+                                            )}
+                                        </label>
+                                        <img src={AlertIcon} alt="Icono de alerta"/>
                                     </div>
                                 )}
-
-                                {!emailUnique && (
-                                    <div className="form-register-course-content-data-field-error">
-                                        <label htmlFor="error">Correo electronico existente, ingrese otro</label>
-                                        <img src={AlertIcon} alt="Icono de alerta" />
-                                    </div>
-                                )}
-
-                                {emailError && (
-                                    <div className="form-register-course-content-data-field-error">
-                                        <label htmlFor="error">{emailError}</label>
-                                        <img src={AlertIcon} alt="Icono de alerta" />
-                                    </div>
-                                )}
-
                                 {dirtyFields.correo && !errors.correo && (
                                     <div className="form-register-course-content-data-field-error">
-                                        <img className="check-icon" src={CheckIcon} alt="Icono de check" />
+                                        <img
+                                            className="check-icon"
+                                            src={CheckIcon}
+                                            alt="Icono de check"
+                                        />
                                     </div>
                                 )}
                             </div>
