@@ -336,7 +336,7 @@ export const FormRegistInstructor = () => {
                                 <input
                                     type="text"
                                     id="correo"
-                                    placeholder="Ingrese su correo"
+                                    placeholder="Ingrese su correo electrónico"
                                     {...register("correo", {
                                         required: "Porfavor, ingrese un correo electronico",
                                         pattern: {
@@ -408,7 +408,7 @@ export const FormRegistInstructor = () => {
                                         if (e.key === " " && target.value.slice(-1) === " ") {
                                             e.preventDefault(); // Evita que se ingrese el segundo espacio en blanco
                                         }
-                                        if (target.value.length >= 20 && e.key !== "Backspace" && e.key !== "Delete") {
+                                        if (target.value.length >= 20 && e.key !== "Backspace" && e.key !== "Delete" && !e.key.startsWith("Arrow")) {
                                             e.preventDefault();
                                         }
                                     }}
@@ -461,7 +461,7 @@ export const FormRegistInstructor = () => {
                                         if (e.key === " " && target.value.slice(-1) === " ") {
                                             e.preventDefault(); // Evita que se ingrese el segundo espacio en blanco
                                         }
-                                        if (target.value.length >= 20 && e.key !== "Backspace" && e.key !== "Delete") {
+                                        if (target.value.length >= 20 && e.key !== "Backspace" && e.key !== "Delete" && !e.key.startsWith("Arrow")) {
                                             e.preventDefault();
                                         }
                                     }}
@@ -516,7 +516,7 @@ export const FormRegistInstructor = () => {
             {showModalByClickInRegister && (
                 <Modal
                     title="Registro exitoso"
-                    description="Se registró correctamente <br />como instructor!!"
+                    description={`Se registró correctamente \ncomo instructor!!`}
                     txtBtnAccept="Aceptar"
                     onAccept={() => {
                         reset();
@@ -529,7 +529,7 @@ export const FormRegistInstructor = () => {
             {showModalError && (
                 <Modal
                     title="Error al registrar"
-                    description="Error al registrar, no se pudo guardar el registro"
+                    description="Error inesperado, no se pudo guardar el registro"
                     txtBtnAccept="Aceptar"
                     onAccept={() => {
                         reset();
@@ -540,8 +540,8 @@ export const FormRegistInstructor = () => {
 
             {showModalByClickInCancel && (
                 <Modal
-                    title="¿Estás seguro?"
-                    description="¿Estás seguro de que desea cancelar el registro?"
+                    title="¿Estás seguro de cancelar el registro?"
+                    description="Los datos ingresados se borrarán si cancela el registro"
                     txtBtnAccept="Si, seguro"
                     txtBtnCancel="No, continuar"
                     showBtnCancel={true}
