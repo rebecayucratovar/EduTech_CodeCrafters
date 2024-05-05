@@ -534,6 +534,7 @@ export const FormRegistInstructor = () => {
                     onAccept={() => {
                         reset();
                         setShowModalError(false);
+                        navigate("/");
                     }}
                 />
             )}
@@ -548,7 +549,7 @@ export const FormRegistInstructor = () => {
                     onAccept={() => {
                         reset();
                         setShowModalByClickInCancel(false);
-                        navigate("/lista-cursos"); // Usa navigate en lugar de history.push
+                        navigate("/"); // Usa navigate en lugar de history.push
                     }}
                     onCancel={() => setShowModalByClickInCancel(false)}
                 />
