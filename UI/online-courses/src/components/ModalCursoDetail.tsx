@@ -13,6 +13,16 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
 
   const formattedCategoria = course.categoria.replace(/_/g, " ");
 
+  let formattedRequisitos = [];
+  if (course.requisitos) {
+    formattedRequisitos = course.requisitos.split("\n");
+  }
+
+  let formattedAprenderas = [];
+  if (course.aprenderas) {
+    formattedAprenderas = course.requisitos.split("\n");
+  }
+
   return (
     <>
       {course && (
@@ -58,7 +68,11 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                     Lo que aprenderás:
                   </label>
                   <ul className="modal-curso-detail-content-panel-left-list-items">
-                    <li>{course.aprenderas}</li>
+                    {formattedAprenderas.map(
+                      (aprenderas: string, index: number) => (
+                        <li key={index}>{aprenderas}</li>
+                      )
+                    )}
                   </ul>
                 </div>
 
@@ -71,7 +85,11 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                       Requisitos del curso:
                     </label>
                     <ul className="modal-curso-detail-content-panel-left-list-items">
-                      <li>{course.requisitos}</li>
+                      {formattedRequisitos.map(
+                        (requisito: string, index: number) => (
+                          <li key={index}>{requisito}</li>
+                        )
+                      )}
                     </ul>
                   </div>
                 )}
