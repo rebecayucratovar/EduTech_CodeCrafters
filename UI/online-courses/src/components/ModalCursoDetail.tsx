@@ -62,17 +62,19 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                   </ul>
                 </div>
 
-                <div className="modal-curso-detail-content-panel-left-list">
-                  <label
-                    htmlFor="instructor"
-                    className="modal-curso-detail-content-panel-left-list-title"
-                  >
-                    Requisitos del curso:
-                  </label>
-                  <ul className="modal-curso-detail-content-panel-left-list-items">
-                    <li>{course.requisitos}</li>
-                  </ul>
-                </div>
+                {course.requisitos && (
+                  <div className="modal-curso-detail-content-panel-left-list">
+                    <label
+                      htmlFor="instructor"
+                      className="modal-curso-detail-content-panel-left-list-title"
+                    >
+                      Requisitos del curso:
+                    </label>
+                    <ul className="modal-curso-detail-content-panel-left-list-items">
+                      <li>{course.requisitos}</li>
+                    </ul>
+                  </div>
+                )}
               </div>
 
               <div className="modal-curso-detail-content-panel-right">
