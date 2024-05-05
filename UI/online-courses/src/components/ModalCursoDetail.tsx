@@ -3,6 +3,8 @@ import Timer from "../assets/icons/Timer.svg";
 import Picture from "../assets/icons/Picture.svg";
 import Reset from "../assets/icons/Reset.svg";
 import Close from "../assets/icons/Close.svg";
+import Favorite from "../assets/icons/Favorite.svg";
+import Save from "../assets/icons/Save.svg";
 
 export const ModalCursoDetail = ({ onClose, course }: any) => {
   const handleCancel = () => {
@@ -26,7 +28,7 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                   htmlFor="title"
                   className="modal-curso-detail-content-panel-left-title"
                 >
-                  Diseño web
+                  {course.titulo}
                 </label>
 
                 <label
@@ -120,6 +122,15 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                   <button>Comprar Ahora</button>
                   <button>Añadir a la cesta</button>
                 </div>
+              </div>
+
+              <div className="modal-curso-detail-content-panel-middle">
+                <img src={Save} alt="save image" title="guardar curso" />
+                <img
+                  src={Favorite}
+                  alt="favorite image"
+                  title="asignar como favorito"
+                />
               </div>
             </section>
           </div>
