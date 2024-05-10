@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for edutech--muddy-smoke-1854 on 2024-04-27T08:13:34-04:00
+# fly.toml app configuration file generated for edutech-codecrafters-blue-water-8441 on 2024-05-03T11:07:48-04:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'edutech--muddy-smoke-1854'
+app = 'edutech-codecrafters-blue-water-8441'
 primary_region = 'scl'
 
 [build]

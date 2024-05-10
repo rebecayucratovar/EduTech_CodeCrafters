@@ -12,5 +12,7 @@ public interface UsuarioServicio {
   Usuario update(Usuario usuario);
   void deleteById(UUID id);
   boolean existeCorreo(String correo);
+  boolean existeUsuario(String nombreUsuario);
+
 }
 

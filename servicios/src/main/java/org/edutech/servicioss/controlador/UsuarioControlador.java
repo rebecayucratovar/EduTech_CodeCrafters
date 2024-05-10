@@ -72,4 +72,11 @@ public class UsuarioControlador {
     response.put("correoValido", !correoExistente);
     return ResponseEntity.ok(response);
   }
+  @GetMapping("/verificar-usuario")
+  public ResponseEntity<Map<String, Boolean>> verificarUsuario(@RequestParam String nombreUsuario) {
+    boolean usuarioExistente = usuarioServicio.existeUsuario(nombreUsuario);
+    Map<String, Boolean> response = new HashMap<>();
+    response.put("usuarioValido", !usuarioExistente);
+    return ResponseEntity.ok(response);
+  }
 }

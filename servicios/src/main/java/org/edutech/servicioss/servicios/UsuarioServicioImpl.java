@@ -45,5 +45,10 @@ public class UsuarioServicioImpl implements UsuarioServicio {
   public boolean existeCorreo(String correo) {
     return usuarioRepositorio.existsByCorreo(correo);
   }
+
+  @Override
+  public boolean existeUsuario(String nombreUsuario) {
+    return usuarioRepositorio.existsByNombreUsuario(nombreUsuario);
+  }
 }
 
