@@ -5,8 +5,11 @@ import Reset from "../assets/icons/Reset.svg";
 import Close from "../assets/icons/Close.svg";
 import Favorite from "../assets/icons/Favorite.svg";
 import Save from "../assets/icons/Save.svg";
+import { useNavigate } from "react-router-dom"; // Agregar importación
+
 
 export const ModalCursoDetail = ({ onClose, course }: any) => {
+  const navigate = useNavigate();
   const handleCancel = () => {
     onClose();
   };
@@ -139,7 +142,13 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                 </div>
 
                 <div className="modal-curso-detail-content-panel-right-buttons">
-                  <button>Comprar Ahora</button>
+                  <button onClick={() => navigate("/comprar-cursos", {
+                    state: {
+                      titulo: course.titulo,
+                      costo: course.costo
+                    }
+                  })}>Comprar Ahora
+                  </button>
                   <button>Añadir a la cesta</button>
                 </div>
               </div>

@@ -513,8 +513,8 @@ textarea.error-input {
   padding: 10px;
   width: 250px;
   height: 300px;
-  box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.1),
-    0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.1),
+    0 10px 15px -3px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.8s ease;
 
   &:hover {
@@ -819,4 +819,40 @@ textarea.error-input {
     height: 35px;
     cursor: pointer;
   }
+}
+.form-register-course-content-course-details {
+  margin-top: 20px;
+  width: 100%;
+  text-align: center; /* Centra el contenido horizontalmente */
+}
+
+.form-register-course-content-course-details-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: rgb(36, 35, 103);
+  font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+}
+
+.form-register-course-content-course-details-info {
+  display: flex;
+  font-size: 14px;
+  justify-content: space-between; /* Para separar los elementos al máximo */
+  width: 100%;
+  color: rgb(98, 182, 203);
+}
+
+.form-register-course-content-course-details-info-title {
+  font-weight: bold;
+  font-size: 14px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+}
+
+.form-register-course-content-course-details-info-cost {
+  font-size: 14px;
+  color: rgb(98, 182, 203);
+  font-weight: bold;
+  font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+}
+.custom-form {
+  margin-top: 90px; /* Ajusta el valor según sea necesario */
 }
