@@ -113,12 +113,18 @@ export const Comprar = () => {
                         value: true,
                         message: "Por favor, ingrese su nombre completo",
                       },
-                      maxLength: {
-                        value: 40,
-                        message: "El nombre no debe tener mas de 40 caracteres",
+                      minLength: {
+                        value: 2,
+                        message: "El nombre completo debe tener mas de 2 caracteres",
                       },
                     })}
-                    maxLength={40}
+                    maxLength={30}
+                    onKeyDown={(event) => {
+                      // Permite solo números y puntos (para decimales)
+                      const target = event.target as HTMLInputElement;
+                      if (!/[A-Za-záéíóúÁÉÍÓÚñÑ\s]/.test(event.key) || (event.key === " " && target.value.slice(-1) === " ")) {
+                        event.preventDefault();
+                      }}}
                     className={`${errors.nombreCompleto ? "error-input" : ""} ${
                         dirtyFields.nombreCompleto && !errors.nombreCompleto ? "success-input" : ""
                     }`}

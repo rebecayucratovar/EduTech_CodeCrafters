@@ -137,7 +137,7 @@ export const FormRegistInstructor = () => {
                                     maxLength={20}
                                     onKeyDown={(e) => {
                                         const target = e.target as HTMLInputElement;
-                                        if (e.key === " " && target.value.slice(-1) === " ") {
+                                        if ((!/[A-Za-záéíóúÁÉÍÓÚñÑ\s]/.test(e.key)) || (e.key === " " && target.value.slice(-1) === " ")) {
                                             e.preventDefault(); // Evita que se ingrese el segundo espacio en blanco
                                         }
                                         if (target.value.length >= 20 && e.key !== "Backspace" && e.key !== "Delete") {
