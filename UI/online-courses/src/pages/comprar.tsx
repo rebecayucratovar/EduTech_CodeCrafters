@@ -157,24 +157,34 @@ export const Comprar = () => {
               <label htmlFor="numeroTarjeta">Número de tarjeta*</label>
               <div className="form-register-course-content-data-field-input">
                 <input
-                    type="number"
+                    type="text"
                     id="numeroTarjeta"
-                    placeholder="Ingrese la descripcion del curso"
+                    placeholder="Ingrese su número de tarjeta"
                     {...register("numeroTarjeta", {
                       required: {
                         value: true,
                         message: "Porfavor, ingrese su número de tarjeta",
                       },
-                      maxLength: {
-                        value: 40,
-                        message: "El nombre del intructor no debe ser mayor a 40",
-                      },
-                      pattern: {
-                        value: /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/,
-                        message: "El nombre solo debe contener letras",
+                      minLength: {
+                        value: 19,
+                        message: "Por favor, ingrese el número completo",
                       },
                     })}
-                    maxLength={40}
+                    maxLength={19}
+                    onKeyPress={(event) => {
+                      // Permite solo números y puntos (para decimales)
+                      if (!/[0-9]/.test(event.key)) {
+                        event.preventDefault();
+                      }
+                    }}
+                    onKeyDown={(event) => {
+                      const target = event.target as HTMLInputElement;
+                      const currentValue = target.value;// Obtener el valor actual del input
+
+                      if ((currentValue.length + 1) % 5 === 0 && currentValue.length < 19) {
+                        target.value = currentValue + " ";// Agregar un espacio si es necesario
+                      }
+                    }}
                     className={`${errors.numeroTarjeta ? "error-input" : ""} ${
                         dirtyFields.numeroTarjeta && !errors.numeroTarjeta
                             ? "success-input"
@@ -209,7 +219,7 @@ export const Comprar = () => {
               <label htmlFor="fechaVencimiento">Fecha de vencimiento*</label>
               <div className="form-register-course-content-data-field-input">
                 <input
-                    type="number"
+                    type="text"
                     id="fechaVencimiento"
                     placeholder="Ingrese el monto en bolivianos"
                     min={0}
@@ -218,13 +228,11 @@ export const Comprar = () => {
                     {...register("fechaVencimiento", {
                       required: {
                         value: true,
-                        message: "Ingrese el costo del curso.",
+                        message: "Porfavor, ingrese su número de tarjeta",
                       },
-                      pattern: {
-                        value: /^\d{1,5}(?:\.\d{1,2})?$/,
-                        message:
-                            "El costo debe ser un valor numérico de hasta cinco dígitos",
-                      },
+                      minLength: {
+                        value: 5,
+                        message: "Por favor, ingrese el número completo",},
                     })}
                     className={`${errors.fechaVencimiento ? "error-input" : ""} ${
                         dirtyFields.fechaVencimiento && !errors.fechaVencimiento ? "success-input" : ""
