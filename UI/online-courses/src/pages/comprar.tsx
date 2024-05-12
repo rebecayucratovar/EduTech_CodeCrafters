@@ -176,8 +176,6 @@ export const Comprar = () => {
                       if (!/[0-9]/.test(event.key)) {
                         event.preventDefault();
                       }
-                    }}
-                    onKeyDown={(event) => {
                       const target = event.target as HTMLInputElement;
                       const currentValue = target.value;// Obtener el valor actual del input
 
@@ -221,10 +219,7 @@ export const Comprar = () => {
                 <input
                     type="text"
                     id="fechaVencimiento"
-                    placeholder="Ingrese el monto en bolivianos"
-                    min={0}
-                    max={99999.99}
-                    step={0.01}
+                    placeholder="Ingrese la fecha de vencimiento"
                     {...register("fechaVencimiento", {
                       required: {
                         value: true,
@@ -232,16 +227,24 @@ export const Comprar = () => {
                       },
                       minLength: {
                         value: 5,
-                        message: "Por favor, ingrese el número completo",},
+                        message: "Por favor, ingrese la fecha completa",},
                     })}
+                    maxLength={5}
                     className={`${errors.fechaVencimiento ? "error-input" : ""} ${
                         dirtyFields.fechaVencimiento && !errors.fechaVencimiento ? "success-input" : ""
                     }`}
                     onKeyPress={(event) => {
+                      const target = event.target as HTMLInputElement;
+                      let currentValue = target.value;// Obtener el valor actual del input
                       // Permite solo números y puntos (para decimales)
-                      if (!/[0-9.0-9]/.test(event.key)) {
+                      if (!/^\d$/.test(event.key) && event.key !== 'Backspace') {
                         event.preventDefault();
                       }
+                      if ((currentValue.charAt(0) === '1' && /^[3-9]$/.test(event.key)) || (/^[2-9]$/.test(currentValue.charAt(0)))  ) {
+                        currentValue = '0' + currentValue;
+                      }
+                      if (currentValue.length === 2) {
+                        target.value = currentValue + "/";}
                     }}
                 />
 
@@ -272,29 +275,25 @@ export const Comprar = () => {
               <label htmlFor="cvc">CVC/CVV*</label>
               <div className="form-register-course-content-data-field-input">
                 <input
-                    type="number"
+                    type="text"
                     id="cvc"
                     placeholder="Ingrese el código de seguridad"
-                    min={0}
-                    max={99999.99}
-                    step={0.01}
                     {...register("cvc", {
                       required: {
                         value: true,
                         message: "Por favor, ingrese el código de seguridad",
                       },
-                      pattern: {
-                        value: /^\d{1,5}(?:\.\d{1,2})?$/,
-                        message:
-                            "El costo debe ser un valor numérico de hasta cinco dígitos",
-                      },
+                      minLength: {
+                        value: 3,
+                        message: "Por favor, ingrese el número completo",},
                     })}
+                    maxLength={3}
                     className={`${errors.cvc ? "error-input" : ""} ${
                         dirtyFields.cvc && !errors.cvc ? "success-input" : ""
                     }`}
                     onKeyPress={(event) => {
                       // Permite solo números y puntos (para decimales)
-                      if (!/[0-9.0-9]/.test(event.key)) {
+                      if (!/^\d$/.test(event.key)) {
                         event.preventDefault();
                       }
                     }}
