@@ -11,13 +11,11 @@ export const App = () => {
     <div className="app-content">
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route
-            path="registro-instructor"
-            element={<FormRegistInstructor />}
-          ></Route>
-          <Route path="registro-curso" element={<FormRegisterCourse />}></Route>
-          <Route path="lista-cursos" element={<ListCourses />}></Route>
-            <Route path="comprar-cursos" element={<Comprar />} /> {/* Ruta para el formulario comprar.tsx */}
+          <Route index element={<ListCourses />} /> {/* Muestra la lista de cursos por defecto */}
+          <Route path="registro-instructor" element={<FormRegistInstructor />} />
+          <Route path="registro-curso" element={<FormRegisterCourse />} />
+          <Route path="lista-cursos" element={<ListCourses />} />
+          <Route path="comprar-cursos" element={<Comprar />} /> {/* Ruta para el formulario comprar.tsx */}
         </Route>
       </Routes>
     </div>
