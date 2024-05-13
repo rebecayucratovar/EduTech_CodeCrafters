@@ -5,8 +5,6 @@ import Reset from "../assets/icons/Reset.svg";
 import Close from "../assets/icons/Close.svg";
 
 export const ModalCursoDetail = ({ onClose, course }: any) => {
-import Favorite from "../assets/icons/Favorite.svg";
-import Save from "../assets/icons/Save.svg";
 import { useNavigate } from "react-router-dom"; // Agregar importación
 
 
