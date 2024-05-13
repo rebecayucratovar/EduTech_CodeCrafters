@@ -5,9 +5,7 @@ import Reset from "../assets/icons/Reset.svg";
 import Close from "../assets/icons/Close.svg";
 import { useContext } from "react";
 import { CarroContexto } from "../context/CarroProvider";
-
-export const ModalCursoDetail = ({ onClose, course }: any) => {
-import  useNavigate  from "react-router-dom";
+import  {useNavigate}  from "react-router-dom";
 
 export const ModalCursoDetail = ({ onClose, course }: any) => {
   const navigate = useNavigate();
@@ -127,7 +125,13 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                 </div>
 
                 <div className="modal-curso-detail-content-panel-right-buttons">
-                  <button>Comprar Ahora</button>
+                  <button onClick={() => navigate("/comprar-cursos", {
+                    state: {
+                      titulo: course.titulo,
+                      costo: course.costo
+                    }
+                  })}>Comprar Ahora
+                  </button>
                   <button onClick={() => agregarAlCarrito(course)}>Añadir a la cesta</button>
                 </div>
               </div>
@@ -138,4 +142,3 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
     </>
   );
 };
-}
