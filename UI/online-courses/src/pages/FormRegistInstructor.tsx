@@ -8,6 +8,10 @@ import { useState } from "react";
 
 export const FormRegistInstructor = () => {
     const navigate = useNavigate();
+<<<<<<< HEAD
+=======
+    const [isVerifyingCorreo, setIsVerifyingCorreo] = useState(false);
+>>>>>>> 5056be93c2a8da927a75f0eb039c8cdb7f618812
 
     const {
         register,
@@ -38,13 +42,28 @@ export const FormRegistInstructor = () => {
     };
     const validateCorreo = async (correo: String) => {
         try {
+<<<<<<< HEAD
+=======
+            setIsVerifyingCorreo(true);
+>>>>>>> 5056be93c2a8da927a75f0eb039c8cdb7f618812
             const response = await fetch(
                 `https://edutech-codecrafters-blue-water-8441.fly.dev/v1/usuarios/verificar-correo?correo=${correo}`
             );
             const data = await response.json();
+<<<<<<< HEAD
             return data.correoValido; // Devuelve true si el correo es único, false si no lo es
         } catch (error) {
             console.error("Error al verificar correo:", error);
+=======
+            const correoValido = data.correoValido;
+
+            setIsVerifyingCorreo(false);
+
+            return correoValido;
+        } catch (error) {
+            console.error("Error al verificar correo:", error);
+            setIsVerifyingCorreo(false);
+>>>>>>> 5056be93c2a8da927a75f0eb039c8cdb7f618812
             return false;
         }
     };
@@ -130,7 +149,11 @@ export const FormRegistInstructor = () => {
                                     maxLength={20}
                                     onKeyDown={(e) => {
                                         const target = e.target as HTMLInputElement;
+<<<<<<< HEAD
                                         if (e.key === " " && target.value.slice(-1) === " ") {
+=======
+                                        if ((!/[A-Za-záéíóúÁÉÍÓÚñÑ\s]/.test(e.key)) || (e.key === " " && target.value.slice(-1) === " ")) {
+>>>>>>> 5056be93c2a8da927a75f0eb039c8cdb7f618812
                                             e.preventDefault(); // Evita que se ingrese el segundo espacio en blanco
                                         }
                                         if (target.value.length >= 20 && e.key !== "Backspace" && e.key !== "Delete") {
@@ -507,7 +530,12 @@ export const FormRegistInstructor = () => {
                         Cancelar
                     </button>
 
+<<<<<<< HEAD
                     <button type="submit" className="form-register-course-footer-button">
+=======
+                    <button type="submit" className="form-register-course-footer-button"
+                            disabled={isVerifyingCorreo}>
+>>>>>>> 5056be93c2a8da927a75f0eb039c8cdb7f618812
                         Registrar
                     </button>
                 </section>
@@ -549,7 +577,11 @@ export const FormRegistInstructor = () => {
                     onAccept={() => {
                         reset();
                         setShowModalByClickInCancel(false);
+<<<<<<< HEAD
                         navigate("/"); // Usa navigate en lugar de history.push
+=======
+                        navigate("/lista-cursos"); // Usa navigate en lugar de history.push
+>>>>>>> 5056be93c2a8da927a75f0eb039c8cdb7f618812
                     }}
                     onCancel={() => setShowModalByClickInCancel(false)}
                 />

@@ -1,5 +1,6 @@
 package org.edutech.servicioss.controlador;
 
+import com.google.auth.oauth2.ServiceAccountCredentials;
 import lombok.RequiredArgsConstructor;
 import org.edutech.servicioss.infraestructura.tablas.Curso;
 import org.edutech.servicioss.servicios.CursoServicio;
@@ -8,19 +9,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.Bucket;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
 import java.util.List;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.beans.factory.annotation.Autowired;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Value;
+
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173", "https://edutech-codecrafters.netlify.app"})
 @RequestMapping("/cursos")
 @RequiredArgsConstructor
 public class CursoControlador {
   private final CursoServicio cursoServicio;
+
+    @Autowired
+    private ResourceLoader resourceLoader;
 
   @PostMapping("/save")
   public ResponseEntity<Curso> saveCurso(@RequestParam("file") MultipartFile imagen, Curso curso, RedirectAttributes attributes) {
@@ -28,27 +40,30 @@ public class CursoControlador {
       return ResponseEntity.badRequest().build();
     }
 
-    if (!imagen.isEmpty()) {
-      Path directorioImagenes = Paths.get("servicios//src//main//resources//static//imagen");
-      String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+    try {
+        Resource resource = resourceLoader.getResource("classpath:google-cloud-credentials.json");
 
-      try {
-        if (!imagen.getOriginalFilename().endsWith(".png")) {
-          return ResponseEntity.badRequest().build(); // Retornar una respuesta de error si no es una imagen PNG
-        }
+        // Inicializar StorageOptions con las credenciales del archivo JSON
+        Storage storage = StorageOptions.newBuilder()
+                .setCredentials(ServiceAccountCredentials.fromStream(resource.getInputStream()))
+                .build().getService();
 
-        byte[] bytesImg = imagen.getBytes();
-        String nombreImagen = imagen.getOriginalFilename();
-        Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + nombreImagen);
-        Files.write(rutaCompleta, bytesImg);
+      Bucket bucket = storage.get("img-codecrafters");
 
-        curso.setImagen(nombreImagen);
+      String nombreImagen = UUID.randomUUID().toString() + "_" + imagen.getOriginalFilename();
 
-      } catch (IOException e) {
-        e.printStackTrace();
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // Retornar una respuesta de error en caso de una excepción
-      }
+      Blob blob = bucket.create(nombreImagen, imagen.getBytes(), imagen.getContentType());
+      // Construir la URL de la imagen
+      String bucketName = "img-codecrafters"; // Reemplaza esto con el nombre de tu bucket
+      String objectName = nombreImagen; // Nombre del objeto que acabas de crear
+      String imageUrl = "https://storage.googleapis.com/" + bucketName + "/" + objectName;
+
+      curso.setImagen(imageUrl);
+    } catch (IOException e) {
+      e.printStackTrace();
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
+
     return ResponseEntity.ok(cursoServicio.save(curso));
   }
 

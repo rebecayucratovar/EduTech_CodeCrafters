@@ -40,4 +40,15 @@ public class UsuarioServicioImpl implements UsuarioServicio {
   public void deleteById(UUID id) {
     usuarioRepositorio.deleteById(id);
   }
+
+  @Override
+  public boolean existeCorreo(String correo) {
+    return usuarioRepositorio.existsByCorreo(correo);
+  }
+
+  @Override
+  public boolean existeUsuario(String nombreUsuario) {
+    return usuarioRepositorio.existsByNombreUsuario(nombreUsuario);
+  }
 }
+
