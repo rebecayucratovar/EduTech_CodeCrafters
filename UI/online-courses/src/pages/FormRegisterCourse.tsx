@@ -76,20 +76,10 @@ export const FormRegisterCourse = () => {
       try {
         // TODO: Cambiar el path por el de la API deployada
         // si no da cambiar al anterior http://localhost:3039/v1/cursos/save
-<<<<<<< HEAD
         const response = await fetch("https://edutech-codecrafters-blue-water-8441.fly.dev/v1/cursos/save", {
           method: "POST",
           body: formData,
         });
-=======
-        const response = await fetch(
-          "https://edutech-codecrafters-blue-water-8441.fly.dev/v1/cursos/save",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
->>>>>>> 5056be93c2a8da927a75f0eb039c8cdb7f618812
 
         if (!response.ok) {
           throw new Error("Error al registrar el curso");
