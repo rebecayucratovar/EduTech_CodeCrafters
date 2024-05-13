@@ -5,8 +5,7 @@ import Reset from "../assets/icons/Reset.svg";
 import Close from "../assets/icons/Close.svg";
 
 export const ModalCursoDetail = ({ onClose, course }: any) => {
-import { useNavigate } from "react-router-dom"; // Agregar importación
-
+import  useNavigate  from "react-router-dom";
 
 export const ModalCursoDetail = ({ onClose, course }: any) => {
   const navigate = useNavigate();
@@ -133,3 +132,4 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
     </>
   );
 };
+}
