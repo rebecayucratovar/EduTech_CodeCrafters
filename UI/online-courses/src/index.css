@@ -513,8 +513,8 @@ textarea.error-input {
   padding: 10px;
   width: 250px;
   height: 300px;
-  box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.1),
-    0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.1),
+    0 10px 15px -3px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.8s ease;
 
   &:hover {
@@ -643,11 +643,19 @@ textarea.error-input {
 }
 
 .modal-curso-detail-content-panel-left-title {
+<<<<<<< HEAD
   font-size: 25px;
+=======
+  font-size: 22px;
+>>>>>>> 5056be93c2a8da927a75f0eb039c8cdb7f618812
   font-weight: bold;
   color: #242367;
   font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
   text-align: center;
+<<<<<<< HEAD
+=======
+  text-transform: uppercase;
+>>>>>>> 5056be93c2a8da927a75f0eb039c8cdb7f618812
 }
 
 .modal-curso-detail-content-panel-left-subtitle {
@@ -663,7 +671,11 @@ textarea.error-input {
 }
 
 .modal-curso-detail-content-panel-left-description-title {
+<<<<<<< HEAD
   font-size: 18px;
+=======
+  font-size: 20px;
+>>>>>>> 5056be93c2a8da927a75f0eb039c8cdb7f618812
   font-weight: bold;
   color: #3281af;
   font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
@@ -805,3 +817,58 @@ textarea.error-input {
     }
   }
 }
+<<<<<<< HEAD
+=======
+
+.modal-curso-detail-content-panel-middle {
+  position: absolute;
+  top: 15px;
+  left: calc(60% - 90px);
+  display: flex;
+  gap: 15px;
+
+  img {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+  }
+}
+.form-register-course-content-course-details {
+  width: 100%;
+  text-align: center; /* Centra el contenido horizontalmente */
+}
+
+.form-register-course-content-course-details-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: rgb(36, 35, 103);
+  font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+  margin-bottom: 8px; /* Ajusta el valor según sea necesario */
+
+}
+
+.form-register-course-content-course-details-info {
+  display: flex;
+  font-size: 14px;
+  justify-content: space-between; /* Para separar los elementos al máximo */
+  width: 100%;
+  color: rgb(98, 182, 203);
+  margin-top: 20px;
+}
+
+.form-register-course-content-course-details-info-title {
+  font-weight: bold;
+  font-size: 14px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+}
+
+.form-register-course-content-course-details-info-cost {
+  font-size: 14px;
+  color: rgb(98, 182, 203);
+  font-weight: bold;
+  font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+}
+.custom-form {
+  margin-top: 90px; /* Ajusta el valor según sea necesario */
+}
+>>>>>>> 5056be93c2a8da927a75f0eb039c8cdb7f618812
