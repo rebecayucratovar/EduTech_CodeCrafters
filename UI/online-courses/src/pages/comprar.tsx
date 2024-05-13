@@ -1,5 +1,4 @@
 import { Modal } from "../components/Modal";
-//import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import AlertIcon from "../assets/icons/AlertIcon.svg";
 import CheckIcon from "../assets/icons/CheckIcon.svg";
@@ -234,17 +233,78 @@ export const Comprar = () => {
                         dirtyFields.fechaVencimiento && !errors.fechaVencimiento ? "success-input" : ""
                     }`}
                     onKeyPress={(event) => {
-                      const target = event.target as HTMLInputElement;
-                      let currentValue = target.value;// Obtener el valor actual del input
-                      // Permite solo números y puntos (para decimales)
-                      if (!/^\d$/.test(event.key) && event.key !== 'Backspace') {
+
+                      if (!/^\d$/.test(event.key)) {
                         event.preventDefault();
                       }
-                      if ((currentValue.charAt(0) === '1' && /^[3-9]$/.test(event.key)) || (/^[2-9]$/.test(currentValue.charAt(0)))  ) {
+                      const target = event.target as HTMLInputElement;
+                      let currentValue = target.value;
+
+                      if(currentValue.charAt(1)==="/"){
+                        target.value ='0' + currentValue;
+                      }
+                      if (currentValue.endsWith("0") && event.key === "0") {
+                        event.preventDefault();
+                        return;
+                      }
+                      // Verificar si estamos en el penúltimo lugar del formato "XX/XX"
+                      if (currentValue.length === 3) {
+                        const keyPressed = event.key; // Obtener la tecla presionada
+
+                        // Verificar si el penúltimo dígito es "0" o "1" y si la tecla presionada es "0" o "1"
+                        if ((keyPressed === "0" || keyPressed === "1")) {
+                          event.preventDefault(); // Prevenir la inserción del carácter
+                          return;
+                        }
+                      }
+                      if (/^[2-9]$/.test(currentValue.charAt(0)) ) {
                         currentValue = '0' + currentValue;
                       }
-                      if (currentValue.length === 2) {
-                        target.value = currentValue + "/";}
+                      if (currentValue.length === 1 && /^[3-9]$/.test(event.key)) {
+                        currentValue = '0' + currentValue;
+                      }
+
+                      if (currentValue.length === 2) { // Agrega la barra solo si no está presente y el primer carácter es un número
+                        target.value = currentValue + "/";
+                      }
+
+
+                    }}
+                    onKeyDown={(event) => {
+                      const target = event.target as HTMLInputElement;
+                      const currentValue = target.value;
+                      const cursorPosition = target.selectionStart;
+
+                      // Permitir el uso de flechas para mover el cursor
+                      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+                        return;
+                      }
+
+                      // Permitir eliminar números en cualquier posición
+                      if (event.key === "Backspace") {
+                        // Permitir el borrado secuencial
+                        if (currentValue.length === 5 || currentValue.length === 4) {
+                          if (cursorPosition === 3 && currentValue.charAt(2) === "/") {
+                            event.preventDefault();
+                            return;
+                          }
+                        }
+                          return;
+                        }
+
+                      if (currentValue.length === 5 || currentValue.length === 4 || (cursorPosition === 2 && event.key === "ArrowRight")) {
+                        if (
+                            !currentValue.includes("/") &&
+                            currentValue.length === 5 &&
+                            cursorPosition === 5
+                        ) {
+                          target.value =
+                              currentValue.slice(0, cursorPosition - 1) +
+                              "/" +
+                              currentValue.slice(cursorPosition - 1);
+                          event.preventDefault();
+                        }
+                      }
                     }}
                 />
 
@@ -345,7 +405,7 @@ export const Comprar = () => {
             Cancelar
           </button>
 
-          <button type="button" className="form-register-course-footer-button">
+          <button type="submit" className="form-register-course-footer-button">
             Pagar
           </button>
         </section>
