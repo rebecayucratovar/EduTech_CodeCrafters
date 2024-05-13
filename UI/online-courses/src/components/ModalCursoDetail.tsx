@@ -5,6 +5,13 @@ import Reset from "../assets/icons/Reset.svg";
 import Close from "../assets/icons/Close.svg";
 
 export const ModalCursoDetail = ({ onClose, course }: any) => {
+import Favorite from "../assets/icons/Favorite.svg";
+import Save from "../assets/icons/Save.svg";
+import { useNavigate } from "react-router-dom"; // Agregar importación
+
+
+export const ModalCursoDetail = ({ onClose, course }: any) => {
+  const navigate = useNavigate();
   const handleCancel = () => {
     onClose();
   };
@@ -26,7 +33,11 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                   htmlFor="title"
                   className="modal-curso-detail-content-panel-left-title"
                 >
+<<<<<<< HEAD
                   Diseño web
+=======
+                  {course.titulo}
+>>>>>>> 5056be93c2a8da927a75f0eb039c8cdb7f618812
                 </label>
 
                 <label
@@ -117,26 +128,10 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                 </div>
 
                 <div className="modal-curso-detail-content-panel-right-buttons">
-                  <button onClick={() => navigate("/comprar-cursos", {
-                    state: {
-                      titulo: course.titulo,
-                      costo: course.costo
-                    }
-                  })}>Comprar Ahora
-                  </button>
+                  <button>Comprar Ahora</button>
                   <button>Añadir a la cesta</button>
                 </div>
               </div>
-
-              <div className="modal-curso-detail-content-panel-middle">
-                <img src={Save} alt="save image" title="guardar curso" />
-                <img
-                  src={Favorite}
-                  alt="favorite image"
-                  title="asignar como favorito"
-                />
-              </div>
->>>>>>> 5056be93c2a8da927a75f0eb039c8cdb7f618812
             </section>
           </div>
         </article>
