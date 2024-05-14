@@ -805,3 +805,107 @@ textarea.error-input {
     }
   }
 }
+
+.form-register-estudiante {
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 600px;
+}
+
+.form-register-estudiante-content {
+  border: 2px solid rgb(31, 141, 216);
+  padding: 30px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 600px;
+}
+
+.form-register-estudiante-content-title {
+  font-size: 20px;
+  padding: 10px;
+  font-weight: bold;
+  color: rgb(36, 35, 103);
+  font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+}
+
+.form-register-estudiante-content-data {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.form-register-estudiante-content-data-field {
+  display: flex;
+  position: relative;
+  margin-bottom: 10px;
+  gap: 10px;
+  width: 100%;
+
+  label {
+    font-size: 14px;
+    color: rgb(12, 98, 145);
+    font-weight: bold;
+    font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+    width: 30%;
+    text-align: start;
+  }
+
+  input,
+  textarea,
+  select {
+    background-color: rgb(222, 240, 253);
+    border: 2px solid rgb(98, 181, 202);
+    border-radius: 8px;
+    width: 400px;
+    padding: 5px;
+    margin: 0;
+    padding-right: 30px; /* Añadimos espacio para el icono a la derecha */
+  }
+
+  input::placeholder,
+  textarea::placeholder,
+  input[type="date"]::placeholder,
+  select::placeholder {
+    font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+    color: rgb(98, 182, 203);
+    font-size: 12px;
+  }
+
+  option {
+    color: rgb(98, 182, 203);
+  }
+
+  input {
+    color: rgb(12, 98, 145);
+  }
+}
+
+.form-register-estudiante-footer {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  width: 100%;
+
+  button {
+    font-weight: bold;
+    border-radius: 20px;
+    border-color: rgb(50, 129, 175);
+    background-color: rgb(50, 129, 175);
+    color: white;
+    padding: 10px 30px;
+    cursor: pointer;
+    margin-right: 100px;
+  }
+}
