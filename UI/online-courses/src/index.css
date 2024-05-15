@@ -909,3 +909,42 @@ textarea.error-input {
     margin-right: 100px;
   }
 }
+
+.form-register-course-content-course-details {
+  width: 100%;
+  text-align: center; /* Centra el contenido horizontalmente */
+}
+
+.form-register-course-content-course-details-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: rgb(36, 35, 103);
+  font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+  margin-bottom: 8px; /* Ajusta el valor según sea necesario */
+
+}
+
+.form-register-course-content-course-details-info {
+  display: flex;
+  font-size: 14px;
+  justify-content: space-between; /* Para separar los elementos al máximo */
+  width: 100%;
+  color: rgb(98, 182, 203);
+  margin-top: 20px;
+}
+
+.form-register-course-content-course-details-info-title {
+  font-weight: bold;
+  font-size: 14px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+}
+
+.form-register-course-content-course-details-info-cost {
+  font-size: 14px;
+  color: rgb(98, 182, 203);
+  font-weight: bold;
+  font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+}
+.custom-form {
+  margin-top: 90px; /* Ajusta el valor según sea necesario */
+}
