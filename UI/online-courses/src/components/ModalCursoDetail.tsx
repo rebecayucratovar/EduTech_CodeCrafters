@@ -140,7 +140,6 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                   >
                     Añadir a la cesta
                   </button>
-                  {/*<button onClick={() => agregarAlCarrito(course)}>Añadir a la cesta</button>*/}
                 </div>
               </div>
             </section>
