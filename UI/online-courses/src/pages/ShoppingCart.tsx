@@ -1,28 +1,12 @@
-import { useEffect, useState } from "react";
-import { Course } from "../interfaces/Course.ts";
+import { useContext } from "react";
+import { CarroContexto } from "../context/CarroProvider";
+import { Course } from "../interfaces/Course";
 
 export const ShoppingCart = () => {
-  const [courses, setCourses] = useState<Course[]>([]);
-
-  useEffect(() => {
-    fetch("")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error al obtener los cursos");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setCourses(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
+  const { listaCarrito } = useContext(CarroContexto);
 
   return (
-    <article className="list-courses
-">
+    <article className="list-courses">
       <section className="list-courses-content">
         <label
           htmlFor="list-courses-content-title"
@@ -32,9 +16,9 @@ export const ShoppingCart = () => {
         </label>
 
         <section className="list-courses-content-wrapper">
-          {courses.length > 0 ? (
+          {listaCarrito.length > 0 ? (
             <div className="list-courses-content-card">
-              {courses.map((course) => (
+              {listaCarrito.map((course: Course) => (
                 <div
                   className="list-courses-content-card-wrapper"
                   key={course.id}
@@ -78,18 +62,17 @@ export const ShoppingCart = () => {
         </section>
 
         <label
-            htmlFor="list-courses-content-title"
-            className="list-courses-content-title"
+          htmlFor="list-courses-content-title"
+          className="list-courses-content-title"
         >
           Precio total(Bs): 0
         </label>
         <button
-            className="shopping-card-content-card-wrapper-button"
-            onClick={() => "Borrar el card"}
+          className="shopping-card-content-card-wrapper-button"
+          onClick={() => "Borrar el card"}
         >
           Comprar todo
         </button>
-
       </section>
     </article>
   );
