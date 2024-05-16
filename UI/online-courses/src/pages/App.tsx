@@ -6,6 +6,7 @@ import { FormRegistInstructor } from "./FormRegistInstructor";
 import { ListCourses } from "./ListCourses";
 import { Comprar } from "./comprar.tsx"; // Importa tu componente comprar.tsx
 import { FormRegisterEstudiante } from "./FormRegisterEstudiante.tsx";
+import {ShoppingCart} from "./ShoppingCart.tsx";
 
 export const App = () => {
   return (
@@ -18,6 +19,7 @@ export const App = () => {
           <Route path="registro-curso" element={<FormRegisterCourse />} />
           <Route path="lista-cursos" element={<ListCourses />} />
           <Route path="comprar-cursos" element={<Comprar />} /> {/* Ruta para el formulario comprar.tsx */}
+          <Route path="lista-compras" element={<ShoppingCart/>}></Route>
         </Route>
       </Routes>
     </div>
