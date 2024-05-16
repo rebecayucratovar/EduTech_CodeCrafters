@@ -132,7 +132,15 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                     }
                   })}>Comprar Ahora
                   </button>
-                  <button onClick={() => agregarAlCarrito(course)}>Añadir a la cesta</button>
+                  <button
+                      onClick={() => {
+                        // agregarAlCarrito(course);
+                        navigate("/lista-compras");
+                      }}
+                  >
+                    Añadir a la cesta
+                  </button>
+                  {/*<button onClick={() => agregarAlCarrito(course)}>Añadir a la cesta</button>*/}
                 </div>
               </div>
             </section>
