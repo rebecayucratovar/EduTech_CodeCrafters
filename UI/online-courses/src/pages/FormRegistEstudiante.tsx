@@ -114,7 +114,7 @@ export const FormRegistEstudiante = () => {
                                             message: "Por favor, ingrese su nombre",
                                         },
                                         maxLength: {
-                                            value: 20,
+                                            value: 30,
                                             message: "El nombre completo no debe tener mas de 20 caracteres",
                                         },
                                         minLength: {
@@ -126,13 +126,14 @@ export const FormRegistEstudiante = () => {
                                             message: "El nombre completo solo debe contener letras",
                                         }
                                     })}
-                                    maxLength={20}
+                                    maxLength={30}
+
                                     onKeyDown={(e) => {
                                         const target = e.target as HTMLInputElement;
-                                        if (e.key === " " && target.value.slice(-1) === " ") {
+                                        if (!/[A-Za-záéíóúÁÉÍÓÚñÑ\s]/.test(e.key) || e.key === " " && target.value.slice(-1) === " ") {
                                             e.preventDefault(); // Evita que se ingrese el segundo espacio en blanco
                                         }
-                                        if (target.value.length >= 20 && e.key !== "Backspace" && e.key !== "Delete") {
+                                        if (target.value.length >= 30 && e.key !== "Backspace" && e.key !== "Delete") {
                                             e.preventDefault();
                                         }
                                     }}
