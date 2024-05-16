@@ -948,3 +948,15 @@ textarea.error-input {
 .custom-form {
   margin-top: 90px; /* Ajusta el valor según sea necesario */
 }
+
+.modal-curso-detail-content-panel-middle {
+  position: absolute;
+  top: 15px;
+  left: calc(60% - 90px);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 600px;
+}
