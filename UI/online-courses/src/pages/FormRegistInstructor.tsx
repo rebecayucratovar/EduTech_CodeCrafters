@@ -37,9 +37,10 @@ export const FormRegistInstructor = () => {
         setShowModalByClickInCancel(true);
     };
     const validateCorreo = async (correo: String) => {
+        // https://edutech-codecrafters-blue-water-8441.fly.dev/
         try {
             const response = await fetch(
-                `https://edutech-codecrafters-blue-water-8441.fly.dev/v1/usuarios/verificar-correo?correo=${correo}`
+                `https://edutech-codecrafters-winter-sun-4756.fly.dev/v1/usuarios/verificar-correo?correo=${correo}`
             );
             const data = await response.json();
             return data.correoValido; // Devuelve true si el correo es único, false si no lo es
