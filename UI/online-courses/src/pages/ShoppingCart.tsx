@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Course } from "../interfaces/Course.ts";
+import { useNavigate } from "react-router-dom";
 
 export const ShoppingCart = () => {
   const [courses, setCourses] = useState<Course[]>([]);
+  const navigate = useNavigate(); // Declarar navigate aquí
 
   useEffect(() => {
     fetch("")
@@ -19,6 +21,10 @@ export const ShoppingCart = () => {
         console.error("Error:", error);
       });
   }, []);
+  const handleCompra = () => {
+    // Redirigir al usuario a la página de compra usando navigate
+    navigate("/comprar-cursos");
+  };
 
   return (
     <article className="list-courses
@@ -84,8 +90,9 @@ export const ShoppingCart = () => {
           Precio total(Bs): 0
         </label>
         <button
-            className="shopping-card-content-card-wrapper-button"
-            onClick={() => "Borrar el card"}
+        type="button"
+        className="shopping-card-content-card-wrapper-button"
+        onClick={handleCompra}
         >
           Comprar todo
         </button>
