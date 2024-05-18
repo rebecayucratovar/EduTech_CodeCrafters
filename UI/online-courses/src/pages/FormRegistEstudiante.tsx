@@ -48,9 +48,10 @@ export const FormRegistEstudiante = () => {
         }
     };
     const validateUsuario = async (nommbreUsuario: String) => {
+        // https://edutech-codecrafters-blue-water-8441.fly.dev/
         try {
             const response = await fetch(
-                `https://edutech-codecrafters-blue-water-8441.fly.dev/v1/usuarios/verificar-usuario?nombreUsuario=${nommbreUsuario}`
+                `https://edutech-codecrafters-winter-sun-4756.fly.dev/v1/usuarios/verificar-usuario?nombreUsuario=${nommbreUsuario}`
             );
             const data = await response.json();
             return data.usuarioValido; // Devuelve true si el correo es único, false si no lo es
