@@ -50,5 +50,8 @@ public class UsuarioServicioImpl implements UsuarioServicio {
   public boolean existeUsuario(String nombreUsuario) {
     return usuarioRepositorio.existsByNombreUsuario(nombreUsuario);
   }
+  public Usuario autenticar(String nombreUsuario, String contraseña) {
+    return usuarioRepositorio.findByNombreUsuarioAndContraseña(nombreUsuario, contraseña).orElse(null);
+  }
 }
 

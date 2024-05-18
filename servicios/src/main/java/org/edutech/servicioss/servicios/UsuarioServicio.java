@@ -13,6 +13,6 @@ public interface UsuarioServicio {
   void deleteById(UUID id);
   boolean existeCorreo(String correo);
   boolean existeUsuario(String nombreUsuario);
-
+  Usuario autenticar(String nombreUsuario, String contraseña);
 }
 

@@ -15,8 +15,8 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
 
   const formattedCategoria = course.categoria.replace(/_/g, " ");
 
-  const useCarro = () => useContext(CarroContexto);
-  const {agregarAlCarrito} = useCarro();
+  //const useCarro = () => useContext(CarroContexto);
+  //const {agregarAlCarrito} = useCarro();
 
 
   return (
