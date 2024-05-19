@@ -38,7 +38,7 @@ export const FormRegistEstudiante = () => {
     const validateCorreo = async (correo: String) => {
         try {
             const response = await fetch(
-                `https://edutech-codecrafters-blue-water-8441.fly.dev/v1/usuarios/verificar-correo?correo=${correo}`
+                `https://edutech-codecrafters-dry-mountain-212.fly.dev/v1/usuarios/verificar-correo?correo=${correo}`
             );
             const data = await response.json();
             return data.correoValido; // Devuelve true si el correo es único, false si no lo es
@@ -51,7 +51,7 @@ export const FormRegistEstudiante = () => {
         // https://edutech-codecrafters-blue-water-8441.fly.dev/
         try {
             const response = await fetch(
-                `https://edutech-codecrafters-winter-sun-4756.fly.dev/v1/usuarios/verificar-usuario?nombreUsuario=${nommbreUsuario}`
+                `https://edutech-codecrafters-dry-mountain-212.fly.dev/v1/usuarios/verificar-usuario?nombreUsuario=${nommbreUsuario}`
             );
             const data = await response.json();
             return data.usuarioValido; // Devuelve true si el correo es único, false si no lo es
@@ -63,7 +63,7 @@ export const FormRegistEstudiante = () => {
 
     const onSubmit = handleSubmit(async (formData) => {
         try {
-            const response = await fetch("https://edutech-codecrafters-blue-water-8441.fly.dev/v1/usuarios/saveUsuario", {
+            const response = await fetch("https://edutech-codecrafters-dry-mountain-212.fly.dev/v1/usuarios/saveUsuario", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
