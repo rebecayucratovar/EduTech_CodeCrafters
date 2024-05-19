@@ -19,6 +19,7 @@ export const FormRegistEstudiante = () => {
             nombreCompleto: "",
             nombreUsuario: "",
             fechaNacimiento: "",
+            tipoUsuario:"ESTUDIANTE",
             correo: "",
             contraseña: "",
             confirmacionContraseña: "",
