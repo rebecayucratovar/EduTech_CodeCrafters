@@ -3,12 +3,12 @@ import Timer from "../assets/icons/Timer.svg";
 import Picture from "../assets/icons/Picture.svg";
 import Reset from "../assets/icons/Reset.svg";
 import Close from "../assets/icons/Close.svg";
-import { useContext } from "react";
-import { CarroContexto } from "../context/CarroProvider";
+import { useCarro } from "../context/CarroProvider";
 import  {useNavigate}  from "react-router-dom";
 
 export const ModalCursoDetail = ({ onClose, course }: any) => {
   const navigate = useNavigate();
+  const { agregarAlCarrito } = useCarro();
   const handleCancel = () => {
     onClose();
   };
@@ -134,7 +134,7 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                   </button>
                   <button
                       onClick={() => {
-                        // agregarAlCarrito(course);
+                        agregarAlCarrito(course);
                         navigate("/lista-compras");
                       }}
                   >
