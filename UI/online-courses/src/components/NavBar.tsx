@@ -1,7 +1,19 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import LogoNavBar from "../assets/LogoNavBar.svg";
+import ModalInicioSesion from "./ModalInicioSesion"; // Importa el componente del modal
 
 export const NavBar = () => {
+  const [modalOpen, setModalOpen] = useState(false); // Estado para controlar si el modal está abierto o no
+
+  const handleOpenModal = () => {
+    setModalOpen(true); // Función para abrir el modal
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false); // Función para cerrar el modal
+  };
+
   return (
     <section className="navbar">
       <div className="logo-container">
@@ -13,9 +25,9 @@ export const NavBar = () => {
         <Link to="/registro-estudiante" className="navbar-content-link">
           Registrarse  
         </Link>
-        <Link to="/" className="navbar-content-link">
+        <button onClick={handleOpenModal} className="navbar-content-link">
           Iniciar sesión  
-        </Link>
+        </button>
         {/*
         <Link to="/registro-curso" className="navbar-content-link">
           Registrar curso
@@ -25,6 +37,7 @@ export const NavBar = () => {
         </Link>
         */}
       </div>
+      {modalOpen && <ModalInicioSesion onClose={handleCloseModal} />} {/* Renderiza el modal solo si modalOpen es true */}
     </section>
   );
 };
