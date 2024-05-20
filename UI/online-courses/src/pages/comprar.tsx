@@ -6,12 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import logo from "../assets/LogoForm.png";
+import { Course } from '../interfaces/Course.ts';
 
 export const Comprar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { titulo, costo } = location.state;
- // const dispatch = useDispatch();
+  const { cursos } = location.state;
+  // const dispatch = useDispatch();
 
   const {
     register,
@@ -27,6 +28,13 @@ export const Comprar = () => {
     },
     mode: "onChange",
   });
+  const calcularCostoTotal = () => {
+    let costoTotal = 0;
+    cursos.forEach((curso:Course) => {
+      costoTotal += curso.costo;
+    });
+    return costoTotal;
+  };
 
   const [showModalByClickInRegister, setShowModalByClickInAccept] =
     useState(false);
@@ -37,6 +45,7 @@ export const Comprar = () => {
   const handleCancel = () => {
     setShowModalByClickInCancel(true);
   };
+
 
   const onSubmit = handleSubmit(async () => {
     if (
@@ -382,14 +391,19 @@ export const Comprar = () => {
                 )}
               </div>
             </div>
+
             <div className="form-register-course-content-course-details">
               <label htmlFor="curso" className="form-register-course-content-course-details-label">
                 Detalles de la compra
+              </label>{cursos.map((curso: Course) => (
+                <div className="form-register-course-content-course-details-info">
+                  <span className="form-register-course-content-course-details-info-title">{curso.titulo}</span>
+                  <span className="form-register-course-content-course-details-info-cost">{curso.costo} bs</span>
+                </div>
+            ))}
+              <label htmlFor="curso" className="form-register-course-content-course-details-label">
+                Total a pagar: {calcularCostoTotal()} Bs
               </label>
-              <div className="form-register-course-content-course-details-info">
-                <span className="form-register-course-content-course-details-info-title">{titulo}</span>
-                <span className="form-register-course-content-course-details-info-cost">{costo} bs</span>
-              </div>
             </div>
 
 
