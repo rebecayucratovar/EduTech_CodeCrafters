@@ -1,24 +1,17 @@
-import { useEffect, useState } from "react";
+//import { useContext } from "react";
 import { Course } from "../interfaces/Course.ts";
+import { useNavigate } from "react-router-dom";
+import {useCarro} from "../context/CarroProvider";
 
 export const ShoppingCart = () => {
-  const [courses, setCourses] = useState<Course[]>([]);
+  const { carrito, eliminarDelCarrito } = useCarro();
+  const navigate = useNavigate(); // Declarar navigate aquí
 
-  useEffect(() => {
-    fetch("")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error al obtener los cursos");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setCourses(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
+  const totalCosto = carrito.reduce((total:number, course:Course) => total + course.costo, 0);
+  const handleCompra = () => {
+    // Redirigir al usuario a la página de compra usando navigate
+    navigate("/comprar-cursos");
+  };
 
   return (
     <article className="list-courses
@@ -32,9 +25,9 @@ export const ShoppingCart = () => {
         </label>
 
         <section className="list-courses-content-wrapper">
-          {courses.length > 0 ? (
+          {carrito.length > 0 ? (
             <div className="list-courses-content-card">
-              {courses.map((course) => (
+              {carrito.map((course: Course) => (
                 <div
                   className="list-courses-content-card-wrapper"
                   key={course.id}
@@ -61,7 +54,7 @@ export const ShoppingCart = () => {
 
                   <button
                     className="list-courses-content-card-wrapper-button"
-                    onClick={() => "Borrar el card"}
+                    onClick={() => eliminarDelCarrito(course.id)}
                   >
                     Eliminar
                   </button>
@@ -81,11 +74,12 @@ export const ShoppingCart = () => {
             htmlFor="list-courses-content-title"
             className="list-courses-content-title"
         >
-          Precio total(Bs): 0
+          Precio total(Bs): {totalCosto}
         </label>
         <button
-            className="shopping-card-content-card-wrapper-button"
-            onClick={() => "Borrar el card"}
+        type="button"
+        className="shopping-card-content-card-wrapper-button"
+        onClick={handleCompra}
         >
           Comprar todo
         </button>

@@ -1,25 +1,39 @@
-import { createContext, useState } from "react"
-import { valuesContext, children } from "../interfaces/Values.ts";
+//import { valuesContext, children } from "../interfaces/Values.ts";
+import React, { createContext, useContext, useState } from 'react';
+import { Course } from '../interfaces/Course.ts';
 
-import { Course } from "../interfaces/Course.ts";
-
-export const CarroContexto = createContext <valuesContext>({} as valuesContext);
-
-    export const CarroProvider = ({children} : children) => {
-
-    const [listaCarrito, setListaCarrito] = useState<Course[]>([]);
-    console.log(listaCarrito)
-
-    const agregarAlCarrito = (item : Course) => {
-
-        return setListaCarrito([...listaCarrito, item]) 
-      }
-      return(
-        <CarroContexto.Provider value={{
-            listaCarrito,
-            agregarAlCarrito,
-        }}>{children}
-        </CarroContexto.Provider>
-    
-      )
+interface CarroContextoType {
+    carrito: Course[];
+    agregarAlCarrito: (course: Course) => void;
+    eliminarDelCarrito: (courseId: number) => void;
 }
+
+export const CarroContexto = createContext<CarroContextoType | undefined>(undefined);
+
+export const useCarro = () => {
+    const context = useContext(CarroContexto);
+    if (!context) {
+        throw new Error('useCarro debe estar dentro de un CarroProvider');
+    }
+    return context;
+};
+
+export const CarroProvider = ({ children }: { children: React.ReactNode }) => {
+    const [carrito, setCarrito] = useState<Course[]>([]);
+
+    const agregarAlCarrito = (course: Course) => {
+        setCarrito((prevCarrito) => [...prevCarrito, course]);
+    };
+
+    const eliminarDelCarrito = (courseId: number) => {
+        setCarrito((prevCarrito) =>
+            prevCarrito.filter((course) => course.id !== courseId)
+        );
+    };
+
+    return (
+        <CarroContexto.Provider value={{ carrito, agregarAlCarrito, eliminarDelCarrito }}>
+            {children}
+        </CarroContexto.Provider>
+    );
+};
