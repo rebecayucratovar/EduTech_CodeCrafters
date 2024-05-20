@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import logo from "../assets/LogoForm.png";
 import { Course } from '../interfaces/Course.ts';
+import targetIcon from '../assets/images/target.png';
 
 export const Comprar = () => {
   const navigate = useNavigate();
@@ -197,6 +198,7 @@ export const Comprar = () => {
                             : ""
                     }`}
                 />
+                <img src={targetIcon} alt="Target Icon" className="target-icon"/>
 
                 {errors.numeroTarjeta && (
                     <div className="form-register-course-content-data-field-error">
@@ -206,14 +208,14 @@ export const Comprar = () => {
                             ""
                         )}
                       </label>
-                      <img src={AlertIcon} alt="Icono de alerta"/>
+                      <img src={AlertIcon} alt="Icono de alerta" className="alert-icon-specific"/>
                     </div>
                 )}
 
                 {dirtyFields.numeroTarjeta && !errors.numeroTarjeta && (
                     <div className="form-register-course-content-data-field-error">
                       <img
-                          className="check-icon"
+                          className="check-icon-specific"
                           src={CheckIcon}
                           alt="Icono de check"
                       />

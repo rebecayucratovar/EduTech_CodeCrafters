@@ -938,7 +938,25 @@ textarea.error-input {
   font-size: 14px;
   font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
 }
-
+.target-icon {
+  position: absolute;
+  right: -5px; /* Ajusta esto según sea necesario */
+  top: 5%; /* Ajusta esto según sea necesario */
+  transform: translateY(12%); /* Mueve la imagen hacia abajo */
+  height: 18px; /* Ajusta la altura según sea necesario */
+}
+.form-register-course-content-data-field-error .alert-icon-specific {
+  position: absolute;
+  top: 26%;
+  left: 450px; /* Ajusta esta distancia para mover el icono de error a la izquierda del icono de tarjeta */
+  transform: translateY(-50%);
+}
+.form-register-course-content-data-field-error .check-icon-specific {
+  position: absolute;
+  top: 42%;
+  left: 450px; /* Ajusta esta distancia para mover el icono de error a la izquierda del icono de tarjeta */
+  transform: translateY(-50%);
+}
 .form-register-course-content-course-details-info-cost {
   font-size: 14px;
   color: rgb(98, 182, 203);
