@@ -10,7 +10,7 @@ export const ShoppingCart = () => {
   const totalCosto = carrito.reduce((total:number, course:Course) => total + course.costo, 0);
   const handleCompra = () => {
     // Redirigir al usuario a la página de compra usando navigate
-    navigate("/comprar-cursos");
+    navigate("/comprar-cursos", {state:{cursos: carrito}});
   };
 
   return (
