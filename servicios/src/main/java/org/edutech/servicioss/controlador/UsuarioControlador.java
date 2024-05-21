@@ -89,7 +89,7 @@ public class UsuarioControlador {
       // Aquí puedes generar un token JWT o manejar la sesión de alguna otra manera
       Map<String, String> response = new HashMap<>();
       response.put("message", "Inicio de sesión exitoso");
-      response.put("tipoUsuario", usuario.getTipoUsuario()); // Asumiendo que el tipo de usuario está en la clase Usuario
+      response.put("tipoUsuario", usuario.getTipoUsuario().toString()); // Asumiendo que el tipo de usuario está en la clase Usuario
       // response.put("token", token); // Si estás usando JWT
       return ResponseEntity.ok(response);
     } else {
