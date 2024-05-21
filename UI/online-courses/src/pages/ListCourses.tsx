@@ -20,7 +20,6 @@ export const ListCourses = () => {
   useEffect(() => {
     // https://edutech-codecrafters-blue-water-8441.fly.dev/
     fetch("https://edutech-codecrafters-dry-mountain-212.fly.dev/v1/cursos/lista", {
-      mode: 'no-cors',
     })
       .then((response) => {
         if (!response.ok) {
