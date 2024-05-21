@@ -79,4 +79,20 @@ public class UsuarioControlador {
     response.put("usuarioValido", !usuarioExistente);
     return ResponseEntity.ok(response);
   }
+  @PostMapping("/login")
+  public ResponseEntity<Map<String, String>> login(@RequestBody Map<String, String> loginData) {
+    String nombreUsuario = loginData.get("nombreUsuario");
+    String contraseña = loginData.get("contraseña");
+
+    Usuario usuario = usuarioServicio.autenticar(nombreUsuario, contraseña);
+    if (usuario != null) {
+      // Aquí puedes generar un token JWT o manejar la sesión de alguna otra manera
+      Map<String, String> response = new HashMap<>();
+      response.put("message", "Inicio de sesión exitoso");
+      // response.put("token", token); // Si estás usando JWT
+      return ResponseEntity.ok(response);
+    } else {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+    }
+  }
 }

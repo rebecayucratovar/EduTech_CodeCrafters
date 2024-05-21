@@ -3,20 +3,20 @@ import Timer from "../assets/icons/Timer.svg";
 import Picture from "../assets/icons/Picture.svg";
 import Reset from "../assets/icons/Reset.svg";
 import Close from "../assets/icons/Close.svg";
-import { useContext } from "react";
-import { CarroContexto } from "../context/CarroProvider";
+import { useCarro } from "../context/CarroProvider";
 import  {useNavigate}  from "react-router-dom";
 
 export const ModalCursoDetail = ({ onClose, course }: any) => {
   const navigate = useNavigate();
+  const { agregarAlCarrito } = useCarro();
   const handleCancel = () => {
     onClose();
   };
 
   const formattedCategoria = course.categoria.replace(/_/g, " ");
 
-  const useCarro = () => useContext(CarroContexto);
-  const {agregarAlCarrito} = useCarro();
+  //const useCarro = () => useContext(CarroContexto);
+  //const {agregarAlCarrito} = useCarro();
 
 
   return (
@@ -127,14 +127,13 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                 <div className="modal-curso-detail-content-panel-right-buttons">
                   <button onClick={() => navigate("/comprar-cursos", {
                     state: {
-                      titulo: course.titulo,
-                      costo: course.costo
+                      cursos: [course]
                     }
                   })}>Comprar Ahora
                   </button>
                   <button
                       onClick={() => {
-                        // agregarAlCarrito(course);
+                        agregarAlCarrito(course);
                         navigate("/lista-compras");
                       }}
                   >
