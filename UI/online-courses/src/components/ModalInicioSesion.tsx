@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Close from "../assets/icons/Close.svg";
 import { useNavigate } from "react-router-dom";
 
 interface ModalInicioSesionProps {
@@ -10,17 +9,27 @@ const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [usernameError, setUsernameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
-    if (username === "" || password === "") {
-      setError("Todos los campos son obligatorios");
+    setUsernameError("");
+    setPasswordError("");
+
+    if (!username) {
+      setUsernameError("Por favor ingrese su nombre de usuario");
+    }
+
+    if (!password) {
+      setPasswordError("Por favor ingrese su contraseña");
+    }
+
+    if (!username || !password) {
       return;
     }
 
     setLoading(true);
-    setError("");
 
     try {
       const response = await fetch("https://edutech-codecrafters-dry-mountain-212.fly.dev/v1/login", {
@@ -44,10 +53,11 @@ const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
         onClose();
       } else {
         // Manejo de errores específicos de la API
-        setError(data.message || "Credenciales incorrectas");
+        setUsernameError(data.usernameError || "");
+        setPasswordError(data.passwordError || "");
       }
     } catch (err) {
-      setError("Error al iniciar sesión. Inténtalo de nuevo más tarde.");
+      setUsernameError("Error al iniciar sesión. Inténtalo de nuevo más tarde.");
     } finally {
       setLoading(false);
     }
@@ -56,26 +66,32 @@ const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
   return (
     <div className="modal-inicio-sesion">
       <div className="modal-inicio-sesion-container">
-        <button className="modal-inicio-sesion-btn-close" onClick={onClose}>
-          <img src={Close} alt="Cerrar" />
-        </button>
         <div className="modal-inicio-sesion-content">
           <h2>Iniciar Sesión</h2>
-          {error && <p className="modal-inicio-sesion-error">{error}</p>}
-          <input
-            type="text"
-            className="modal-inicio-sesion-input"
-            placeholder="Usuario"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            type="password"
-            className="modal-inicio-sesion-input"
-            placeholder="Contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className="modal-inicio-sesion-input-container">
+            <label htmlFor="username" className="modal-inicio-sesion-label">Usuario*</label>
+            <input
+              type="text"
+              id="username"
+              className={`modal-inicio-sesion-input ${usernameError && "error"}`}
+              placeholder="Ingrese su nombre de usuario"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            {usernameError && <p className="modal-inicio-sesion-error">{usernameError}</p>}
+          </div>
+          <div className="modal-inicio-sesion-input-container">
+            <label htmlFor="password" className="modal-inicio-sesion-label">Contraseña*</label>
+            <input
+              type="password"
+              id="password"
+              className={`modal-inicio-sesion-input ${passwordError && "error"}`}
+              placeholder="Ingrese su contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {passwordError && <p className="modal-inicio-sesion-error">{passwordError}</p>}
+          </div>
           <div className="modal-inicio-sesion-button-container">
             <button
               className="modal-inicio-sesion-button"
@@ -97,4 +113,4 @@ const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
   );
 };
 
-export default ModalInicioSesion;
+export default ModalInicioSesion; 
