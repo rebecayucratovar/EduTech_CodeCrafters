@@ -43,7 +43,6 @@ export const ShoppingCart = () => {
                     >
                       {course.titulo}
                     </label>
-                    <label>Pedro Perez</label>
                     <label
                       htmlFor="card-costo"
                       className="list-courses-content-card-wrapper-description-costo"
