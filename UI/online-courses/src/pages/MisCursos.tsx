@@ -34,7 +34,6 @@ export const MyCourses = () => {
                           >
                             {course.titulo}
                           </label>
-                          <label>Pedro Perez</label>
                         </div>
 
                         <button className="list-courses-content-card-wrapper-button">
