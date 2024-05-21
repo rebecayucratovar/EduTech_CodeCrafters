@@ -35,12 +35,6 @@ export const MyCourses = () => {
                             {course.titulo}
                           </label>
                           <label>Pedro Perez</label>
-                          <label
-                              htmlFor="card-costo"
-                              className="list-courses-content-card-wrapper-description-costo"
-                          >
-                            {course.costo} Bs.
-                          </label>
                         </div>
 
                         <button className="list-courses-content-card-wrapper-button">
