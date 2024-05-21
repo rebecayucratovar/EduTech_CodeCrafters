@@ -25,7 +25,7 @@ const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
           <img src={Close} alt="Cerrar" />
         </button>
         <div className="modal-inicio-sesion-content">
-          <h2>Iniciar Sesión</h2>
+          Iniciar Sesión
           <input
             type="text"
             className="modal-inicio-sesion-input"
