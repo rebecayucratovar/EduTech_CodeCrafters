@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LogoNavBar from "../assets/LogoNavBar.svg";
 import ModalInicioSesion from "./ModalInicioSesion";
+import ShoppingCartLogo from "../assets/cart.svg";
+
 
 export const NavBar = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -59,6 +61,9 @@ export const NavBar = () => {
             <button onClick={handleLogout} className="navbar-content-link">
               Cerrar sesión
             </button>
+            <Link to="/lista-compras">
+          <img src={ShoppingCartLogo} alt="logo-Scart" className="logosc" />
+            </Link>
           </>
         ) : (
           <>
