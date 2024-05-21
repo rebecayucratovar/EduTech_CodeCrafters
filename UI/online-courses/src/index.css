@@ -976,6 +976,7 @@ textarea.error-input {
   padding: 10px 30px;
   cursor: pointer;
   margin-right: 100px;
+  width: 200px;
 }
 
 .modal-inicio-sesion {
