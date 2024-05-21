@@ -5,6 +5,8 @@ import Reset from "../assets/icons/Reset.svg";
 import Close from "../assets/icons/Close.svg";
 import { useCarro } from "../context/CarroProvider";
 import  {useNavigate}  from "react-router-dom";
+import { useState } from "react";
+import { Modal } from "./Modal";
 
 export const ModalCursoDetail = ({ onClose, course }: any) => {
   const navigate = useNavigate();
@@ -13,6 +15,7 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
     onClose();
   };
 
+  const [isopen, setIsopen] = useState(false);
   const formattedCategoria = course.categoria.replace(/_/g, " ");
 
   //const useCarro = () => useContext(CarroContexto);
@@ -134,7 +137,7 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                   <button
                       onClick={() => {
                         agregarAlCarrito(course);
-                        navigate("/lista-compras");
+                        setIsopen(true)
                       }}
                   >
                     Añadir a la cesta
@@ -145,6 +148,20 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
           </div>
         </article>
       )}
+
+      {isopen && (
+        <Modal
+        title="Se agregó a carrito"
+        description=""
+        txtBtnAccept="Aceptar"
+        onAccept={() => {
+          navigate("lista-compras")
+          setIsopen(false);
+        }}
+
+    />
+)}
+
     </>
   );
 };

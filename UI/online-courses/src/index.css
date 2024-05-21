@@ -36,6 +36,10 @@ body {
   width: auto;
 }
 
+.logosc{
+  height: 40px;
+}
+
 .navbar-content {
   display: flex;
   align-items: center;
