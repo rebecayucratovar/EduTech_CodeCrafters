@@ -127,8 +127,7 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                 <div className="modal-curso-detail-content-panel-right-buttons">
                   <button onClick={() => navigate("/comprar-cursos", {
                     state: {
-                      titulo: course.titulo,
-                      costo: course.costo
+                      cursos: [course]
                     }
                   })}>Comprar Ahora
                   </button>

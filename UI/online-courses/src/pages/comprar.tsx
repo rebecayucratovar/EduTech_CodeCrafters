@@ -12,7 +12,7 @@ import targetIcon from '../assets/images/target.png';
 export const Comprar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { cursos } = location.state;
+  const { cursos }: { cursos: Course[] } = location.state;
   // const dispatch = useDispatch();
 
   const {
