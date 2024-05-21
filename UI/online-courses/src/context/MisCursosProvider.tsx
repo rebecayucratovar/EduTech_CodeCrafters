@@ -1,39 +1,38 @@
-//import { valuesContext, children } from "../interfaces/Values.ts";
 import React, { createContext, useContext, useState } from 'react';
-import { Course } from '../interfaces/Course.ts';
+import { Course } from '../interfaces/Course';
 
-interface CarroContextoType {
-    carrito: Course[];
-    agregarAlCarrito: (course: Course) => void;
-    eliminarDelCarrito: (courseId: number) => void;
+interface MisCursosContextoType {
+    misCursos: Course[];
+    agregarAlMisCursos: (course: Course) => void;
+    eliminarDelMisCursos: (courseId: number) => void;
 }
 
-export const CarroContexto = createContext<CarroContextoType | undefined>(undefined);
+export const MisCursosContexto = createContext<MisCursosContextoType | undefined>(undefined);
 
-export const useCarro = () => {
-    const context = useContext(CarroContexto);
+export const useMisCursos = () => {
+    const context = useContext(MisCursosContexto);
     if (!context) {
-        throw new Error('useCarro debe estar dentro de un CarroProvider');
+        throw new Error('useMisCursos debe estar dentro de un MisCursosProvider');
     }
     return context;
 };
 
-export const CarroProvider = ({ children }: { children: React.ReactNode }) => {
-    const [carrito, setCarrito] = useState<Course[]>([]);
+export const MisCursosProvider = ({ children }: { children: React.ReactNode }) => {
+    const [misCursos, setMisCursos] = useState<Course[]>([]);
 
-    const agregarAlCarrito = (course: Course) => {
-        setCarrito((prevCarrito) => [...prevCarrito, course]);
+    const agregarAlMisCursos = (course: Course) => {
+        setMisCursos((prevMisCursos) => [...prevMisCursos, course]);
     };
 
-    const eliminarDelCarrito = (courseId: number) => {
-        setCarrito((prevCarrito) =>
-            prevCarrito.filter((course) => course.id !== courseId)
+    const eliminarDelMisCursos = (courseId: number) => {
+        setMisCursos((prevMisCursos) =>
+            prevMisCursos.filter((course) => course.id !== courseId)
         );
     };
 
     return (
-        <CarroContexto.Provider value={{ carrito, agregarAlCarrito, eliminarDelCarrito }}>
+        <MisCursosContexto.Provider value={{ misCursos, agregarAlMisCursos, eliminarDelMisCursos }}>
             {children}
-        </CarroContexto.Provider>
+        </MisCursosContexto.Provider>
     );
 };
