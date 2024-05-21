@@ -77,7 +77,7 @@ export const FormRegisterCourse = () => {
         // TODO: Cambiar el path por el de la API deployada
         // si no da cambiar al anterior http://localhost:3039/v1/cursos/save
         // https://edutech-codecrafters-blue-water-8441.fly.dev/v1/cursos/save
-        const response = await fetch("https://edutech-codecrafters-dry-mountain-212.fly.dev/v1/cursos/save", {
+        const response = await fetch("https://edutech-codecrafters-sparkling-smoke-4076.fly.dev/v1/cursos/save", {
           method: "POST",
           body: formData,
         });

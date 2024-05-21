@@ -32,7 +32,7 @@ const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
     setLoading(true);
 
     try {
-      const response = await fetch("https://edutech-codecrafters-dry-mountain-212.fly.dev/v1/usuarios/login", {
+      const response = await fetch("https://edutech-codecrafters-sparkling-smoke-4076.fly.dev/v1/usuarios/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
