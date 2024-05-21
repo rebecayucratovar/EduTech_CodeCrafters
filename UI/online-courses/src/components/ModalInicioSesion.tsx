@@ -7,37 +7,37 @@ interface ModalInicioSesionProps {
 
 const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [usernameError, setUsernameError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [nombreUsuario, setNombreUsuario] = useState("");
+  const [contraseña, setPassword] = useState("");
+  const [nombreUsuarioError, setNombreUsuarioError] = useState("");
+  const [contraseñaError, setContraseñaError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
-    setUsernameError("");
-    setPasswordError("");
+    setNombreUsuarioError("");
+    setContraseñaError("");
 
-    if (!username) {
-      setUsernameError("Por favor ingrese su nombre de usuario");
+    if (!nombreUsuario) {
+      setNombreUsuarioError("Por favor ingrese su nombre de usuario");
     }
 
-    if (!password) {
-      setPasswordError("Por favor ingrese su contraseña");
+    if (!contraseña) {
+      setContraseñaError("Por favor ingrese su contraseña");
     }
 
-    if (!username || !password) {
+    if (!nombreUsuario || !contraseña) {
       return;
     }
 
     setLoading(true);
 
     try {
-      const response = await fetch("https://edutech-codecrafters-dry-mountain-212.fly.dev/v1/login", {
+      const response = await fetch("https://edutech-codecrafters-dry-mountain-212.fly.dev/v1/usuarios/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ nombreUsuario, contraseña }),
       });
 
       const data = await response.json();
@@ -53,11 +53,11 @@ const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
         onClose();
       } else {
         // Manejo de errores específicos de la API
-        setUsernameError(data.usernameError || "");
-        setPasswordError(data.passwordError || "");
+        setNombreUsuarioError(data.usernameError || "");
+        setContraseñaError(data.passwordError || "");
       }
     } catch (err) {
-      setUsernameError("Error al iniciar sesión. Inténtalo de nuevo más tarde.");
+      setNombreUsuarioError("Error al iniciar sesión. Inténtalo de nuevo más tarde.");
     } finally {
       setLoading(false);
     }
@@ -73,24 +73,24 @@ const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
             <input
               type="text"
               id="username"
-              className={`modal-inicio-sesion-input ${usernameError && "error"}`}
+              className={`modal-inicio-sesion-input ${nombreUsuarioError && "error"}`}
               placeholder="Ingrese su nombre de usuario"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={nombreUsuario}
+              onChange={(e) => setNombreUsuario(e.target.value)}
             />
-            {usernameError && <p className="modal-inicio-sesion-error">{usernameError}</p>}
+            {nombreUsuarioError && <p className="modal-inicio-sesion-error">{nombreUsuarioError}</p>}
           </div>
           <div className="modal-inicio-sesion-input-container">
             <label htmlFor="password" className="modal-inicio-sesion-label">Contraseña*</label>
             <input
               type="password"
               id="password"
-              className={`modal-inicio-sesion-input ${passwordError && "error"}`}
+              className={`modal-inicio-sesion-input ${contraseñaError && "error"}`}
               placeholder="Ingrese su contraseña"
-              value={password}
+              value={contraseña}
               onChange={(e) => setPassword(e.target.value)}
             />
-            {passwordError && <p className="modal-inicio-sesion-error">{passwordError}</p>}
+            {contraseñaError && <p className="modal-inicio-sesion-error">{contraseñaError}</p>}
           </div>
           <div className="modal-inicio-sesion-button-container">
             <button
