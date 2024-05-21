@@ -8,11 +8,13 @@ import { useLocation } from "react-router-dom";
 import logo from "../assets/LogoForm.png";
 import { Course } from '../interfaces/Course.ts';
 import targetIcon from '../assets/images/target.png';
+import {useMisCursos} from "../context/MisCursosProvider.tsx";
 
 export const Comprar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { cursos }: { cursos: Course[] } = location.state;
+  const { agregarAlMisCursos } = useMisCursos();
   // const dispatch = useDispatch();
 
   const {
@@ -96,6 +98,17 @@ export const Comprar = () => {
         console.error("Error:", error);
       }
     }*/
+    try {
+      // Aquí podrías hacer llamadas a una API para procesar el pago, etc.
+      // Si todo está correcto, agregar los cursos a MisCursosProvider
+      cursos.forEach(curso => agregarAlMisCursos(curso));
+
+      // Redirigir a la página de Mis Cursos
+      navigate("/mis-cursos");
+    } catch (error) {
+      console.error("Error al procesar la compra:", error);
+      setShowModalError(true); // Mostrar modal de error si ocurre algún problema
+    }
   });
 
   return (

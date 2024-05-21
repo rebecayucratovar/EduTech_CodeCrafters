@@ -90,6 +90,7 @@ public class UsuarioControlador {
       Map<String, String> response = new HashMap<>();
       response.put("message", "Inicio de sesión exitoso");
       response.put("tipoUsuario", usuario.getTipoUsuario().toString()); // Asumiendo que el tipo de usuario está en la clase Usuario
+      response.put("usuarioId", String.valueOf(usuario.getUsuarioId())); // Agrega el ID del usuario
       // response.put("token", token); // Si estás usando JWT
       return ResponseEntity.ok(response);
     } else {
