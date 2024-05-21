@@ -398,10 +398,13 @@ export const Comprar = () => {
               <label htmlFor="curso" className="form-register-course-content-course-details-label">
                 Detalles de la compra
               </label>{cursos.map((curso: Course) => (
+                <div key={curso.id}>
                 <div className="form-register-course-content-course-details-info">
                   <span className="form-register-course-content-course-details-info-title">{curso.titulo}</span>
                   <span className="form-register-course-content-course-details-info-cost">{curso.costo} bs</span>
                 </div>
+                </div>
+
             ))}
               <label htmlFor="curso" className="form-register-course-content-course-details-label">
                 Total a pagar: {calcularCostoTotal()} Bs
