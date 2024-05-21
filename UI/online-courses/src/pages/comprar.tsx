@@ -6,12 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import logo from "../assets/LogoForm.png";
+import { Course } from '../interfaces/Course.ts';
+import targetIcon from '../assets/images/target.png';
 
 export const Comprar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { titulo, costo } = location.state;
- // const dispatch = useDispatch();
+  const { cursos }: { cursos: Course[] } = location.state;
+  // const dispatch = useDispatch();
 
   const {
     register,
@@ -27,6 +29,13 @@ export const Comprar = () => {
     },
     mode: "onChange",
   });
+  const calcularCostoTotal = () => {
+    let costoTotal = 0;
+    cursos.forEach((curso:Course) => {
+      costoTotal += curso.costo;
+    });
+    return costoTotal;
+  };
 
   const [showModalByClickInRegister, setShowModalByClickInAccept] =
     useState(false);
@@ -37,6 +46,7 @@ export const Comprar = () => {
   const handleCancel = () => {
     setShowModalByClickInCancel(true);
   };
+
 
   const onSubmit = handleSubmit(async () => {
     if (
@@ -119,7 +129,7 @@ export const Comprar = () => {
                     })}
                     maxLength={30}
                     onKeyDown={(event) => {
-                      // Permite solo números y puntos (para decimales)
+                      // permite solo letras
                       const target = event.target as HTMLInputElement;
                       if (!/[A-Za-záéíóúÁÉÍÓÚñÑ\s]/.test(event.key) || (event.key === " " && target.value.slice(-1) === " ")) {
                         event.preventDefault();
@@ -188,6 +198,7 @@ export const Comprar = () => {
                             : ""
                     }`}
                 />
+                <img src={targetIcon} alt="Target Icon" className="target-icon"/>
 
                 {errors.numeroTarjeta && (
                     <div className="form-register-course-content-data-field-error">
@@ -197,14 +208,14 @@ export const Comprar = () => {
                             ""
                         )}
                       </label>
-                      <img src={AlertIcon} alt="Icono de alerta"/>
+                      <img src={AlertIcon} alt="Icono de alerta" className="alert-icon-specific"/>
                     </div>
                 )}
 
                 {dirtyFields.numeroTarjeta && !errors.numeroTarjeta && (
                     <div className="form-register-course-content-data-field-error">
                       <img
-                          className="check-icon"
+                          className="check-icon-specific"
                           src={CheckIcon}
                           alt="Icono de check"
                       />
@@ -382,14 +393,22 @@ export const Comprar = () => {
                 )}
               </div>
             </div>
+
             <div className="form-register-course-content-course-details">
               <label htmlFor="curso" className="form-register-course-content-course-details-label">
                 Detalles de la compra
+              </label>{cursos.map((curso: Course) => (
+                <div key={curso.id}>
+                <div className="form-register-course-content-course-details-info">
+                  <span className="form-register-course-content-course-details-info-title">{curso.titulo}</span>
+                  <span className="form-register-course-content-course-details-info-cost">{curso.costo} bs</span>
+                </div>
+                </div>
+
+            ))}
+              <label htmlFor="curso" className="form-register-course-content-course-details-label">
+                Total a pagar: {calcularCostoTotal()} Bs
               </label>
-              <div className="form-register-course-content-course-details-info">
-                <span className="form-register-course-content-course-details-info-title">{titulo}</span>
-                <span className="form-register-course-content-course-details-info-cost">{costo} bs</span>
-              </div>
             </div>
 
 

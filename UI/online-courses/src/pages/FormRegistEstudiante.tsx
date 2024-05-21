@@ -19,6 +19,7 @@ export const FormRegistEstudiante = () => {
             nombreCompleto: "",
             nombreUsuario: "",
             fechaNacimiento: "",
+            tipoUsuario:"ESTUDIANTE",
             correo: "",
             contraseña: "",
             confirmacionContraseña: "",
@@ -38,7 +39,7 @@ export const FormRegistEstudiante = () => {
     const validateCorreo = async (correo: String) => {
         try {
             const response = await fetch(
-                `https://edutech-codecrafters-blue-water-8441.fly.dev/v1/usuarios/verificar-correo?correo=${correo}`
+                `https://edutech-codecrafters-dry-mountain-212.fly.dev/v1/usuarios/verificar-correo?correo=${correo}`
             );
             const data = await response.json();
             return data.correoValido; // Devuelve true si el correo es único, false si no lo es
@@ -48,9 +49,10 @@ export const FormRegistEstudiante = () => {
         }
     };
     const validateUsuario = async (nommbreUsuario: String) => {
+        // https://edutech-codecrafters-blue-water-8441.fly.dev/
         try {
             const response = await fetch(
-                `https://edutech-codecrafters-blue-water-8441.fly.dev/v1/usuarios/verificar-usuario?nombreUsuario=${nommbreUsuario}`
+                `https://edutech-codecrafters-dry-mountain-212.fly.dev/v1/usuarios/verificar-usuario?nombreUsuario=${nommbreUsuario}`
             );
             const data = await response.json();
             return data.usuarioValido; // Devuelve true si el correo es único, false si no lo es
@@ -62,7 +64,7 @@ export const FormRegistEstudiante = () => {
 
     const onSubmit = handleSubmit(async (formData) => {
         try {
-            const response = await fetch("https://edutech-codecrafters-blue-water-8441.fly.dev/v1/usuarios/saveUsuario", {
+            const response = await fetch("https://edutech-codecrafters-dry-mountain-212.fly.dev/v1/usuarios/saveUsuario", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -114,7 +116,7 @@ export const FormRegistEstudiante = () => {
                                             message: "Por favor, ingrese su nombre",
                                         },
                                         maxLength: {
-                                            value: 20,
+                                            value: 30,
                                             message: "El nombre completo no debe tener mas de 20 caracteres",
                                         },
                                         minLength: {
@@ -126,13 +128,14 @@ export const FormRegistEstudiante = () => {
                                             message: "El nombre completo solo debe contener letras",
                                         }
                                     })}
-                                    maxLength={20}
+                                    maxLength={30}
+
                                     onKeyDown={(e) => {
                                         const target = e.target as HTMLInputElement;
-                                        if (e.key === " " && target.value.slice(-1) === " ") {
+                                        if (!/[A-Za-záéíóúÁÉÍÓÚñÑ\s]/.test(e.key) || e.key === " " && target.value.slice(-1) === " ") {
                                             e.preventDefault(); // Evita que se ingrese el segundo espacio en blanco
                                         }
-                                        if (target.value.length >= 20 && e.key !== "Backspace" && e.key !== "Delete") {
+                                        if (target.value.length >= 30 && e.key !== "Backspace" && e.key !== "Delete") {
                                             e.preventDefault();
                                         }
                                     }}
