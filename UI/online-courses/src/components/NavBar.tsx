@@ -3,12 +3,16 @@ import { Link, useNavigate } from "react-router-dom";
 import LogoNavBar from "../assets/LogoNavBar.svg";
 import ModalInicioSesion from "./ModalInicioSesion";
 import ShoppingCartLogo from "../assets/cart.svg";
+import { useCarro } from "../context/CarroProvider";
+
 
 
 export const NavBar = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [tipoUsuario, setTipoUsuario] = useState<string | null>(null);
   const navigate = useNavigate();
+  const carrito = useCarro();
+
 
   useEffect(() => {
     const storedTipoUsuario = localStorage.getItem("tipoUsuario");
@@ -63,6 +67,7 @@ export const NavBar = () => {
             </button>
             <Link to="/lista-compras">
           <img src={ShoppingCartLogo} alt="logo-Scart" className="logosc" />
+          <span className="count-shopping-cart">{carrito.carrito.length}</span>
             </Link>
           </>
         ) : (
