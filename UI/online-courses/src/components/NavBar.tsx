@@ -1,20 +1,36 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import LogoNavBar from "../assets/LogoNavBar.svg";
-import ModalInicioSesion from "./ModalInicioSesion";
-import ShoppingCartLogo from "../assets/cart.svg";
 import { useCarro } from "../context/CarroProvider";
+import ModalInicioSesion from "./ModalInicioSesion"; // Importar el componente ModalInicioSesion
+import ShoppingCartLogo from "../assets/cart.svg";
 
 export const NavBar = () => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [tipoUsuario, setTipoUsuario] = useState<string | null>(null); // Estado para el tipo de usuario
+  const [showModal, setShowModal] = useState(false); // Estado para controlar la visualización del modal
+  const navigate = useNavigate();
   const carrito = useCarro();
 
+  useEffect(() => {
+    // Verificar si hay datos de usuario en localStorage al cargar el componente
+    const tipo = localStorage.getItem("tipoUsuario");
+    setTipoUsuario(tipo);
+  }, []); // Se ejecuta solo una vez al montar el componente
+
+  const handleLogout = () => {
+    // Borrar los datos del localStorage y volver al estado inicial
+    localStorage.removeItem("tipoUsuario");
+    localStorage.removeItem("usuarioId");
+    setTipoUsuario(null);
+    navigate("/");
+  };
+
   const handleOpenModal = () => {
-    setModalOpen(true);
+    setShowModal(true);
   };
 
   const handleCloseModal = () => {
-    setModalOpen(false);
+    setShowModal(false);
   };
 
   return (
@@ -25,27 +41,46 @@ export const NavBar = () => {
         </Link>
       </div>
       <div className="navbar-content">
-        {/* <Link to="/mis-cursos" className="navbar-content-link">
-          Mis Cursos
-        </Link>
-        <Link to="/registro-instructor" className="navbar-content-link">
-          Registrar Usuario
-        </Link> */}
-        <Link to="/registro-estudiante" className="navbar-content-link">
-          Registrarse
-        </Link>
-        {/* <Link to="/registro-curso" className="navbar-content-link">
-          Registrar Curso
-        </Link> */}
-        <button onClick={handleOpenModal} className="navbar-content-link">
-          Iniciar sesión
-        </button>
-        {/* <Link to="/lista-compras" className="navbar-content-link">
-          <img src={ShoppingCartLogo} alt="logo-Scart" className="logosc" />
-          <span className="count-shopping-cart">{carrito.carrito.length}</span>
-        </Link> */}
+        {!tipoUsuario && ( // Mostrar solo si el usuario no está autenticado
+          <>
+            <button onClick={handleOpenModal} className="navbar-content-link">
+              Iniciar sesión
+            </button>
+            <Link to="/registro-estudiante" className="navbar-content-link">
+              Registrarse
+            </Link>
+          </>
+        )}
+        {tipoUsuario && ( // Mostrar solo si hay un usuario autenticado
+          <>
+            <button onClick={handleLogout} className="navbar-content-link">
+              Cerrar sesión
+            </button>
+            {tipoUsuario === "ESTUDIANTE" && ( // Mostrar solo si el tipo de usuario es ESTUDIANTE
+              <>
+                <Link to="/mis-cursos" className="navbar-content-link">
+                  Mis cursos
+                </Link>
+                <Link to="/lista-compras" className="navbar-content-link">
+                  <img src={ShoppingCartLogo} alt="logo-Scart" className="logosc" />
+                  <span className="count-shopping-cart">{carrito.carrito.length}</span>
+                </Link>
+              </>
+            )}
+            {tipoUsuario === "ADMINISTRADOR" && ( // Mostrar solo si el tipo de usuario es ADMINISTRADOR
+              <>
+                <Link to="/registro-curso" className="navbar-content-link">
+                  Registrar curso
+                </Link>
+                <Link to="/registro-instructor" className="navbar-content-link">
+                  Registrar usuario
+                </Link>
+              </>
+            )}
+          </>
+        )}
       </div>
-      {modalOpen && <ModalInicioSesion onClose={handleCloseModal} />}
+      {showModal && <ModalInicioSesion onClose={handleCloseModal} />} {/* Mostrar el modal si showModal es true */}
     </nav>
   );
 };

@@ -62,6 +62,7 @@ const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
 
         navigate("/");
         onClose();
+        window.location.reload();
       } else {
         // Manejo de errores específicos de la API
         setNombreUsuarioError(data.usernameError || "");
