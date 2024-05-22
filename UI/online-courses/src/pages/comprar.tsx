@@ -15,7 +15,7 @@ export const Comprar = () => {
   const location = useLocation();
   const { cursos }: { cursos: Course[] } = location.state;
   const { agregarAlMisCursos } = useMisCursos();
-  const usuarioId = localStorage.getItem("usuarioId"); // Obtener el usuarioId de localStorage
+  //const usuarioId = localStorage.getItem("usuarioId"); // Obtener el usuarioId de localStorage
   // const dispatch = useDispatch();
 
   const {
@@ -60,9 +60,8 @@ export const Comprar = () => {
     ) {
       return;
     }
-
+    /*
     try {
-
       const cursosIds = cursos.map(curso => curso.id);
       if (!usuarioId) {
         throw new Error("usuarioId no encontrado en localStorage");
@@ -82,6 +81,17 @@ export const Comprar = () => {
         console.error("Error al registrar la compra:", errorData);
         throw new Error("Error al registrar la compra");
       }
+      // Redirigir a la página de Mis Cursos
+      navigate("/mis-cursos");
+    } catch (error) {
+      console.error("Error al procesar la compra:", error);
+      setShowModalError(true); // Mostrar modal de error si ocurre algún problema
+    }*/
+    try {
+      // Aquí podrías hacer llamadas a una API para procesar el pago, etc.
+      // Si todo está correcto, agregar los cursos a MisCursosProvider
+      cursos.forEach(curso => agregarAlMisCursos(curso));
+
       // Redirigir a la página de Mis Cursos
       navigate("/mis-cursos");
     } catch (error) {
