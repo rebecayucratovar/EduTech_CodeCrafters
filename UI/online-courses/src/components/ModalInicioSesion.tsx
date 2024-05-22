@@ -32,7 +32,7 @@ const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
     setLoading(true);
 
     try {
-      const response = await fetch("https://edutech-codecrafters-sparkling-smoke-4076.fly.dev/v1/usuarios/login", {
+      const response = await fetch("https://edutech-codecrafters-quiet-dream-7075.fly.dev/v1/usuarios/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,11 +47,18 @@ const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
         const tipoUsuario = data.tipoUsuario;
         const usuarioId = data.usuarioId;
 
+        // Log de los datos recibidos
+        console.log("tipoUsuario:", tipoUsuario);
+        console.log("usuarioId:", usuarioId);
 
         // Guardamos el tipo de usuario en localStorage
         localStorage.setItem("tipoUsuario", tipoUsuario);
         localStorage.setItem("usuarioId", usuarioId);
 
+        // Verificar que los datos se guardaron correctamente
+        console.log("Datos guardados en localStorage:");
+        console.log("tipoUsuario:", localStorage.getItem("tipoUsuario"));
+        console.log("usuarioId:", localStorage.getItem("usuarioId"));
 
         navigate("/");
         onClose();
