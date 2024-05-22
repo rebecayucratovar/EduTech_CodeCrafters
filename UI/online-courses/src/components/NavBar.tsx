@@ -7,6 +7,7 @@ import ShoppingCartLogo from "../assets/cart.svg";
 
 export const NavBar = () => {
   const [tipoUsuario, setTipoUsuario] = useState<string | null>(null); // Estado para el tipo de usuario
+  const [usuarioId, setUsuarioId] = useState<string | null>(null); // Estado para usuarioId
   const [showModal, setShowModal] = useState(false); // Estado para controlar la visualización del modal
   const navigate = useNavigate();
   const carrito = useCarro();
@@ -14,7 +15,9 @@ export const NavBar = () => {
   useEffect(() => {
     // Verificar si hay datos de usuario en localStorage al cargar el componente
     const tipo = localStorage.getItem("tipoUsuario");
+    const id = localStorage.getItem("usuarioId");
     setTipoUsuario(tipo);
+    setUsuarioId(id);
   }, []); // Se ejecuta solo una vez al montar el componente
 
   const handleLogout = () => {
@@ -23,6 +26,7 @@ export const NavBar = () => {
     localStorage.removeItem("usuarioId");
     setTipoUsuario(null);
     navigate("/");
+    window.location.reload(); // Recargar la página para actualizar el estado del NavBar
   };
 
   const handleOpenModal = () => {

@@ -44,25 +44,17 @@ const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
 
       if (response.ok) {
         // Suponemos que la respuesta contiene el tipo de usuario
-        const tipoUsuario = data.tipoUsuario;
-        const usuarioId = data.usuarioId;
+        const { tipoUsuario, usuarioId } = data;
 
-        // Log de los datos recibidos
-        console.log("tipoUsuario:", tipoUsuario);
-        console.log("usuarioId:", usuarioId);
 
         // Guardamos el tipo de usuario en localStorage
         localStorage.setItem("tipoUsuario", tipoUsuario);
         localStorage.setItem("usuarioId", usuarioId);
 
-        // Verificar que los datos se guardaron correctamente
-        console.log("Datos guardados en localStorage:");
-        console.log("tipoUsuario:", localStorage.getItem("tipoUsuario"));
-        console.log("usuarioId:", localStorage.getItem("usuarioId"));
 
         navigate("/");
         onClose();
-        window.location.reload();
+        window.location.reload(); // Recargar la página para actualizar el estado del NavBar
       } else {
         // Manejo de errores específicos de la API
         setNombreUsuarioError(data.usernameError || "");
@@ -81,10 +73,10 @@ const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
         <div className="modal-inicio-sesion-content">
           <h2>Iniciar Sesión</h2>
           <div className="modal-inicio-sesion-input-container">
-            <label htmlFor="username" className="modal-inicio-sesion-label">Usuario*</label>
+            <label htmlFor="nombreUsuario" className="modal-inicio-sesion-label">Usuario*</label>
             <input
               type="text"
-              id="username"
+              id="nombreUsuario"
               className={`modal-inicio-sesion-input ${nombreUsuarioError && "error"}`}
               placeholder="Ingrese su nombre de usuario"
               value={nombreUsuario}
@@ -93,10 +85,10 @@ const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
             {nombreUsuarioError && <p className="modal-inicio-sesion-error">{nombreUsuarioError}</p>}
           </div>
           <div className="modal-inicio-sesion-input-container">
-            <label htmlFor="password" className="modal-inicio-sesion-label">Contraseña*</label>
+            <label htmlFor="contraseña" className="modal-inicio-sesion-label">Contraseña*</label>
             <input
               type="password"
-              id="password"
+              id="contraseña"
               className={`modal-inicio-sesion-input ${contraseñaError && "error"}`}
               placeholder="Ingrese su contraseña"
               value={contraseña}

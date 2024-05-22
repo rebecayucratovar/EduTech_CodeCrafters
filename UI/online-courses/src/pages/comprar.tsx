@@ -15,6 +15,7 @@ export const Comprar = () => {
   const location = useLocation();
   const { cursos }: { cursos: Course[] } = location.state;
   const { agregarAlMisCursos } = useMisCursos();
+  const usuarioId = localStorage.getItem("usuarioId"); // Obtener el usuarioId de localStorage
   // const dispatch = useDispatch();
 
   const {
@@ -59,50 +60,28 @@ export const Comprar = () => {
     ) {
       return;
     }
-    /*
-    if (data.file) {
-      const course = {
-        id: Date.now().toString(),
-        ...data,
-        file: data.file[0],
-      };
-      dispatch(addCourse(course));
-      setShowModalByClickInAccept(true);
 
-      const formData = new FormData();
-
-      formData.append("titulo", data.titulo);
-      formData.append("descripcion", data.descripcion);
-      formData.append("categoria", data.categoria);
-      if (data.costo) {
-        formData.append("costo", data.costo);
-      }
-      formData.append("requisitos", data.requisitos);
-      formData.append("aprenderas", data.aprenderas);
-      formData.append("file", data.file[0]);
-      try {
-        // TODO: Cambiar el path por el de la API deployada
-        // si no da cambiar al anterior http://localhost:3039/v1/cursos/save
-        const response = await fetch(
-          "https://edutech-codecrafters-blue-water-8441.fly.dev/v1/cursos/save",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Error al registrar el curso");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }*/
     try {
-      // Aquí podrías hacer llamadas a una API para procesar el pago, etc.
-      // Si todo está correcto, agregar los cursos a MisCursosProvider
-      cursos.forEach(curso => agregarAlMisCursos(curso));
 
+      const cursosIds = cursos.map(curso => curso.id);
+      if (!usuarioId) {
+        throw new Error("usuarioId no encontrado en localStorage");
+      }
+      // Guardar en la base de datos
+      const response = await fetch("https://edutech-codecrafters-quiet-dream-7075.fly.dev/v1/compras/registrar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ usuarioId, cursosIds })
+        ,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Error al registrar la compra:", errorData);
+        throw new Error("Error al registrar la compra");
+      }
       // Redirigir a la página de Mis Cursos
       navigate("/mis-cursos");
     } catch (error) {
