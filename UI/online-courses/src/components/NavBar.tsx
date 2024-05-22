@@ -60,12 +60,12 @@ export const NavBar = () => {
             <button onClick={handleLogout} className="navbar-content-link">
               Cerrar sesión
             </button>
-            {tipoUsuario === "ESTUDIANTE" && ( // Mostrar solo si el tipo de usuario es ESTUDIANTE
+            {tipoUsuario === "ESTUDIANTE" && ( // M ostrar solo si el tipo de usuario es ESTUDIANTE
               <>
                 <Link to="/mis-cursos" className="navbar-content-link">
                   Mis cursos
                 </Link>
-                <Link to="/lista-compras" className="navbar-content-link">
+                <Link to="/lista-compras">
                   <img src={ShoppingCartLogo} alt="logo-Scart" className="logosc" />
                   <span className="count-shopping-cart">{carrito.carrito.length}</span>
                 </Link>
