@@ -1,23 +1,13 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import LogoNavBar from "../assets/LogoNavBar.svg";
 import ModalInicioSesion from "./ModalInicioSesion";
 import ShoppingCartLogo from "../assets/cart.svg";
 import { useCarro } from "../context/CarroProvider";
 
-
-
 export const NavBar = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [tipoUsuario, setTipoUsuario] = useState<string | null>(null);
-  const navigate = useNavigate();
   const carrito = useCarro();
-
-
-  useEffect(() => {
-    const storedTipoUsuario = localStorage.getItem("tipoUsuario");
-    setTipoUsuario(storedTipoUsuario);
-  }, []);
 
   const handleOpenModal = () => {
     setModalOpen(true);
@@ -25,63 +15,34 @@ export const NavBar = () => {
 
   const handleCloseModal = () => {
     setModalOpen(false);
-    const storedTipoUsuario = localStorage.getItem("tipoUsuario");
-    setTipoUsuario(storedTipoUsuario);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("tipoUsuario");
-    setTipoUsuario(null);
-    navigate("/"); // Redirige al usuario a la página principal después de cerrar sesión
   };
 
   return (
-    <section className="navbar">
+    <nav className="navbar">
       <div className="logo-container">
         <Link to="/">
           <img src={LogoNavBar} alt="logo-navbar" className="logo" />
         </Link>
       </div>
       <div className="navbar-content">
-        {tipoUsuario ? (
-          <>
-            {tipoUsuario === "estudiante" && (
-              <>
-                <Link to="/mis-cursos" className="navbar-content-link">
-                  Mis Cursos
-                </Link>
-              </>
-            )}
-            {tipoUsuario === "supervisor" && (
-              <>
-                <Link to="/registro-usuarios" className="navbar-content-link">
-                  Registrar Usuario
-                </Link>
-                <Link to="/registro-curso" className="navbar-content-link">
-                  Registrar Curso
-                </Link>
-              </>
-            )}
-            <button onClick={handleLogout} className="navbar-content-link">
-              Cerrar sesión
-            </button>
-            <Link to="/lista-compras">
+        <Link to="/mis-cursos" className="navbar-content-link">
+          Mis Cursos
+        </Link>
+        <Link to="/registro-instructor" className="navbar-content-link">
+          Registrar Usuario
+        </Link>
+        <Link to="/registro-curso" className="navbar-content-link">
+          Registrar Curso
+        </Link>
+        <button onClick={handleOpenModal} className="navbar-content-link">
+          Iniciar sesión
+        </button>
+        <Link to="/lista-compras" className="navbar-content-link">
           <img src={ShoppingCartLogo} alt="logo-Scart" className="logosc" />
           <span className="count-shopping-cart">{carrito.carrito.length}</span>
-            </Link>
-          </>
-        ) : (
-          <>
-            <Link to="/registro-estudiante" className="navbar-content-link">
-              Registrarse
-            </Link>
-            <button onClick={handleOpenModal} className="navbar-content-link">
-              Iniciar sesión
-            </button>
-          </>
-        )}
+        </Link>
       </div>
       {modalOpen && <ModalInicioSesion onClose={handleCloseModal} />}
-    </section>
+    </nav>
   );
 };
