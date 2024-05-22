@@ -23,6 +23,7 @@ public class Usuario {
 
   private LocalDate fechaNacimiento;
 
+  @Enumerated(EnumType.STRING)
   private TipoUsuario tipoUsuario;
 
   private String correo;
