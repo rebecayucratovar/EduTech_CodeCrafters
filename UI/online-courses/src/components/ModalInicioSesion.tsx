@@ -45,9 +45,13 @@ const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
       if (response.ok) {
         // Suponemos que la respuesta contiene el tipo de usuario
         const tipoUsuario = data.tipoUsuario;
+        const usuarioId = data.usuarioId;
+
 
         // Guardamos el tipo de usuario en localStorage
         localStorage.setItem("tipoUsuario", tipoUsuario);
+        localStorage.setItem("usuarioId", usuarioId);
+
 
         navigate("/");
         onClose();
