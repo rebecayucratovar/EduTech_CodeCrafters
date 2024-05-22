@@ -16,8 +16,9 @@ import java.util.UUID;
 public class CompraControlador {
     private final CompraServicio compraServicio;
     @PostMapping("/registrar")
-    public ResponseEntity<Void> registrarCompras(@RequestParam UUID usuarioId, @RequestBody List<UUID> cursosIds) {
-        compraServicio.registrarCompras(usuarioId, cursosIds);
+    public ResponseEntity<Void> registrarCompras(@RequestParam String usuarioId, @RequestBody List<UUID> cursosIds) {
+        UUID usuarioUUID = UUID.fromString(usuarioId);
+        compraServicio.registrarCompras(usuarioUUID, cursosIds);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

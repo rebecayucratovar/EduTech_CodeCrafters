@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for edutech-codecrafters-quiet-dream-7075 on 2024-05-21T22:46:31-04:00
+# fly.toml app configuration file generated for edutech-codecrafters-sparkling-bird-9416 on 2024-05-22T05:52:59-04:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'edutech-codecrafters-quiet-dream-7075'
+app = 'edutech-codecrafters-sparkling-bird-9416'
 primary_region = 'scl'
 
 [build]
