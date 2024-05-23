@@ -9,6 +9,8 @@ import org.edutech.servicioss.servicios.CompraServicio;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
 @RestController
 @CrossOrigin(origins = {"http://localhost:5173", "https://edutech-codecrafters.netlify.app"})
 @RequestMapping("/compras")
@@ -16,9 +18,10 @@ import java.util.UUID;
 public class CompraControlador {
     private final CompraServicio compraServicio;
     @PostMapping("/registrar")
-    public ResponseEntity<Void> registrarCompras(@RequestParam String usuarioId, @RequestBody List<UUID> cursosIds) {
+    public ResponseEntity<Void> registrarCompras(@RequestParam String usuarioId, @RequestBody List<String> cursosIds) {
         UUID usuarioUUID = UUID.fromString(usuarioId);
-        compraServicio.registrarCompras(usuarioUUID, cursosIds);
+        List<UUID> cursosUUID = cursosIds.stream().map(UUID::fromString).collect(Collectors.toList());
+        compraServicio.registrarCompras(usuarioUUID, cursosUUID);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
