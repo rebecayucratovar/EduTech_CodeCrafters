@@ -19,7 +19,7 @@ export const ListCourses = () => {
 
   useEffect(() => {
     // https://edutech-codecrafters-blue-water-8441.fly.dev/
-    fetch("https://edutech-codecrafters-sparkling-smoke-4076.fly.dev/v1/cursos/lista", {
+    fetch("http://localhost:3039/v1/cursos/lista", {
     })
       .then((response) => {
         if (!response.ok) {
