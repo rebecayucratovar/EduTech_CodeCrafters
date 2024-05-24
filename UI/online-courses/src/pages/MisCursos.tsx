@@ -1,11 +1,29 @@
-//import React from 'react';
-import { useMisCursos } from '../context/MisCursosProvider';
+import { useEffect, useState } from 'react';
 import { Course } from '../interfaces/Course';
 
 export const MyCourses = () => {
-  const { misCursos } = useMisCursos();
+    const [misCursos, setMisCursos] = useState<Course[]>([]);
+    const usuarioId = localStorage.getItem("usuarioId"); // Obtener el usuarioId de localStorage
 
-  return (
+    useEffect(() => {
+        const obtenerCursosComprados = async () => {
+            try {
+                // Hacer la solicitud al endpoint correspondiente en tu backend
+                const response = await fetch(`http://localhost:3039/v1/compras/usuario/${usuarioId}`);
+                if (!response.ok) {
+                    throw new Error('No se pudieron obtener los cursos comprados');
+                }
+                const data = await response.json();
+                setMisCursos(data); // Establecer los cursos obtenidos en el estado
+            } catch (error) {
+                console.error('Error al obtener los cursos comprados:', error);
+            }
+        };
+
+        obtenerCursosComprados();
+    }, []); // Ejecutar solo una vez al cargar el componente
+
+    return (
       <article className="list-courses">
         <section className="list-courses-content">
           <label

@@ -9,6 +9,7 @@ import org.edutech.servicioss.infraestructura.tablas.Curso;
 import org.edutech.servicioss.infraestructura.tablas.Usuario;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,6 +40,15 @@ public class CompraServicioImpl implements CompraServicio {
     @Override
     public List<Compra> obtenerComprasPorUsuario(UUID usuarioId) {
         return compraRepositorio.findAllByUsuarioUsuarioId(usuarioId);
+    }
+    @Override
+    public List<Curso> obtenerCursosCompradosPorUsuario(UUID usuarioId) {
+        List<Compra> compras = compraRepositorio.findAllByUsuarioUsuarioId(usuarioId);
+        List<Curso> cursosComprados = new ArrayList<>();
+        for (Compra compra : compras) {
+            cursosComprados.add(compra.getCurso());
+        }
+        return cursosComprados;
     }
 }
 
