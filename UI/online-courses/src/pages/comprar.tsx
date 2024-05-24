@@ -8,7 +8,6 @@ import { useLocation } from "react-router-dom";
 import logo from "../assets/LogoForm.png";
 import { Course } from '../interfaces/Course.ts';
 import targetIcon from '../assets/images/target.png';
-import {useMisCursos} from "../context/MisCursosProvider.tsx";
 import { API_BASE_URL } from "../config.ts";
 
 
@@ -16,7 +15,6 @@ export const Comprar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { cursos }: { cursos: Course[] } = location.state;
-  const { agregarAlMisCursos } = useMisCursos();
   const usuarioId = localStorage.getItem("usuarioId"); // Obtener el usuarioId de localStorage
   // const dispatch = useDispatch();
 
@@ -45,7 +43,7 @@ export const Comprar = () => {
     return costoTotal;
   };
 
-  const [showModalByClickInRegister, setShowModalByClickInAccept] =
+  const [showModalByClickInRegister, setShowModalByClickInRegister] =
     useState(false);
   const [showModalByClickInCancel, setShowModalByClickInCancel] =
     useState(false);
@@ -91,9 +89,7 @@ export const Comprar = () => {
         console.error("Error al registrar la compra:", errorData);
         throw new Error("Error al registrar la compra");
       }
-      cursos.forEach(curso => agregarAlMisCursos(curso));
-      // Redirigir a la página de Mis Cursos
-      navigate("/mis-cursos");
+      setShowModalByClickInRegister(true);
     } catch (error) {
       console.error("Error al procesar la compra:", error);
       setShowModalError(true); // Mostrar modal de error si ocurre algún problema
@@ -451,8 +447,8 @@ export const Comprar = () => {
               txtBtnAccept="Aceptar"
               onAccept={() => {
                 reset();
-                setShowModalByClickInAccept(false);
-                navigate("/lista-cursos");
+                setShowModalByClickInRegister(false);
+                navigate("/mis-cursos");
               }}
           />
       )}
