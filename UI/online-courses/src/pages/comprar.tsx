@@ -9,6 +9,7 @@ import logo from "../assets/LogoForm.png";
 import { Course } from '../interfaces/Course.ts';
 import targetIcon from '../assets/images/target.png';
 import { API_BASE_URL } from "../config.ts";
+import {useCarro} from "../context/CarroProvider.tsx";
 
 
 export const Comprar = () => {
@@ -16,7 +17,7 @@ export const Comprar = () => {
   const location = useLocation();
   const { cursos }: { cursos: Course[] } = location.state;
   const usuarioId = localStorage.getItem("usuarioId"); // Obtener el usuarioId de localStorage
-  // const dispatch = useDispatch();
+  const { eliminarDelCarrito} = useCarro(); // Usa el contexto del carrito
 
   console.log("Usuario ID en el componente Comprar:", usuarioId);
 
@@ -89,6 +90,7 @@ export const Comprar = () => {
         console.error("Error al registrar la compra:", errorData);
         throw new Error("Error al registrar la compra");
       }
+      cursosIds.forEach(id => eliminarDelCarrito(id));
       setShowModalByClickInRegister(true);
     } catch (error) {
       console.error("Error al procesar la compra:", error);
