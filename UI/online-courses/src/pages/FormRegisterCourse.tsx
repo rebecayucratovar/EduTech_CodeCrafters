@@ -7,6 +7,7 @@ import CheckIcon from "../assets/icons/CheckIcon.svg";
 import { addCourse } from "../slices/courses";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import {API_BASE_URL} from "../config.ts";
 
 export const FormRegisterCourse = () => {
   const navigate = useNavigate();
@@ -77,7 +78,7 @@ export const FormRegisterCourse = () => {
         // TODO: Cambiar el path por el de la API deployada
         // si no da cambiar al anterior http://localhost:3039/v1/cursos/save
         // https://edutech-codecrafters-blue-water-8441.fly.dev/v1/cursos/save
-        const response = await fetch("https://edutech-codecrafters-sparkling-smoke-4076.fly.dev/v1/cursos/save", {
+        const response = await fetch(`${API_BASE_URL}/cursos/save`, {
           method: "POST",
           body: formData,
         });

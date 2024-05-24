@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {API_BASE_URL} from "../config.ts";
 
 interface ModalInicioSesionProps {
   onClose: () => void;
@@ -32,7 +33,7 @@ const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
     setLoading(true);
 
     try {
-      const response = await fetch("https://edutech-codecrafters-quiet-dream-7075.fly.dev/v1/usuarios/login", {
+      const response = await fetch(`${API_BASE_URL}/usuarios/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

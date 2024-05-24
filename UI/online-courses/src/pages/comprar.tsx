@@ -9,6 +9,8 @@ import logo from "../assets/LogoForm.png";
 import { Course } from '../interfaces/Course.ts';
 import targetIcon from '../assets/images/target.png';
 import {useMisCursos} from "../context/MisCursosProvider.tsx";
+import { API_BASE_URL } from "../config.ts";
+
 
 export const Comprar = () => {
   const navigate = useNavigate();
@@ -70,7 +72,7 @@ export const Comprar = () => {
       if (!usuarioId) {
         throw new Error("usuarioId no encontrado en localStorage");
       }
-      const url=`http://localhost:3039/v1/compras/registrar?usuarioId=${usuarioId}`;
+      const url=`${API_BASE_URL}/compras/registrar?usuarioId=${usuarioId}`;
       const body = JSON.stringify(cursosIds.map(id => id.toString()));
       console.log("URL de la solicitud:", url);
       console.log("Cuerpo de la solicitud:", body)

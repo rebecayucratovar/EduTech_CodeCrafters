@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Course } from "../interfaces/Course.ts";
 import { ModalCursoDetail } from "../components/ModalCursoDetail.tsx";
+import {API_BASE_URL} from "../config.ts";
 
 export const ListCourses = () => {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -19,7 +20,7 @@ export const ListCourses = () => {
 
   useEffect(() => {
     // https://edutech-codecrafters-blue-water-8441.fly.dev/
-    fetch("http://localhost:3039/v1/cursos/lista", {
+    fetch(`${API_BASE_URL}/v1/cursos/lista`, {
     })
       .then((response) => {
         if (!response.ok) {
