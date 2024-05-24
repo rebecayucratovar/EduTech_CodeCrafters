@@ -18,6 +18,8 @@ export const Comprar = () => {
   const usuarioId = localStorage.getItem("usuarioId"); // Obtener el usuarioId de localStorage
   // const dispatch = useDispatch();
 
+  console.log("Usuario ID en el componente Comprar:", usuarioId);
+
   const {
     register,
     handleSubmit,
@@ -25,6 +27,7 @@ export const Comprar = () => {
     reset,
   } = useForm({
     defaultValues: {
+      usuarioId: usuarioId,
       nombreCompleto: "",
       numeroTarjeta: null,
       fechaVencimiento: null,
@@ -63,16 +66,21 @@ export const Comprar = () => {
 
     try {
       const cursosIds = cursos.map(curso => curso.id);
+
       if (!usuarioId) {
         throw new Error("usuarioId no encontrado en localStorage");
       }
-      // Guardar en la base de datos
-      const response = await fetch("https://edutech-codecrafters-quiet-dream-7075.fly.dev/v1/compras/registrar", {
+      const url=`http://localhost:3039/v1/compras/registrar?usuarioId=${usuarioId}`;
+      const body = JSON.stringify(cursosIds.map(id => id.toString()));
+      console.log("URL de la solicitud:", url);
+      console.log("Cuerpo de la solicitud:", body)
+      // Guardar en la bd
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ usuarioId, cursosIds })
+        body: body
         ,
       });
 

@@ -2,6 +2,7 @@ package org.edutech.servicioss.controlador;
 
 import lombok.RequiredArgsConstructor;
 import org.edutech.servicioss.infraestructura.tablas.Compra;
+import org.edutech.servicioss.infraestructura.tablas.Curso;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,16 +19,30 @@ import java.util.stream.Collectors;
 public class CompraControlador {
     private final CompraServicio compraServicio;
     @PostMapping("/registrar")
-    public ResponseEntity<Void> registrarCompras(@RequestParam String usuarioId, @RequestBody List<String> cursosIds) {
+    public ResponseEntity<Void> registrarCompras(@RequestParam String usuarioId,@RequestBody List<UUID> cursosIds) {
+        try{
         UUID usuarioUUID = UUID.fromString(usuarioId);
-        List<UUID> cursosUUID = cursosIds.stream().map(UUID::fromString).collect(Collectors.toList());
-        compraServicio.registrarCompras(usuarioUUID, cursosUUID);
+        //List<UUID> cursosUUID = cursosIds.stream().map(UUID::fromString).collect(Collectors.toList());
+        compraServicio.registrarCompras(usuarioUUID, cursosIds);
         return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+    }catch (IllegalArgumentException e) {
+        // Manejar el error si el usuarioId no es un UUID válido
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    } catch (Exception e) {
+        // Manejar otros errores
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }}
 
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<Compra>> obtenerComprasPorUsuario(@PathVariable UUID usuarioId) {
-        List<Compra> compras = compraServicio.obtenerComprasPorUsuario(usuarioId);
-        return new ResponseEntity<>(compras, HttpStatus.OK);
+    public ResponseEntity<List<Curso>> obtenerCursosCompradosPorUsuario(@PathVariable String usuarioId) {
+        try {
+            UUID usuarioUUID = UUID.fromString(usuarioId);
+            List<Curso> cursosComprados = compraServicio.obtenerCursosCompradosPorUsuario(usuarioUUID);
+            return ResponseEntity.ok(cursosComprados);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }
