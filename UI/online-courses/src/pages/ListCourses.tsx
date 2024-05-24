@@ -20,7 +20,7 @@ export const ListCourses = () => {
 
   useEffect(() => {
     // https://edutech-codecrafters-blue-water-8441.fly.dev/
-    fetch(`${API_BASE_URL}/v1/cursos/lista`, {
+    fetch(`${API_BASE_URL}/cursos/lista`, {
     })
       .then((response) => {
         if (!response.ok) {
