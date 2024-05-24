@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Course } from '../interfaces/Course';
+import {API_BASE_URL} from "../config.ts";
 
 export const MyCourses = () => {
     const [misCursos, setMisCursos] = useState<Course[]>([]);
@@ -9,7 +10,7 @@ export const MyCourses = () => {
         const obtenerCursosComprados = async () => {
             try {
                 // Hacer la solicitud al endpoint correspondiente en tu backend
-                const response = await fetch(`http://localhost:3039/v1/compras/usuario/${usuarioId}`);
+                const response = await fetch(`${API_BASE_URL}/compras/usuario/${usuarioId}`);
                 if (!response.ok) {
                     throw new Error('No se pudieron obtener los cursos comprados');
                 }

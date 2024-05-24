@@ -5,6 +5,7 @@ import AlertIcon from "../assets/icons/AlertIcon.svg";
 import CheckIcon from "../assets/icons/CheckIcon.svg";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import {API_BASE_URL} from "../config.ts";
 
 export const FormRegistInstructor = () => {
     const navigate = useNavigate();
@@ -40,7 +41,7 @@ export const FormRegistInstructor = () => {
         // https://edutech-codecrafters-blue-water-8441.fly.dev/
         try {
             const response = await fetch(
-                `https://edutech-codecrafters-sparkling-smoke-4076.fly.dev/v1/usuarios/verificar-correo?correo=${correo}`
+                `${API_BASE_URL}/usuarios/verificar-correo?correo=${correo}`
             );
             const data = await response.json();
             return data.correoValido; // Devuelve true si el correo es único, false si no lo es
