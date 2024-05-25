@@ -3,8 +3,11 @@ package org.edutech.servicioss.servicios;
 import lombok.RequiredArgsConstructor;
 import org.edutech.servicioss.infraestructura.repositorios.CursoRepositorio;
 import org.edutech.servicioss.infraestructura.tablas.Curso;
+import org.edutech.servicioss.infraestructura.tablas.Usuario;
 import org.edutech.servicioss.validador.CursoValidador;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,10 +19,22 @@ public class CursoServicioImpl implements CursoServicio{
 
   private final CursoRepositorio cursoRepositorio;
   private final CursoValidador cursoValidador;
+  //private final UsuarioServicio usuarioServicio; // Inyecta el UsuarioServicio
 
   @Override
+  @Transactional(readOnly = true)
   public List<Curso> getAll() {
-    return cursoRepositorio.findAll();
+    List<Curso> cursos = cursoRepositorio.findAll();
+    for (Curso curso : cursos) {
+      Usuario usuario = curso.getUsuario();
+      if (usuario != null) {
+        curso.setNombreCompletoUsuario(usuario.getNombreCompleto());
+      } else {
+        curso.setNombreCompletoUsuario(null);
+      }
+      curso.setUsuario(null);  // Eliminar referencia a Usuario para evitar envíos innecesarios al frontend
+    }
+    return cursos;
   }
 
   @Override

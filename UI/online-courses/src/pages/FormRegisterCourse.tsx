@@ -12,6 +12,7 @@ import {API_BASE_URL} from "../config.ts";
 export const FormRegisterCourse = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const usuarioId = localStorage.getItem("usuarioId"); // Obtener el usuarioId de localStorage
 
   const {
     register,
@@ -74,7 +75,12 @@ export const FormRegisterCourse = () => {
       formData.append("requisitos", data.requisitos);
       formData.append("aprenderas", data.aprenderas);
       formData.append("file", data.file[0]);
-      try {
+      if (usuarioId !== null) {
+        formData.append("usuarioId", usuarioId); // Solo agregar si no es null
+      } else {
+        console.error("Error: usuarioId es null");
+        return;
+      }      try {
         // TODO: Cambiar el path por el de la API deployada
         // si no da cambiar al anterior http://localhost:3039/v1/cursos/save
         // https://edutech-codecrafters-blue-water-8441.fly.dev/v1/cursos/save

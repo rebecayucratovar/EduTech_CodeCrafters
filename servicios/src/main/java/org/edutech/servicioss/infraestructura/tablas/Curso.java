@@ -31,4 +31,7 @@ public class Curso {
   @ManyToOne
   @JoinColumn(name = "usuario_id")
   private Usuario usuario;
+
+  @Transient
+  private String nombreCompletoUsuario;
 }

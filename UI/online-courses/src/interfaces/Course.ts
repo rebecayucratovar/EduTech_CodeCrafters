@@ -6,4 +6,5 @@ export interface Course {
   categoria: string;
   requisitos: string;
   aprenderas: string;
+  nombreCompletoUsuario: string;
 }

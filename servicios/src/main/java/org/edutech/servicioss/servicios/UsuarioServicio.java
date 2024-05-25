@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface UsuarioServicio {
   List<Usuario> getAll();
-  Optional<Usuario> findById(UUID id);
+  Usuario findById(UUID id);
   Usuario save(Usuario usuario);
   Usuario update(Usuario usuario);
   void deleteById(UUID id);
