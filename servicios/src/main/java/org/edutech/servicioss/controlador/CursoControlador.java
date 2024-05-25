@@ -3,7 +3,9 @@ package org.edutech.servicioss.controlador;
 import com.google.auth.oauth2.ServiceAccountCredentials;
 import lombok.RequiredArgsConstructor;
 import org.edutech.servicioss.infraestructura.tablas.Curso;
+import org.edutech.servicioss.infraestructura.tablas.Usuario;
 import org.edutech.servicioss.servicios.CursoServicio;
+import org.edutech.servicioss.servicios.UsuarioServicio;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,16 +32,20 @@ import org.springframework.beans.factory.annotation.Value;
 @RequiredArgsConstructor
 public class CursoControlador {
   private final CursoServicio cursoServicio;
+  private final UsuarioServicio usuarioServicio;
 
     @Autowired
     private ResourceLoader resourceLoader;
 
   @PostMapping("/save")
-  public ResponseEntity<Curso> saveCurso(@RequestParam("file") MultipartFile imagen, Curso curso, RedirectAttributes attributes) {
+  public ResponseEntity<Curso> saveCurso(
+          @RequestParam("file") MultipartFile imagen,
+          @RequestParam("usuarioId") String usuarioIdStr,
+          Curso curso,
+          RedirectAttributes attributes) {
     if (curso.getTitulo() == null || curso.getTitulo().trim().isEmpty()) {
       return ResponseEntity.badRequest().build();
     }
-
     try {
         Resource resource = resourceLoader.getResource("classpath:google-cloud-credentials.json");
 
@@ -59,11 +65,19 @@ public class CursoControlador {
       String imageUrl = "https://storage.googleapis.com/" + bucketName + "/" + objectName;
 
       curso.setImagen(imageUrl);
+
+      // Convertir usuarioIdStr a UUID y asociar el usuario con el curso
+      UUID usuarioId = UUID.fromString(usuarioIdStr);
+      Usuario usuario = usuarioServicio.findById(usuarioId);
+      if (usuario == null) {
+        return ResponseEntity.badRequest().build();
+      }
+      curso.setUsuario(usuario);
+
     } catch (IOException e) {
       e.printStackTrace();
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
-
     return ResponseEntity.ok(cursoServicio.save(curso));
   }
 

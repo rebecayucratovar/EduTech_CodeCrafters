@@ -8,10 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 import org.edutech.servicioss.servicios.UsuarioServicio;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:5173", "https://edutech-codecrafters.netlify.app"})
@@ -31,12 +28,7 @@ public class UsuarioControlador {
       return ResponseEntity.status(HttpStatus.CONFLICT).body(null); // correo o nombre de usuario duplicado
     }
   }
-  @GetMapping("/{usuarioId}")
-  public ResponseEntity<Usuario> getOne(@PathVariable("usuarioId") UUID usuarioId){
-    return usuarioServicio.findById(usuarioId)
-            .map(ResponseEntity::ok)
-            .orElseGet(() -> ResponseEntity.notFound().build());
-  }
+
   @GetMapping("/mostrarTodos")
   public ResponseEntity<List<Usuario>> getAllUsuarios(){
     var usuarioResult = usuarioServicio.getAll();

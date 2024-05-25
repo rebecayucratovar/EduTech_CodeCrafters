@@ -20,8 +20,8 @@ public class UsuarioServicioImpl implements UsuarioServicio {
   }
 
   @Override
-  public Optional<Usuario> findById(UUID id) {
-    return usuarioRepositorio.findById(id);
+  public Usuario findById(UUID id) {
+    return usuarioRepositorio.findById(id).orElse(null);
   }
 
   @Override

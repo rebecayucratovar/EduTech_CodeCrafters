@@ -565,6 +565,16 @@ textarea.error-input {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.list-courses-content-card-wrapper-description-usuario {
+  font-size: 16px;
+  width: 100%;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .list-courses-content-card-wrapper-button {
   display: flex;
