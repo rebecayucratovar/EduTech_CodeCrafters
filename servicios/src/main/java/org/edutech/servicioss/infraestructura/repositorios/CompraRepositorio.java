@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.UUID;
 
+
 @Repository
 public interface CompraRepositorio extends JpaRepository<Compra, UUID> {
     List<Compra> findAllByUsuarioUsuarioId(UUID usuarioId);
-
 }

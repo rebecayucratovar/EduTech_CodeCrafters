@@ -36,11 +36,6 @@ public class CompraServicioImpl implements CompraServicio {
             compraRepositorio.save(compra);
         }
     }
-
-    @Override
-    public List<Compra> obtenerComprasPorUsuario(UUID usuarioId) {
-        return compraRepositorio.findAllByUsuarioUsuarioId(usuarioId);
-    }
     @Override
     public List<Curso> obtenerCursosCompradosPorUsuario(UUID usuarioId) {
         List<Compra> compras = compraRepositorio.findAllByUsuarioUsuarioId(usuarioId);
