@@ -37,23 +37,29 @@ export const ShoppingCart = () => {
                   )}
                   <div className="list-courses-content-card-wrapper-description">
                     <label
-                      htmlFor="card-title"
-                      className="list-courses-content-card-wrapper-description-title"
-                      title={course.titulo}
+                        htmlFor="card-title"
+                        className="list-courses-content-card-wrapper-description-title"
+                        title={course.titulo}
                     >
                       {course.titulo}
                     </label>
                     <label
-                      htmlFor="card-costo"
-                      className="list-courses-content-card-wrapper-description-costo"
+                        htmlFor="card-nombreCompleto"
+                        className="list-courses-content-card-wrapper-description-usuario"
+                    >
+                      {course.nombreCompletoUsuario}
+                    </label>
+                    <label
+                        htmlFor="card-costo"
+                        className="list-courses-content-card-wrapper-description-usuario"
                     >
                       {course.costo} Bs.
                     </label>
                   </div>
 
                   <button
-                    className="list-courses-content-card-wrapper-button"
-                    onClick={() => eliminarDelCarrito(course.id)}
+                      className="list-courses-content-card-wrapper-button"
+                      onClick={() => eliminarDelCarrito(course.id)}
                   >
                     Eliminar
                   </button>
