@@ -10,6 +10,8 @@ import org.edutech.servicioss.servicios.CompraServicio;
 
 import java.util.List;
 import java.util.UUID;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.stream.Collectors;
 
 @RestController
@@ -37,7 +39,7 @@ public class CompraControlador {
     public ResponseEntity<List<Curso>> obtenerCursosCompradosPorUsuario(@PathVariable String usuarioId) {
         try {
             UUID usuarioUUID = UUID.fromString(usuarioId);
-            List<Curso> cursosComprados = compraServicio.obtenerCursosCompradosPorUsuario(usuarioUUID);
+            List<Curso> cursosComprados = compraServicio.obtenerCursosCompradosConNombresCompletos(usuarioUUID);
             return ResponseEntity.ok(cursosComprados);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().build();
@@ -45,4 +47,5 @@ public class CompraControlador {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
 }

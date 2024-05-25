@@ -7,7 +7,9 @@ import org.edutech.servicioss.infraestructura.repositorios.UsuarioRepositorio;
 import org.edutech.servicioss.infraestructura.tablas.Compra;
 import org.edutech.servicioss.infraestructura.tablas.Curso;
 import org.edutech.servicioss.infraestructura.tablas.Usuario;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,19 +38,24 @@ public class CompraServicioImpl implements CompraServicio {
             compraRepositorio.save(compra);
         }
     }
+    @Override
+    @Transactional(readOnly = true)
+    public List<Curso> obtenerCursosCompradosConNombresCompletos(UUID usuarioId) {
+        Usuario usuario = usuarioRepositorio.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-    @Override
-    public List<Compra> obtenerComprasPorUsuario(UUID usuarioId) {
-        return compraRepositorio.findAllByUsuarioUsuarioId(usuarioId);
-    }
-    @Override
-    public List<Curso> obtenerCursosCompradosPorUsuario(UUID usuarioId) {
         List<Compra> compras = compraRepositorio.findAllByUsuarioUsuarioId(usuarioId);
         List<Curso> cursosComprados = new ArrayList<>();
         for (Compra compra : compras) {
-            cursosComprados.add(compra.getCurso());
+            Curso curso = compra.getCurso();
+            Usuario usuarioCurso = curso.getUsuario();
+            if (usuarioCurso != null) {
+                curso.setNombreCompletoUsuario(usuarioCurso.getNombreCompleto()); // Aquí se establece el nombre completo del usuario que creó el curso
+            }
+            cursosComprados.add(curso);
         }
         return cursosComprados;
     }
+
 }
 

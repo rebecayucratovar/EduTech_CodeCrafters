@@ -8,6 +8,5 @@ import java.util.UUID;
 
 public interface CompraServicio {
     void registrarCompras(UUID usuarioId, List<UUID> cursosIds);
-    List<Compra> obtenerComprasPorUsuario(UUID usuarioId);
-    List<Curso> obtenerCursosCompradosPorUsuario(UUID usuarioId);
+    List<Curso> obtenerCursosCompradosConNombresCompletos(UUID usuarioId);
 }
