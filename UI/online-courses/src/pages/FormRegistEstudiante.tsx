@@ -169,7 +169,7 @@ export const FormRegistEstudiante = () => {
                         </div>
 
                         <div className="form-register-course-content-data-field">
-                            <label htmlFor="nombreUsuario">Nombre Usuario*</label>
+                            <label htmlFor="nombreUsuario">Nombre de Usuario*</label>
                             <div className="form-register-course-content-data-field-input">
                                 <input
                                     type="text"
