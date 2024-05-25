@@ -556,6 +556,7 @@ textarea.error-input {
 
 .list-courses-content-card-wrapper-description-title {
   font-size: 18px;
+  width: 100%;
   font-weight: bold;
   word-wrap: break-word;
   display: -webkit-box;
