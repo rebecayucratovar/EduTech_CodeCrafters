@@ -6,6 +6,7 @@ interface CarroContextoType {
     carrito: Course[];
     agregarAlCarrito: (course: Course) => void;
     eliminarDelCarrito: (courseId: string) => void;
+    cursoEnCarrito: (courseId: string) => boolean;
 }
 
 export const CarroContexto = createContext<CarroContextoType | undefined>(undefined);
@@ -30,9 +31,12 @@ export const CarroProvider = ({ children }: { children: React.ReactNode }) => {
             prevCarrito.filter((course) => course.id !== courseId)
         );
     };
+    const cursoEnCarrito = (courseId: string) => {
+        return carrito.some(course => course.id === courseId);
+    };
 
     return (
-        <CarroContexto.Provider value={{ carrito, agregarAlCarrito, eliminarDelCarrito }}>
+        <CarroContexto.Provider value={{ carrito, agregarAlCarrito, eliminarDelCarrito, cursoEnCarrito }}>
             {children}
         </CarroContexto.Provider>
     );

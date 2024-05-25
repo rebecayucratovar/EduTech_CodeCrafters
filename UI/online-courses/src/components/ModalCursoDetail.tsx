@@ -10,7 +10,7 @@ import { Modal } from "./Modal";
 import { API_BASE_URL } from "../config.ts";
 export const ModalCursoDetail = ({ onClose, course }: any) => {
   const navigate = useNavigate();
-  const { agregarAlCarrito } = useCarro();
+  const { agregarAlCarrito, cursoEnCarrito } = useCarro();
   const [isopen, setIsopen] = useState(false);
   const [cursoComprado, setCursoComprado] = useState(false);
   const formattedCategoria = course.categoria.replace(/_/g, " ");
@@ -54,6 +54,9 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
 
   const handleCursoYaComprado = () => {
     navigate("/mis-cursos");
+  };
+  const handleCursoEnCarrito = () => {
+    navigate("/lista-compras");
   };
   return (
     <>
@@ -162,14 +165,14 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
 
                 <div className="modal-curso-detail-content-panel-right-buttons">
                   <button
-                      onClick={cursoComprado ? handleCursoYaComprado : handleComprarAhora}
+                      onClick={cursoComprado ? handleCursoYaComprado : cursoEnCarrito(course.id) ? handleCursoEnCarrito : handleComprarAhora}
                   >
-                    {cursoComprado ? "Curso ya comprado" : "Comprar Ahora"}
+                    {cursoComprado ? "Curso ya comprado" : cursoEnCarrito(course.id) ? "Curso en el carrito" : "Comprar Ahora"}
                   </button>
                   <button
-                      onClick={cursoComprado ? handleCursoYaComprado : handleAgregarAlCarrito}
+                      onClick={cursoComprado ? handleCursoYaComprado : cursoEnCarrito(course.id) ? handleCursoEnCarrito : handleAgregarAlCarrito}
                   >
-                    {cursoComprado ? "Curso ya comprado" : "Añadir a la cesta"}
+                    {cursoComprado ? "Curso ya comprado" : cursoEnCarrito(course.id) ? "Curso en el carrito" : "Añadir a la cesta"}
                   </button>
                 </div>
               </div>
