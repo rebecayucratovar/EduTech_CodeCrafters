@@ -35,7 +35,7 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                   htmlFor="title"
                   className="modal-curso-detail-content-panel-left-title"
                 >
-                  Diseño web
+                  {course.titulo}
                 </label>
 
                 <label
