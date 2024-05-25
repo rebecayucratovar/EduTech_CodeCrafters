@@ -138,7 +138,7 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                         setIsopen(true)
                       }}
                   >
-                    Añadir a la cesta
+                    Añadir al carrito
                   </button>
                 </div>
               </div>
