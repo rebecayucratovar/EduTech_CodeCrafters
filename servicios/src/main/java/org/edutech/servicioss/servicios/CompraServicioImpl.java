@@ -56,6 +56,12 @@ public class CompraServicioImpl implements CompraServicio {
         }
         return cursosComprados;
     }
+    @Override
+    public boolean verificarCursoComprado(UUID usuarioId, UUID cursoId) {
+        // Lógica para verificar si el usuario ha comprado el curso
+        return compraRepositorio.existsByUsuarioUsuarioIdAndCursoId(usuarioId, cursoId);
+    }
+
 
 }
 

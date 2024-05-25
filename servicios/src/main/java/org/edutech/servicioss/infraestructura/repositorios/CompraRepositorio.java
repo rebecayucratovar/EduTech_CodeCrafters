@@ -12,4 +12,6 @@ import java.util.UUID;
 @Repository
 public interface CompraRepositorio extends JpaRepository<Compra, UUID> {
     List<Compra> findAllByUsuarioUsuarioId(UUID usuarioId);
+    boolean existsByUsuarioUsuarioIdAndCursoId(UUID usuarioId, UUID cursoId);
+
 }

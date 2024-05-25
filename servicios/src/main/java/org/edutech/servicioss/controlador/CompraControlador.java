@@ -47,5 +47,19 @@ public class CompraControlador {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+    @GetMapping("/usuario/{usuarioId}/curso/{cursoId}/comprado")
+    public ResponseEntity<Boolean> verificarCursoComprado(
+            @PathVariable String usuarioId, @PathVariable String cursoId) {
+        try {
+            UUID usuarioUUID = UUID.fromString(usuarioId);
+            UUID cursoUUID = UUID.fromString(cursoId);
+            boolean cursoComprado = compraServicio.verificarCursoComprado(usuarioUUID, cursoUUID);
+            return ResponseEntity.ok(cursoComprado);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
 }

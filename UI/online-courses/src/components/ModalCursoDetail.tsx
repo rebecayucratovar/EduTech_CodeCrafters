@@ -5,21 +5,54 @@ import Reset from "../assets/icons/Reset.svg";
 import Close from "../assets/icons/Close.svg";
 import { useCarro } from "../context/CarroProvider";
 import  {useNavigate}  from "react-router-dom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Modal } from "./Modal";
-
+import { API_BASE_URL } from "../config.ts";
 export const ModalCursoDetail = ({ onClose, course }: any) => {
   const navigate = useNavigate();
   const { agregarAlCarrito } = useCarro();
+
   const handleCancel = () => {
     onClose();
   };
 
   const [isopen, setIsopen] = useState(false);
+  const [cursoComprado, setCursoComprado] = useState(false);
   const formattedCategoria = course.categoria.replace(/_/g, " ");
 
   //const useCarro = () => useContext(CarroContexto);
+  useEffect(() => {
+    const usuarioId = localStorage.getItem("usuarioId");
+    if (usuarioId) {
+      obtenerCursoComprado(usuarioId);
+    }
+  }, [course]);
 
+  const obtenerCursoComprado = async (usuarioId: string) => {
+    try {
+      const response = await fetch(
+          `${API_BASE_URL}/compras/usuario/${usuarioId}`
+      );
+      if (response.ok) {
+        const cursosComprados = await response.json();
+        const cursoYaComprado = cursosComprados.some(
+            (cursoComprado: any) => cursoComprado.id === course.id
+        );
+        setCursoComprado(cursoYaComprado);
+      } else {
+        console.error("Error al obtener los cursos comprados");
+      }
+    } catch (error) {
+      console.error("Error al obtener los cursos comprados:", error);
+    }
+  };const handleComprarAhora = () => {
+    navigate("/comprar-cursos", { state: { cursos: [course] } });
+  };
+
+  const handleAgregarAlCarrito = () => {
+    agregarAlCarrito(course);
+    setIsopen(true);
+  };
   return (
     <>
       {course && (
@@ -126,19 +159,15 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                 </div>
 
                 <div className="modal-curso-detail-content-panel-right-buttons">
-                  <button onClick={() => navigate("/comprar-cursos", {
-                    state: {
-                      cursos: [course]
-                    }
-                  })}>Comprar Ahora
+                  <button
+                      onClick={handleComprarAhora}
+                  >
+                    {cursoComprado ? "Curso ya comprado" : "Comprar Ahora"}
                   </button>
                   <button
-                      onClick={() => {
-                        agregarAlCarrito(course);
-                        setIsopen(true)
-                      }}
+                      onClick={handleAgregarAlCarrito}
                   >
-                    Añadir a la cesta
+                    {cursoComprado ? "Curso ya comprado" : "Añadir a la cesta"}
                   </button>
                 </div>
               </div>
