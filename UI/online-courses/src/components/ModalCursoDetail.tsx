@@ -11,14 +11,12 @@ import { API_BASE_URL } from "../config.ts";
 export const ModalCursoDetail = ({ onClose, course }: any) => {
   const navigate = useNavigate();
   const { agregarAlCarrito } = useCarro();
-
-  const handleCancel = () => {
-    onClose();
-  };
-
   const [isopen, setIsopen] = useState(false);
   const [cursoComprado, setCursoComprado] = useState(false);
   const formattedCategoria = course.categoria.replace(/_/g, " ");
+  const handleCancel = () => {
+    onClose();
+  };
 
   //const useCarro = () => useContext(CarroContexto);
   useEffect(() => {
@@ -52,6 +50,10 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
   const handleAgregarAlCarrito = () => {
     agregarAlCarrito(course);
     setIsopen(true);
+  };
+
+  const handleCursoYaComprado = () => {
+    navigate("/mis-cursos");
   };
   return (
     <>
@@ -160,12 +162,12 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
 
                 <div className="modal-curso-detail-content-panel-right-buttons">
                   <button
-                      onClick={handleComprarAhora}
+                      onClick={cursoComprado ? handleCursoYaComprado : handleComprarAhora}
                   >
                     {cursoComprado ? "Curso ya comprado" : "Comprar Ahora"}
                   </button>
                   <button
-                      onClick={handleAgregarAlCarrito}
+                      onClick={cursoComprado ? handleCursoYaComprado : handleAgregarAlCarrito}
                   >
                     {cursoComprado ? "Curso ya comprado" : "Añadir a la cesta"}
                   </button>
