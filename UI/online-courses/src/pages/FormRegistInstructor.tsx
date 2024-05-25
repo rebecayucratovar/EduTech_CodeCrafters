@@ -304,7 +304,11 @@ export const FormRegistInstructor = () => {
                                     }`}
                                 >
                                     <option value="default">Selecciona tipo de usuario</option>
+                                    <option value="ESTUDIANTE"> Estudiante</option>
                                     <option value="INSTRUCTOR"> Instructor</option>
+                                    <option value="ADMINISTRADOR"> Administrador</option>
+
+
                                 </select>
 
                                 {errors.tipoUsuario && (
