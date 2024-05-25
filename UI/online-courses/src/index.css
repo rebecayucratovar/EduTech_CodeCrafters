@@ -664,6 +664,9 @@ textarea.error-input {
   color: #242367;
   font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
   text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .modal-curso-detail-content-panel-left-subtitle {
