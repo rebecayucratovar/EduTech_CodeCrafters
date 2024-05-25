@@ -177,7 +177,7 @@ export const FormRegistInstructor = () => {
                                     {...register("nombreUsuario", {
                                         required: {
                                             value: true,
-                                            message: "Porfavor, ingrese un nombre de usuario.",
+                                            message: "Por favor, ingrese un nombre de usuario.",
                                         },
                                         maxLength: {
                                             value: 20,
@@ -340,7 +340,7 @@ export const FormRegistInstructor = () => {
                                     id="correo"
                                     placeholder="Ingrese su correo electrónico"
                                     {...register("correo", {
-                                        required: "Porfavor, ingrese un correo electronico",
+                                        required: "Por favor, ingrese un correo electronico",
                                         pattern: {
                                             value: /^\S+@\S+\.\S+$/,
                                             message: "Por favor, ingrese una dirección de correo electrónico válida",
