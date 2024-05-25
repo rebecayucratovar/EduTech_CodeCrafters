@@ -477,7 +477,7 @@ export const Comprar = () => {
               onAccept={() => {
                 reset();
                 setShowModalByClickInCancel(false);
-                navigate("/lista-cursos"); // Usa navigate en lugar de history.push
+                navigate("/lista-compras"); // Usa navigate en lugar de history.push
               }}
               onCancel={() => setShowModalByClickInCancel(false)}
           />
