@@ -192,7 +192,7 @@ export const Comprar = () => {
                     {...register("numeroTarjeta", {
                       required: {
                         value: true,
-                        message: "Porfavor, ingrese su número de tarjeta",
+                        message: "Por favor, ingrese su número de tarjeta",
                       },
                       minLength: {
                         value: 19,
@@ -253,7 +253,7 @@ export const Comprar = () => {
                     {...register("fechaVencimiento", {
                       required: {
                         value: true,
-                        message: "Porfavor, ingrese su número de tarjeta",
+                        message: "Por favor, ingrese su número de tarjeta",
                       },
                       minLength: {
                         value: 5,
