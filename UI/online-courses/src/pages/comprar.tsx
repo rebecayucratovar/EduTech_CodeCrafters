@@ -146,6 +146,14 @@ export const Comprar = () => {
                       if (!/[A-Za-záéíóúÁÉÍÓÚñÑ\s]/.test(event.key) || (event.key === " " && target.value.slice(-1) === " ")) {
                         event.preventDefault();
                       }}}
+                    onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+                      // previene el pegado de caracteres especiales
+                      event.preventDefault();
+                      const text = event.clipboardData.getData('text');
+                      if (/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/.test(text)) {
+                        document.execCommand('insertText', false, text.replace(/\s{2,}/g, ' '));
+                      }
+                    }}
                     className={`${errors.nombreCompleto ? "error-input" : ""} ${
                         dirtyFields.nombreCompleto && !errors.nombreCompleto ? "success-input" : ""
                     }`}
