@@ -9,4 +9,5 @@ import java.util.UUID;
 public interface CompraServicio {
     void registrarCompras(UUID usuarioId, List<UUID> cursosIds);
     List<Curso> obtenerCursosCompradosConNombresCompletos(UUID usuarioId);
+    boolean verificarCursoComprado(UUID usuarioId, UUID cursoId);
 }

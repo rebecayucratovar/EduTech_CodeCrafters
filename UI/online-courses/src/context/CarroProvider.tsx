@@ -5,7 +5,7 @@ import { Course } from '../interfaces/Course.ts';
 interface CarroContextoType {
     carrito: Course[];
     agregarAlCarrito: (course: Course) => void;
-    eliminarDelCarrito: (courseId: number) => void;
+    eliminarDelCarrito: (courseId: string) => void;
 }
 
 export const CarroContexto = createContext<CarroContextoType | undefined>(undefined);
@@ -25,7 +25,7 @@ export const CarroProvider = ({ children }: { children: React.ReactNode }) => {
         setCarrito((prevCarrito) => [...prevCarrito, course]);
     };
 
-    const eliminarDelCarrito = (courseId: number) => {
+    const eliminarDelCarrito = (courseId: string) => {
         setCarrito((prevCarrito) =>
             prevCarrito.filter((course) => course.id !== courseId)
         );

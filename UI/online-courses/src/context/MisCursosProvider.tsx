@@ -4,7 +4,7 @@ import { Course } from '../interfaces/Course';
 interface MisCursosContextoType {
     misCursos: Course[];
     agregarAlMisCursos: (course: Course) => void;
-    eliminarDelMisCursos: (courseId: number) => void;
+    eliminarDelMisCursos: (courseId: string) => void;
 }
 
 export const MisCursosContexto = createContext<MisCursosContextoType | undefined>(undefined);
@@ -24,7 +24,7 @@ export const MisCursosProvider = ({ children }: { children: React.ReactNode }) =
         setMisCursos((prevMisCursos) => [...prevMisCursos, course]);
     };
 
-    const eliminarDelMisCursos = (courseId: number) => {
+    const eliminarDelMisCursos = (courseId: string) => {
         setMisCursos((prevMisCursos) =>
             prevMisCursos.filter((course) => course.id !== courseId)
         );
