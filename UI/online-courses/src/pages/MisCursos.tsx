@@ -45,19 +45,25 @@ export const MyCourses = () => {
                         {course.imagen && (
                             <img src={course.imagen} alt="img-course" />
                         )}
-                        <div className="list-courses-content-card-wrapper-description">
-                          <label
-                              htmlFor="card-title"
-                              className="list-courses-content-card-wrapper-description-title"
-                              title={course.titulo}
-                          >
-                            {course.titulo}
-                          </label>
-                        </div>
+                          <div className="list-courses-content-card-wrapper-description">
+                              <label
+                                  htmlFor="card-title"
+                                  className="list-courses-content-card-wrapper-description-title"
+                                  title={course.titulo}
+                              >
+                                  {course.titulo}
+                              </label>
+                              <label
+                                  htmlFor="card-nombreCompleto"
+                                  className="list-courses-content-card-wrapper-description-usuario"
+                              >
+                                  {course.nombreCompletoUsuario}
+                              </label>
+                          </div>
 
-                        <button className="list-courses-content-card-wrapper-button">
-                          Ingresar
-                        </button>
+                          <button className="list-courses-content-card-wrapper-button">
+                              Ingresar
+                          </button>
                       </div>
                   ))}
                 </div>
