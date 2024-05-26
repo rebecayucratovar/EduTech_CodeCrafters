@@ -135,8 +135,12 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                     Costo: {course.costo} bs
                   </label>
 
-                  <label htmlFor="instructor">Instructor: Pedro Perez</label>
-                  <label htmlFor="extra">Información extra:</label>
+                  <label
+                      htmlFor="instructor"
+                      className="modal-curso-detail-content-panel-right-text-first-instructor"
+                  >
+                    Instructor: {course.nombreCompletoUsuario}
+                  </label> <label htmlFor="extra">Información extra:</label>
                 </div>
 
                 <div className="modal-curso-detail-content-panel-right-text-second">

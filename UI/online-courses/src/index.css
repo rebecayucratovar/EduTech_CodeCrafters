@@ -681,10 +681,12 @@ textarea.error-input {
 }
 
 .modal-curso-detail-content-panel-left-subtitle {
+  color: #62b6cb;
   font-size: 16px;
   font-weight: bold;
-  color: #62b6cb;
   font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+  white-space: nowrap; /* Añadido */
+  word-wrap: break-word;
 }
 
 .modal-curso-detail-content-panel-left-description {
@@ -727,6 +729,11 @@ textarea.error-input {
   font-weight: bold;
   color: #3281af;
 }
+.modal-curso-detail-content-panel-right-text-first-instructor {
+  white-space: nowrap; /* Añadido */
+  word-wrap: break-word;
+}
+
 
 .modal-curso-detail-content-panel-left-list-title-items {
   font-size: 16px;
