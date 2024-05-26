@@ -34,4 +34,7 @@ public class Curso {
 
   @Transient
   private String nombreCompletoUsuario;
+
+  @Transient
+  private int numeroEstudiantes;
 }

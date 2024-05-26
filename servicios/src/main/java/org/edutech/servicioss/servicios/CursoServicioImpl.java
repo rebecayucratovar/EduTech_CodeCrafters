@@ -1,6 +1,7 @@
 package org.edutech.servicioss.servicios;
 
 import lombok.RequiredArgsConstructor;
+import org.edutech.servicioss.infraestructura.repositorios.CompraRepositorio;
 import org.edutech.servicioss.infraestructura.repositorios.CursoRepositorio;
 import org.edutech.servicioss.infraestructura.tablas.Curso;
 import org.edutech.servicioss.infraestructura.tablas.Usuario;
@@ -19,6 +20,7 @@ public class CursoServicioImpl implements CursoServicio{
 
   private final CursoRepositorio cursoRepositorio;
   private final CursoValidador cursoValidador;
+  private final CompraRepositorio compraRepositorio;
   //private final UsuarioServicio usuarioServicio; // Inyecta el UsuarioServicio
 
   @Override
@@ -33,6 +35,9 @@ public class CursoServicioImpl implements CursoServicio{
         curso.setNombreCompletoUsuario(null);
       }
       curso.setUsuario(null);  // Eliminar referencia a Usuario para evitar envíos innecesarios al frontend
+      // Calcular y establecer el número de estudiantes
+      int numeroEstudiantes = compraRepositorio.countByCursoId(curso.getId());
+      curso.setNumeroEstudiantes(numeroEstudiantes);
     }
     return cursos;
   }

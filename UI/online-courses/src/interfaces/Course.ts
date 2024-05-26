@@ -7,4 +7,5 @@ export interface Course {
   requisitos: string;
   aprenderas: string;
   nombreCompletoUsuario: string;
+  numeroEstudiantes: number;
 }
