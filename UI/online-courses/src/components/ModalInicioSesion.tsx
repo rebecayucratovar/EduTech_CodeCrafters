@@ -19,11 +19,11 @@ const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
     setContraseñaError("");
 
     if (!nombreUsuario) {
-      setNombreUsuarioError("Por favor ingrese su nombre de usuario");
+      setNombreUsuarioError("Este campo es obligatorio");
     }
 
     if (!contraseña) {
-      setContraseñaError("Por favor ingrese su contraseña");
+      setContraseñaError("Este campo es obligatorio");
     }
 
     if (!nombreUsuario || !contraseña) {
@@ -63,7 +63,7 @@ const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
         setContraseñaError(data.passwordError || "");
       }
     } catch (err) {
-      setNombreUsuarioError("Error al iniciar sesión. Inténtalo de nuevo más tarde.");
+      setNombreUsuarioError("¡Nombre de usuario o contraseña incorrecto!");
     } finally {
       setLoading(false);
     }

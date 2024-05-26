@@ -105,7 +105,7 @@ export const FormRegistEstudiante = () => {
 
                     <div className="form-register-course-content-data">
                         <div className="form-register-course-content-data-field">
-                            <label htmlFor="nombreCompleto">Nombre Completo*</label>
+                            <label htmlFor="nombreCompleto">Nombre completo*</label>
                             <div className="form-register-course-content-data-field-input">
                                 <input
                                     type="text"
@@ -118,11 +118,11 @@ export const FormRegistEstudiante = () => {
                                         },
                                         maxLength: {
                                             value: 30,
-                                            message: "El nombre completo no debe tener mas de 20 caracteres",
+                                            message: "El nombre completo no debe tener mas de 30 caracteres",
                                         },
                                         minLength: {
-                                            value: 2,
-                                            message: "El nombre completo debe tener mas de 2 caracteres",
+                                            value: 5,
+                                            message: "El nombre completo debe tener mas de 4 caracteres",
                                         },
                                         pattern: {
                                             value: /^[A-Za-zÀ-ÖØ-öø-ÿ ]+$/,  // Acepta letras y espacios
@@ -169,7 +169,7 @@ export const FormRegistEstudiante = () => {
                         </div>
 
                         <div className="form-register-course-content-data-field">
-                            <label htmlFor="nombreUsuario">Nombre de Usuario*</label>
+                            <label htmlFor="nombreUsuario">Nombre de usuario*</label>
                             <div className="form-register-course-content-data-field-input">
                                 <input
                                     type="text"
@@ -178,15 +178,15 @@ export const FormRegistEstudiante = () => {
                                     {...register("nombreUsuario", {
                                         required: {
                                             value: true,
-                                            message: "Por favor, ingrese un nombre de usuario.",
+                                            message: "Porfavor, ingrese un nombre de usuario.",
                                         },
                                         maxLength: {
                                             value: 20,
                                             message: "El nombre del intructor no debe ser mayor a 20",
                                         },
                                         minLength: {
-                                            value: 2,
-                                            message: "El nombre del intructor debe ser mayor a 2",
+                                            value: 5,
+                                            message: "El nombre del intructor debe ser mayor a 4",
                                         },
                                         pattern: {
                                             value: /^[A-Za-zÁÉÍÓÚáéíóúñÑ0-9\s]+$/,
@@ -238,7 +238,7 @@ export const FormRegistEstudiante = () => {
                             </div>
                         </div>
                         <div className="form-register-course-content-data-field">
-                            <label htmlFor="fechaNacimiento">Fecha de Nacimiento*</label>
+                            <label htmlFor="fechaNacimiento">Fecha de nacimiento*</label>
                             <div className="form-register-course-content-data-field-input">
                                 <input
                                     type={"date"}
