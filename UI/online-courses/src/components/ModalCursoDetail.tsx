@@ -179,7 +179,7 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                   <button
                       onClick={cursoComprado ? handleCursoYaComprado : cursoEnCarrito(course.id) ? handleCursoEnCarrito : handleAgregarAlCarrito}
                   >
-                    {cursoComprado ? "Curso ya comprado" : cursoEnCarrito(course.id) ? "Curso en el carrito" : "Añadir a la cesta"}
+                    {cursoComprado ? "Curso ya comprado" : cursoEnCarrito(course.id) ? "Curso en el carrito" : "Añadir al carrito"}
                   </button>
                 </div>
               </div>
@@ -190,8 +190,8 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
 
       {isopen && (
         <Modal
-        title="Se agregó a carrito"
-        description=""
+        title=""
+        description="Se agregó a carrito"
         txtBtnAccept="Aceptar"
         onAccept={() => {
           navigate("lista-compras")
