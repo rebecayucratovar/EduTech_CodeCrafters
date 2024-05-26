@@ -13,5 +13,6 @@ import java.util.UUID;
 public interface CompraRepositorio extends JpaRepository<Compra, UUID> {
     List<Compra> findAllByUsuarioUsuarioId(UUID usuarioId);
     boolean existsByUsuarioUsuarioIdAndCursoId(UUID usuarioId, UUID cursoId);
+    int countByCursoId(UUID cursoId);  // Añadir este método
 
 }

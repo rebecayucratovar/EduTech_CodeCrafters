@@ -166,7 +166,7 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
 
                   <div className="modal-curso-detail-content-panel-right-text-second-item">
                     <img src={Book} alt="icon" />
-                    <label htmlFor="duracion">Estudiantes: 0</label>
+                    <label htmlFor="duracion">Estudiantes: {course.numeroEstudiantes}</label>
                   </div>
                 </div>
 
