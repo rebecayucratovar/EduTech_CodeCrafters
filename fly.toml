@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for edutech-codecrafters-dawn-star-4376 on 2024-05-25T18:23:53-04:00
+# fly.toml app configuration file generated for edutech-codecrafters-polished-sunset-4258 on 2024-05-25T19:56:31-04:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'edutech-codecrafters-dawn-star-4376'
+app = 'edutech-codecrafters-polished-sunset-4258'
 primary_region = 'scl'
 
 [build]
