@@ -732,6 +732,8 @@ textarea.error-input {
 .modal-curso-detail-content-panel-right-text-first-instructor {
   white-space: nowrap; /* Añadido */
   word-wrap: break-word;
+  color: #3281af;
+
 }
 
 
@@ -818,6 +820,8 @@ textarea.error-input {
 
   label {
     font-size: 16px;
+    color: #3281af;
+
   }
 }
 
