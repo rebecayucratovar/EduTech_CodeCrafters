@@ -16,8 +16,9 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const [cursoComprado, setCursoComprado] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [tipoUsuario, setTipoUsuario] = useState<string | null>(null);
-  const [usuarioId, setUsuarioId] = useState<string | null>(null);
+  //const [tipoUsuario, setTipoUsuario] = useState<string | null>(null);
+  //const [usuarioId, setUsuarioId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true); // Nuevo estado de carga
   const formattedCategoria = course.categoria.replace(/_/g, " ");
   
   const handleCancel = () => {
@@ -25,10 +26,10 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
   };
 
   useEffect(() => {
-    const tipo = localStorage.getItem("tipoUsuario");
+    //const tipo = localStorage.getItem("tipoUsuario");
     const id = localStorage.getItem("usuarioId");
-    setTipoUsuario(tipo);
-    setUsuarioId(id);
+    //setTipoUsuario(tipo);
+    //setUsuarioId(id);
     
     if (id) {
       obtenerCursoComprado(id);
@@ -51,6 +52,8 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
       }
     } catch (error) {
       console.error("Error al obtener los cursos comprados:", error);
+    }finally {
+      setIsLoading(false); // Set isLoading to false after the check is complete
     }
   };
 
@@ -204,6 +207,7 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                   </div>
                 </div>
 
+                {!isLoading && (
                 <div className="modal-curso-detail-content-panel-right-buttons">
                   <button
                     onClick={
@@ -236,6 +240,7 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                       : "Añadir al carrito"}
                   </button>
                 </div>
+                    )}
               </div>
             </section>
           </div>
