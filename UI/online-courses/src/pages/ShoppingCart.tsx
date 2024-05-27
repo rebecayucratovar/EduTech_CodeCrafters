@@ -79,12 +79,13 @@ export const ShoppingCart = () => {
             htmlFor="list-courses-content-title"
             className="list-courses-content-title"
         >
-          Precio total(Bs): {totalCosto}
+          Precio total: {totalCosto}
         </label>
         <button
         type="button"
-        className="shopping-card-content-card-wrapper-button"
+        className={`shopping-card-content-card-wrapper-button ${carrito.length === 0 ? "button-disabled" : ""}`}
         onClick={handleCompra}
+        disabled={carrito.length === 0}
         >
           Comprar todo
         </button>
