@@ -18,6 +18,7 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   //const [tipoUsuario, setTipoUsuario] = useState<string | null>(null);
   //const [usuarioId, setUsuarioId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true); // Nuevo estado de carga
   const formattedCategoria = course.categoria.replace(/_/g, " ");
   
   const handleCancel = () => {
@@ -51,6 +52,8 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
       }
     } catch (error) {
       console.error("Error al obtener los cursos comprados:", error);
+    }finally {
+      setIsLoading(false); // Set isLoading to false after the check is complete
     }
   };
 
@@ -213,6 +216,9 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                         ? handleCursoEnCarrito
                         : handleComprarAhora
                     }
+                    disabled={isLoading} // Deshabilitar el botón mientras se carga
+                    className={isLoading ? "button-disabled" : ""}
+
                   >
                     {cursoComprado
                       ? "Curso ya comprado"
@@ -228,6 +234,8 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
                         ? handleCursoEnCarrito
                         : handleAgregarAlCarrito
                     }
+                    disabled={isLoading} // Deshabilitar el botón mientras se carga
+                    className={isLoading ? "button-disabled" : ""}
                   >
                     {cursoComprado
                       ? "Curso ya comprado"

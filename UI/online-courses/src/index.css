@@ -846,6 +846,11 @@ textarea.error-input {
     }
   }
 }
+.button-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 
 .form-register-estudiante {
   margin-top: 20px;
