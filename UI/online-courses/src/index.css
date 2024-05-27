@@ -811,7 +811,10 @@ textarea.error-input {
   justify-content: space-around;
   padding-left: 5px;
 }
-
+.button-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
 .modal-curso-detail-content-panel-right-text-second-item {
   display: flex;
   align-items: center;
@@ -835,6 +838,7 @@ textarea.error-input {
   justify-content: space-evenly;
   padding: 0 28px;
 
+
   button {
     background-color: #3281af;
     color: #fff;
@@ -849,6 +853,7 @@ textarea.error-input {
     }
   }
 }
+
 
 .form-register-estudiante {
   margin-top: 20px;
