@@ -83,8 +83,10 @@ export const ShoppingCart = () => {
         </label>
         <button
         type="button"
-        className="shopping-card-content-card-wrapper-button"
+        className={`shopping-card-content-card-wrapper-button ${carrito.length === 0 ? "button-disabled" : ""}`}
         onClick={handleCompra}
+        disabled={carrito.length === 0}
+
         >
           Comprar todo
         </button>
