@@ -16,8 +16,8 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const [cursoComprado, setCursoComprado] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [tipoUsuario, setTipoUsuario] = useState<string | null>(null);
-  const [usuarioId, setUsuarioId] = useState<string | null>(null);
+  //const [tipoUsuario, setTipoUsuario] = useState<string | null>(null);
+  //const [usuarioId, setUsuarioId] = useState<string | null>(null);
   const formattedCategoria = course.categoria.replace(/_/g, " ");
   
   const handleCancel = () => {
@@ -25,10 +25,10 @@ export const ModalCursoDetail = ({ onClose, course }: any) => {
   };
 
   useEffect(() => {
-    const tipo = localStorage.getItem("tipoUsuario");
+    //const tipo = localStorage.getItem("tipoUsuario");
     const id = localStorage.getItem("usuarioId");
-    setTipoUsuario(tipo);
-    setUsuarioId(id);
+    //setTipoUsuario(tipo);
+    //setUsuarioId(id);
     
     if (id) {
       obtenerCursoComprado(id);
