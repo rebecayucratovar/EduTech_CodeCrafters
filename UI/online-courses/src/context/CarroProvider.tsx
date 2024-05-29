@@ -1,5 +1,5 @@
 //import { valuesContext, children } from "../interfaces/Values.ts";
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState,useEffect } from 'react';
 import { Course } from '../interfaces/Course.ts';
 
 interface CarroContextoType {
@@ -20,8 +20,16 @@ export const useCarro = () => {
 };
 
 export const CarroProvider = ({ children }: { children: React.ReactNode }) => {
-    const [carrito, setCarrito] = useState<Course[]>([]);
+    const [carrito, setCarrito] = useState<Course[]>(() => {
+        // Cargar carrito desde localStorage al montar
+        const storedCarrito = localStorage.getItem('carrito');
+        return storedCarrito ? JSON.parse(storedCarrito) : [];
+    });
 
+    useEffect(() => {
+        // Guardar carrito en localStorage cada vez que se actualice
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+    }, [carrito]);
     const agregarAlCarrito = (course: Course) => {
         setCarrito((prevCarrito) => [...prevCarrito, course]);
     };
