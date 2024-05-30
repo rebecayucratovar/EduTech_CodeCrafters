@@ -47,8 +47,6 @@ const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
         // Suponemos que la respuesta contiene el tipo de usuario
         const { tipoUsuario, usuarioId } = data;
 
-        console.log("Usuario ID después de login:", usuarioId);
-
         // Guardamos el tipo de usuario en localStorage
         localStorage.setItem("tipoUsuario", tipoUsuario);
         localStorage.setItem("usuarioId", usuarioId);
@@ -70,52 +68,52 @@ const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
   };
 
   return (
-    <div className="modal-inicio-sesion">
-      <div className="modal-inicio-sesion-container">
-        <div className="modal-inicio-sesion-content">
-          <h2>Iniciar Sesión</h2>
-          <div className="modal-inicio-sesion-input-container">
-            <label htmlFor="nombreUsuario" className="modal-inicio-sesion-label">Usuario*</label>
-            <input
-              type="text"
-              id="nombreUsuario"
-              className={`modal-inicio-sesion-input ${nombreUsuarioError && "error"}`}
-              placeholder="Ingrese su nombre de usuario"
-              value={nombreUsuario}
-              onChange={(e) => setNombreUsuario(e.target.value)}
-            />
-            {nombreUsuarioError && <p className="modal-inicio-sesion-error">{nombreUsuarioError}</p>}
-          </div>
-          <div className="modal-inicio-sesion-input-container">
-            <label htmlFor="contraseña" className="modal-inicio-sesion-label">Contraseña*</label>
-            <input
-              type="password"
-              id="contraseña"
-              className={`modal-inicio-sesion-input ${contraseñaError && "error"}`}
-              placeholder="Ingrese su contraseña"
-              value={contraseña}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            {contraseñaError && <p className="modal-inicio-sesion-error">{contraseñaError}</p>}
-          </div>
-          <div className="modal-inicio-sesion-button-container">
-            <button
-              className="modal-inicio-sesion-button"
-              onClick={handleLogin}
-              disabled={loading}
-            >
-              {loading ? "Cargando..." : "Ingresar"}
-            </button>
-            <button
-              className="modal-inicio-sesion-button modal-inicio-sesion-button-cancel"
-              onClick={onClose}
-            >
-              Cancelar
-            </button>
+      <div className="modal-inicio-sesion">
+        <div className="modal-inicio-sesion-container">
+          <div className="modal-inicio-sesion-content">
+            <h2>Iniciar Sesión</h2>
+            <div className="modal-inicio-sesion-input-container">
+              <label htmlFor="nombreUsuario" className="modal-inicio-sesion-label">Usuario*</label>
+              <input
+                  type="text"
+                  id="nombreUsuario"
+                  className={`modal-inicio-sesion-input ${nombreUsuarioError && "error"}`}
+                  placeholder="Ingrese su nombre de usuario"
+                  value={nombreUsuario}
+                  onChange={(e) => setNombreUsuario(e.target.value)}
+              />
+              {nombreUsuarioError && <p className="modal-inicio-sesion-error">{nombreUsuarioError}</p>}
+            </div>
+            <div className="modal-inicio-sesion-input-container">
+              <label htmlFor="contraseña" className="modal-inicio-sesion-label">Contraseña*</label>
+              <input
+                  type="password"
+                  id="contraseña"
+                  className={`modal-inicio-sesion-input ${contraseñaError && "error"}`}
+                  placeholder="Ingrese su contraseña"
+                  value={contraseña}
+                  onChange={(e) => setPassword(e.target.value)}
+              />
+              {contraseñaError && <p className="modal-inicio-sesion-error">{contraseñaError}</p>}
+            </div>
+            <div className="modal-inicio-sesion-button-container">
+              <button
+                  className="modal-inicio-sesion-button"
+                  onClick={handleLogin}
+                  disabled={loading}
+              >
+                {loading ? "Cargando..." : "Ingresar"}
+              </button>
+              <button
+                  className="modal-inicio-sesion-button modal-inicio-sesion-button-cancel"
+                  onClick={onClose}
+              >
+                Cancelar
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
