@@ -47,8 +47,6 @@ const ModalInicioSesion: React.FC<ModalInicioSesionProps> = ({ onClose }) => {
         // Suponemos que la respuesta contiene el tipo de usuario
         const { tipoUsuario, usuarioId } = data;
 
-        console.log("Usuario ID después de login:", usuarioId);
-
         // Guardamos el tipo de usuario en localStorage
         localStorage.setItem("tipoUsuario", tipoUsuario);
         localStorage.setItem("usuarioId", usuarioId);

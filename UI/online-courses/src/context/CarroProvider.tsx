@@ -20,16 +20,17 @@ export const useCarro = () => {
 };
 
 export const CarroProvider = ({ children }: { children: React.ReactNode }) => {
+    const usuarioId = localStorage.getItem("usuarioId"); // Obtener el usuarioId del localStorage
+    const carritoKey = `carrito_${usuarioId}`; // Clave específica para el carrito del usuario
+
     const [carrito, setCarrito] = useState<Course[]>(() => {
-        // Cargar carrito desde localStorage al montar
-        const storedCarrito = localStorage.getItem('carrito');
+        const storedCarrito = localStorage.getItem(carritoKey);
         return storedCarrito ? JSON.parse(storedCarrito) : [];
     });
 
     useEffect(() => {
-        // Guardar carrito en localStorage cada vez que se actualice
-        localStorage.setItem('carrito', JSON.stringify(carrito));
-    }, [carrito]);
+        localStorage.setItem(carritoKey, JSON.stringify(carrito));
+    }, [carrito, carritoKey]);
     const agregarAlCarrito = (course: Course) => {
         setCarrito((prevCarrito) => [...prevCarrito, course]);
     };
